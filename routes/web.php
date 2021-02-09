@@ -1,7 +1,9 @@
-php<?php
+<?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SubcategoryController;
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['prefix' => 'admin'], function () {
+
+    Auth::routes();
+
+    Route::get('/', function () {
+        return view('admin.index');
+    })->middleware('auth')->name('admin.index');
+
+    Route::resource('products', ProductController::class);
+    Route::resource('categories', CategoryController::class)->only(['index', 'show']);
+    Route::resource('subcategories', SubcategoryController::class);
+});
