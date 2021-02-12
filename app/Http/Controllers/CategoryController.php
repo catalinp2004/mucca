@@ -25,8 +25,6 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-//        $category = $category->with('subcategories')->get();
-
         return view('admin.category')->with(['category'=>$category]);
     }
 
