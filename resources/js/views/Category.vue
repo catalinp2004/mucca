@@ -13,7 +13,7 @@
             </template>
 
             <template v-slot:cell(products)="subcat">
-                <b-button  variant="primary">Vizionati produsele din această subcategorie!</b-button>
+                <b-button  variant="primary">Vizionați produsele din această subcategorie!</b-button>
             </template>
 
             <template v-slot:cell(edit)="subcat">
@@ -23,7 +23,7 @@
 
         </b-table>
 
-        <b-modal id="modal-subcategory" :ok-title="modal_type ? 'Editare' : 'Adaugă'" ref="modal" v-model="modal_show" :title="modal_title" @hidden="resetModal" @ok="handleOk">
+        <b-modal id="modal-subcategory" :ok-title="modal_type ? 'Actualizare' : 'Adaugă'" ref="modal" v-model="modal_show" :title="modal_title" @hidden="resetModal" @ok="handleOk">
             <form ref="form" @submit.stop.prevent="handleSubmit">
                 <b-form-group label="Nume(engleză)" label-for="name-input">
                     <b-form-input id="name-input" v-model="form.name_en"></b-form-input>
@@ -38,10 +38,10 @@
                     <b-form-file id="image-input" v-model="file" placeholder="Alegeți o imagine sau plasați-o aici..." drop-placeholder="Plasați imaginea aici..."></b-form-file>
                     <span v-if=" errors != null && errors.hasOwnProperty('file')" class="text-danger">{{ errors.file[0] }}</span>
                 </b-form-group>
-                <div v-else class="row">
-                    <b-img :src="'/storage/img/'+form.image" fluid :alt="form.image" class="mr-5"></b-img>
-                    <a href="#" @click="form.image = null">X Înlocuire imagine</a>
-                </div>
+                <b-img v-if="form.image != null":src="'/storage/img/'+form.image" fluid :alt="form.image" class="mb-3"></b-img>
+                <a v-if="form.image != null" href="#" class="d-flex flex-row justify-content-end" @click="form.image = null">X Înlocuire imagine</a>
+
+                <b-button  class="d-flex flex-row" @click="deleteSubcategory" variant="danger">Sterge subcategoria!</b-button>
 
             </form>
         </b-modal>
@@ -88,14 +88,17 @@ name: "Category",
         handleSubmit: function () {
             var self = this;
             var formData = new FormData();
-            formData.append('name_ro', this.form.name_ro);
-            formData.append('category_id', this.category.id);
-            formData.append('name_en', this.form.name_en);
-            formData.append('file', this.file);
+            formData.append('name_ro',  self.form.name_ro);
+            formData.append('category_id',  self.category.id);
+            formData.append('name_en',  self.form.name_en);
+
 
             if (this.modal_type){
+                if (self.form.image == null) {
+                    formData.append('file', self.file);
+                }
                 formData.append('_method', 'PATCH');
-                axios.post('/admin/subcategories/'+this.form.id, formData,  {
+                axios.post('/admin/subcategories/' + self.form.id, formData,  {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'X-Requested-With': 'XMLHttpRequest',
@@ -103,12 +106,13 @@ name: "Category",
                 }).then(response => {
                     self.errors = false;
                     self.copy_of_category = response.data.category;
-                    this.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success'});
+                    self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success'});
                     self.modal_show = !self.modal_show;
                 }).catch(error => {
                     self.errors = error.response.data.errors;
                 });
             } else {
+                formData.append('file', self.file);
                 axios.post('/admin/subcategories', formData,  {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -124,7 +128,20 @@ name: "Category",
                     self.errors = error.response.data.errors;
                 });
             }
-
+        },
+        deleteSubcategory: function () {
+            var self = this;
+            var result = confirm("Are you sure? This process is irreversible.");
+            if (result) {
+                axios.delete('/admin/subcategories/'+ self.form.id).then(response => {
+                    self.errors = false;
+                    self.copy_of_category = response.data.category;
+                    self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success'});
+                    self.modal_show = !self.modal_show;
+                }).catch(errors => {
+                    self.errors = errors.response.data.errors;
+                });
+            }
         },
     },
 

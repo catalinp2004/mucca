@@ -2,43 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\Response;
 use function GuzzleHttp\Promise\all;
 
 class SubcategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
-    {   error_log(print_r($request->all(),1));
+    {
         $valid = $request->validate([
             'category_id' => ['required', 'integer', Rule::exists('categories','id')->where(function ($query) use ($request) {
                 $query->where('id', $request->category_id);
@@ -82,16 +63,6 @@ class SubcategoryController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Subcategory  $subcategory
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Subcategory $subcategory)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -102,7 +73,35 @@ class SubcategoryController extends Controller
      */
     public function update(Request $request, Subcategory $subcategory)
     {
-        //
+        $valid = $request->validate([
+            'name_ro' => 'required|string|max:255',
+            'name_en' => 'required|string|max:255',
+            'file' => 'sometimes|image|max:10000',
+        ]);
+
+        if (array_key_exists('file', $valid)) {
+            $dir_name = "public/img";
+            if (Storage::exists($dir_name . DIRECTORY_SEPARATOR . $subcategory->image)) {
+                Storage::delete($dir_name . DIRECTORY_SEPARATOR . $subcategory->image);
+            }
+            $filename = $valid['file']->getClientOriginalName();
+            if (Subcategory::where('image', $filename)->exists()) {
+                $filename = str_replace('.' . File::extension($filename), '_' . time() . '.' .  File::extension($filename), $filename);
+            }
+
+            $valid['image'] = $filename;
+
+            $valid['file']->storeAs(
+                $dir_name, $filename
+            );
+        }
+
+        $subcategory->update($valid);
+
+        return response()->json([
+            'msg' => 'Subcategoria a fost creată cu succes!',
+            'category' => $subcategory->category
+        ])->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
@@ -113,6 +112,15 @@ class SubcategoryController extends Controller
      */
     public function destroy(Subcategory $subcategory)
     {
-        //
+        $dir_name = "public/img";
+        if (Storage::exists($dir_name . DIRECTORY_SEPARATOR . $subcategory->image)) {
+            Storage::delete($dir_name . DIRECTORY_SEPARATOR . $subcategory->image);
+        }
+        $category_id = $subcategory->category_id;
+        $subcategory->delete();
+        return response()->json([
+            'msg' => 'Subcategoria a fost eliminată cu succes!',
+            'category' => Category::find($category_id)
+        ])->setStatusCode(Response::HTTP_OK);
     }
 }

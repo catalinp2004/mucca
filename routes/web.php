@@ -30,5 +30,5 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class)->only(['index', 'show']);
-    Route::resource('subcategories', SubcategoryController::class);
+    Route::resource('subcategories', SubcategoryController::class)->only(['store', 'show', 'update', 'destroy']);
 });
