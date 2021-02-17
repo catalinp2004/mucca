@@ -1,0 +1,10 @@
+@extends('admin.main')
+@section('content')
+    <product_form
+        main_route="{{route('main')}}"
+        :categories_options="{{$categories_options}}"
+        :colors_options="{{$colors_options}}"
+        form_type="create"></product_form>
+@endsection
+@section('scripts')
+@endsection

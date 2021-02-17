@@ -8,11 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'product_code',
         'name',
         'description',
         'sort',
+    ];
+    protected $with = [
+        'subcategories',
+        'colors',
+        'images',
     ];
 
     public function subcategories()

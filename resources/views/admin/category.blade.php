@@ -1,8 +1,6 @@
 @extends('admin.main')
 @section('content')
-    <div id="app">
-      <category :category="{{$category}}"></category>
-    </div>
+      <category :category="{{$category}}" main_route="{{route('main')}}"></category>
 @endsection
 @section('scripts')
 @endsection

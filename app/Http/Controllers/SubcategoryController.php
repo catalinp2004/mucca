@@ -17,7 +17,7 @@ class SubcategoryController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
     public function store(Request $request)
     {
         $valid = $request->validate([
@@ -47,7 +47,7 @@ class SubcategoryController extends Controller
         $subcategory->save();
 
         return response()->json([
-            'msg' => 'Subcategoria a fost creată cu succes!',
+            'msg' => 'Subcategory was created successful!',
             'category' => $subcategory->category
         ])->setStatusCode(Response::HTTP_CREATED);
     }
@@ -99,7 +99,7 @@ class SubcategoryController extends Controller
         $subcategory->update($valid);
 
         return response()->json([
-            'msg' => 'Subcategoria a fost creată cu succes!',
+            'msg' => 'Subcategory was updated successful!',
             'category' => $subcategory->category
         ])->setStatusCode(Response::HTTP_CREATED);
     }
@@ -119,7 +119,7 @@ class SubcategoryController extends Controller
         $category_id = $subcategory->category_id;
         $subcategory->delete();
         return response()->json([
-            'msg' => 'Subcategoria a fost eliminată cu succes!',
+            'msg' => 'Subcategory was deleted successful!',
             'category' => Category::find($category_id)
         ])->setStatusCode(Response::HTTP_OK);
     }

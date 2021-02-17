@@ -17,7 +17,7 @@ use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('main');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['prefix' => 'admin'], function () {
@@ -30,5 +30,5 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('products', ProductController::class);
     Route::resource('categories', CategoryController::class)->only(['index', 'show']);
-    Route::resource('subcategories', SubcategoryController::class)->only(['store', 'show', 'update', 'destroy']);
+    Route::resource('subcategories', SubcategoryController::class)->only(['store', 'show']);
 });
