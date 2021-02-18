@@ -45,7 +45,7 @@
                 <b-img v-if="form.image != null" :src="main_route + '/storage/img/'+form.image" fluid :alt="form.image" class="mb-3"></b-img>
                 <a v-if="form.image != null" href="#" class="d-flex flex-row justify-content-end" @click="form.image = null">X Replace image</a>
 
-                <b-button class="d-flex flex-row" @click="deleteSubcategory" variant="danger">Delete subcategory!</b-button>
+                <b-button v-if="modal_type" class="d-flex flex-row" @click="deleteSubcategory" variant="danger">Delete subcategory!</b-button>
             </form>
         </b-modal>
 
@@ -87,6 +87,8 @@ export default {
     methods: {
         resetModal: function () {
             this.form = {name_ro: null, name_en: null, image: null};
+            this.file = null;
+            this.errors = null;
         },
         handleOk: function (bvModalEvt) {
             // Prevent modal from closing

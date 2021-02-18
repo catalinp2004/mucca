@@ -1,0 +1,14 @@
+@extends('admin.main')
+@section('content')
+    <product_form
+        main_route="{{route('main')}}"
+        :categories_options="{{$categories_options}}"
+        :colors_options="{{$colors_options}}"
+        form_type="edit"
+        msg="{{request()->session()->get('msg')}}"
+        :product="{{$product}}"
+        csrf="{{csrf_token()}}"
+    ></product_form>
+@endsection
+@section('scripts')
+@endsection

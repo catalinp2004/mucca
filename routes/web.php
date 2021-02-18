@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ImageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +30,7 @@ Route::group(['prefix' => 'admin'], function () {
     })->middleware('auth')->name('admin.index');
 
     Route::resource('products', ProductController::class);
+    Route::resource('images', ImageController::class)->only(['store', 'show','destroy']);
     Route::resource('categories', CategoryController::class)->only(['index', 'show']);
-    Route::resource('subcategories', SubcategoryController::class)->only(['store', 'show']);
+    Route::resource('subcategories', SubcategoryController::class)->only(['store', 'show', 'update', 'destroy']);
 });

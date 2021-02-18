@@ -1,6 +1,12 @@
 @extends('admin.main')
 @section('content')
-    <products main_route="{{route('main')}}"></products>
+    <products
+        main_route="{{route('main')}}"
+        msg="{{request()->session()->get('msg')}}"
+        filter="{{request()->session()->get('filter')}}"
+        :products="{{$products}}"
+        :categories_options="{{$categories_options}}"
+    ></products>
 @endsection
 @section('scripts')
 @endsection

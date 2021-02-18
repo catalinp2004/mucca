@@ -6,6 +6,8 @@ use App\Http\Resources\CategoryWithSubcategoryResource;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\Product;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +22,17 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('admin.products')->with(['products'=>$products]);
+        $categories = Category::all();
+        foreach ($products as $product){
+            $options = [];
+            foreach ($product->subcategories as $subcat) {
+                array_push($options, array("value" => $subcat->id, "text" =>  $subcat->name_ro ));
+            }
+            $product['subcategories_options'] = $options;
+        }
+
+
+        return view('admin.products')->with(['products' => $products, 'categories_options' => collect(CategoryWithSubcategoryResource::collection($categories))]);
     }
 
     /**
@@ -30,7 +42,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories=Category::all();
+        $categories = Category::all();
 
         return view('admin.products_create')->with(['categories_options' => collect(CategoryWithSubcategoryResource::collection($categories)), 'colors_options' => Color::all()]);
     }
@@ -38,43 +50,44 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  error_log(print_r($request->all(),1));
+    {
         $valid = $request->validate([
-            'product_code' => 'required|string|max:255',
+            'product_code' => 'required|unique:products|string|max:255',
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:1000',
             'colors' => 'required|array|min:1',
             'colors.*' => 'required|array|min:4',
-            'colors.*.id' =>  'required|integer',
+            'colors.*.id' => 'required|integer',
             'subcategories' => 'required|array|min:1',
             'subcategories.*' => 'required|array|min:2',
-            'subcategories.*.value' =>  'required|integer',
+            'subcategories.*.value' => 'required|integer',
         ]);
+        $valid['slug'] = Str::slug(($valid['name'] . ' ' . $valid['product_code']), '_');
         $valid['sort'] = Product::max('sort') + 1;
         $product = new Product();
         $product->fill($valid);
         $product->save();
-        foreach ($valid['colors'] as $color){
+        foreach ($valid['colors'] as $color) {
             $product->colors()->attach($color['id']);
         }
-        foreach ($valid['subcategories'] as $subcategory){
+        foreach ($valid['subcategories'] as $subcategory) {
             $product->subcategories()->attach($subcategory['value']);
         }
-        session()->flash( 'msg', 'Product was created successfully');
+        session()->flash('msg', 'Product was created successfully');
         return response()->json([
             'msg' => 'The product was created successfully',
-            'route' => route('products.index')
+            'route' => route('products.edit', $product->id)
         ])->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product)
@@ -85,34 +98,83 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Product  $product
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
     {
-        //
+        $categories = Category::all();
+
+        $options = [];
+
+        foreach ($product->subcategories as $subcat) {
+            array_push($options, array("value" => $subcat->id, "text" =>  $subcat->name_ro ));
+        }
+
+        $product['subcategories_options'] = $options;
+
+        return view('admin.products_edit')->with(['categories_options' => collect(CategoryWithSubcategoryResource::collection($categories)), 'colors_options' => Color::all(), 'product' => $product]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Product  $product
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $valid = $request->validate([
+            'product_code' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:1000',
+            'colors' => 'required|array|min:1',
+            'colors.*' => 'required|array|min:4',
+            'colors.*.id' => 'required|integer',
+            'subcategories' => 'required|array|min:1',
+            'subcategories.*' => 'required|array|min:2',
+            'subcategories.*.value' => 'required|integer',
+        ]);
+
+        $product->update($valid);
+        $product->colors()->detach();
+        $product->subcategories()->detach();
+
+        foreach ($valid['colors'] as $color) {
+            $product->colors()->attach($color['id']);
+        }
+
+        foreach ($valid['subcategories'] as $subcategory) {
+            $product->subcategories()->attach($subcategory['value']);
+        }
+
+        return response()->json([
+            'msg' => 'The product was updated successfully',
+        ])->setStatusCode(Response::HTTP_OK);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Product  $product
+     * @param \App\Models\Product $product
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product)
     {
-        //
+        $dir_name = "public/img/products/";
+
+        foreach ($product->images as $image){
+            Storage::delete($dir_name . $image->filename);
+        }
+
+        $product->delete();
+
+        session()->flash('msg', 'The product was deleted succesfully.');
+
+        return response()->json([
+            'msg' => 'Product was deleted successfully',
+            'route' => route('products.index')
+        ])->setStatusCode(Response::HTTP_OK);
     }
 }

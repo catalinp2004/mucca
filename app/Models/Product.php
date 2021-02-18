@@ -10,6 +10,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
+        'slug',
         'product_code',
         'name',
         'description',
@@ -20,6 +21,8 @@ class Product extends Model
         'colors',
         'images',
     ];
+
+    protected $hidden = ['pivot'];
 
     public function subcategories()
     {

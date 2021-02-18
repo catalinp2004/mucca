@@ -1,7 +1,10 @@
 <template>
     <div>
-        <h1 class="mb-5 text-center">Add new product</h1>
+        <h1 class="mb-5 text-center">{{title}}</h1>
+        <b-button v-if="form_type == 'edit'" class="d-flex flex-row mn-5" @click="deleteProduct" variant="danger">Delete product!</b-button>
         <hr class="mb-3">
+        <my-drop-zone v-if="form_type == 'edit'" class="mb-5 col-lg-10" :csrf="csrf" :store_image="main_route + '/admin/images'"  :product="product"></my-drop-zone>
+        <hr class="mb-3" v-if="form_type == 'edit'">
         <b-form @submit.stop.prevent="onSubmit">
             <div class="row">
                 <div class="col-lg-10">
@@ -19,20 +22,26 @@
                     </b-form-group>
 
                     <b-form-group id="input-group-categories" label="Categories:" label-for="categories">
-                        <multiselect id="categories" v-model='form.subcategories' :options="categories_options" :close-on-select="false" :clear-on-select="false" :multiple="true" group-values="subcategories" group-label="category" :group-select="true" placeholder="Type to search" track-by="text" label="text">
+                        <multiselect id="categories" v-model='form.subcategories' :options="categories_options" :close-on-select="false" :clear-on-select="false" :multiple="true" group-values="subcategories" group-label="category" :group-select="true" placeholder="Type to search" track-by="value" label="text">
                             <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
                         </multiselect>
                         <span v-if=" errors != null && errors.hasOwnProperty('subcategories')" class="text-danger">{{ errors.subcategories[0] }}</span>
                     </b-form-group>
-                    <b-form-group id="input-group-color" label="Colors Available:" label-for="colors">
-                        <multiselect v-model="form.colors" :options="colors_options" :multiple="true" :close-on-select="false" :clear-on-select="false" :searchable="false" placeholder="Pick some" label="hex_code" track-by="hex_code">
-                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span></template>
-                            <template slot="option" slot-scope="props">
-                                <i class="fas fa-circle" :style="'color:#'+ props.option.hex_code"></i> {{props.option.hex_code}}
-                            </template>
-                        </multiselect>
+
+                    <b-form-group label="Colors available:">
+                        <b-form-checkbox
+                            v-for="color in colors_options"
+                            v-model="form.colors"
+                            :key="color.id"
+                            :value="color"
+                            :name="color.hex_code"
+                            inline
+                        >
+                            <h1 class="fas fa-circle" :style="'color:#'+ color.hex_code"></h1>
+                        </b-form-checkbox>
                         <span v-if=" errors != null && errors.hasOwnProperty('colors')" class="text-danger">{{ errors.colors[0] }}</span>
                     </b-form-group>
+
                 </div>
             </div>
             <div class="row">
@@ -51,9 +60,10 @@
 
 <script>
 import Multiselect from 'vue-multiselect'
+import MyDropZone from "../../components/MyDropZone"
 export default {
     name: "ProductForm",
-    components: { Multiselect },
+    components: { Multiselect, MyDropZone},
     data: function () {
         return {
             form: {
@@ -61,8 +71,8 @@ export default {
                 product_code: (this.product != undefined) ? this.product.product_code : null,
                 name: (this.product != undefined) ? this.product.name : null,
                 description: (this.product != undefined) ? this.product.description : null,
-                colors: (this.product != undefined) ? this.product.colors : null,
-                subcategories: (this.product != undefined) ? this.product.subcategories : null,
+                colors: (this.product != undefined) ? this.product.colors : [],
+                subcategories: (this.product != undefined) ? this.product.subcategories_options : null,
                 images: (this.product != undefined) ? this.product.images : null,
             },
             errors: null,
@@ -76,6 +86,16 @@ export default {
         categories_options: Array,
         colors_options: Array,
         msg: String,
+        csrf: String,
+    },
+    computed: {
+        title: function () {
+            if (this.form_type == 'create'){
+                return 'Add new product';
+            } else if (this.form_type == 'edit'){
+                return 'Edit product ' + this.form.product_code;
+            }
+        }
     },
     mounted() {
         if (this.msg != undefined){
@@ -104,7 +124,7 @@ export default {
                 });
             }
         },
-        deleteCustomer: function () {
+        deleteProduct: function () {
             var self =this;
             var result = confirm("Are you sure? This process is irreversible.");
             if (result) {
