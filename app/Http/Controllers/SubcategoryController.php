@@ -60,7 +60,12 @@ class SubcategoryController extends Controller
      */
     public function show(Subcategory $subcategory)
     {
-        //
+        $filter = [];
+        $filter[0] = ['text' => $subcategory->name_ro, 'value'=>$subcategory->id];
+        $filter=collect($filter);
+        session()->flash('filter_categories', $filter);
+
+        return redirect()->route('products.index');
     }
 
 

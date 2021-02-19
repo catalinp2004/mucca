@@ -3,7 +3,7 @@
     <products
         main_route="{{route('main')}}"
         msg="{{request()->session()->get('msg')}}"
-        filter="{{request()->session()->get('filter')}}"
+        @if(request()->session()->get('filter_categories')) :filter_categories="{{  request()->session()->get('filter_categories') }}" @endif
         :products="{{$products}}"
         :categories_options="{{$categories_options}}"
     ></products>

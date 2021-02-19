@@ -33,4 +33,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('images', ImageController::class)->only(['store', 'show','destroy']);
     Route::resource('categories', CategoryController::class)->only(['index', 'show']);
     Route::resource('subcategories', SubcategoryController::class)->only(['store', 'show', 'update', 'destroy']);
+    Route::get('/categories/{subcategory}/products', [CategoryController::class, 'showProducts'])->name('categories.products');
 });

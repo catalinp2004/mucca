@@ -32,4 +32,18 @@ class CategoryController extends Controller
         return view('admin.category')->with(['category'=>$category]);
     }
 
+    public function showProducts($id)
+    {
+        $category = Category::findOrFail($id);
+        $options = [];
+        foreach ($category->subcategories as $subcat) {
+            array_push($options, array("value" => $subcat->id, "text" =>  $subcat->name_ro ));
+        }
+
+        $filter=collect($options);
+        session()->flash('filter_categories', $filter);
+
+        return redirect()->route('products.index');
+    }
+
 }

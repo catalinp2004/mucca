@@ -9,11 +9,11 @@
             </template>
 
             <template v-slot:cell(name_ro)="subcat">
-                <a href="#">{{ subcat.item.name_ro }}</a>
+                <a class="h5" :href="main_route + '/admin/subcategories/' + subcat.item.id">{{ subcat.item.name_ro }}</a>
             </template>
 
             <template v-slot:cell(products)="subcat">
-                <b-button variant="primary">View products</b-button>
+                <b-button :href="main_route + '/admin/subcategories/' + subcat.item.id" variant="primary">View products</b-button>
             </template>
 
             <template v-slot:cell(edit)="subcat">

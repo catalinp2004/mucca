@@ -10,10 +10,9 @@
                         label-for="categories"
                         label-cols-sm="3"
                         label-align-sm="right"
-                        label-size="sm"
                         class="mb-0"
                     >
-                        <multiselect id="categories" v-model='selected_subcategories' :options="categories_options" @select="filter = filter != null || filter == ' '? filter + ' ' : ' '" :close-on-select="false" :clear-on-select="false" :multiple="true" group-values="subcategories" group-label="category" :group-select="true" placeholder="Type to search" track-by="value" label="text">
+                        <multiselect id="categories" v-model='selected_subcategories' :options="categories_options" :close-on-select="false" :clear-on-select="false" :multiple="true" group-values="subcategories" group-label="category" :group-select="true" placeholder="Type to search" track-by="value" label="text">
                             <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span></template>
                             <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
                         </multiselect>
@@ -27,10 +26,9 @@
                         label-for="filter-input"
                         label-cols-sm="3"
                         label-align-sm="right"
-                        label-size="sm"
                         class="mb-0"
                     >
-                        <b-input-group size="sm">
+                        <b-input-group >
                             <b-form-input
                                 id="filter-input"
                                 v-model="filter"
@@ -39,7 +37,7 @@
                             ></b-form-input>
 
                             <b-input-group-append>
-                                <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
+                                <b-button :disabled="!filter || filter == ' ' " @click="filter = ''">Clear</b-button>
                             </b-input-group-append>
                         </b-input-group>
                     </b-form-group>
@@ -54,14 +52,12 @@
                         label-cols-md="4"
                         label-cols-lg="3"
                         label-align-sm="right"
-                        label-size="sm"
                         class="mb-0"
                     >
                         <b-form-select
                             id="per-page-select"
                             v-model="perPage"
                             :options="pageOptions"
-                            size="sm"
                         ></b-form-select>
                     </b-form-group>
                 </b-col>
@@ -72,7 +68,6 @@
                         :total-rows="totalRows"
                         :per-page="perPage"
                         align="fill"
-                        size="sm"
                         class="my-0"
                     ></b-pagination>
                 </b-col>
@@ -91,14 +86,13 @@
                 :sort-direction="sortDirection"
                 stacked="md"
                 show-empty
-                small
                 @filtered="onFiltered"
                 striped
                 hover
                 responsive
             >
                 <template #cell(actions)="row">
-                    <b-button size="sm"  :href="main_route + '/admin/products/'+ row.item.id + '/edit'"class="mr-1">
+                    <b-button :href="main_route + '/admin/products/'+ row.item.id + '/edit'"class="mr-1">
                         View/Edit
                     </b-button>
                 </template>
@@ -129,8 +123,8 @@ export default {
             sortBy: '',
             sortDesc: false,
             sortDirection: 'asc',
-            filter: null,
-            selected_subcategories: [],
+            filter: " ",
+            selected_subcategories: (this.filter_categories != undefined) ? this.filter_categories: [],
         }
     },
     mounted() {
@@ -144,7 +138,7 @@ export default {
         products: Array,
         msg: String,
         categories_options: Array,
-        // filter: Array,
+        filter_categories: Array,
     },
     computed: {
         sortOptions() {
@@ -172,10 +166,9 @@ export default {
                 } else {
                     var both = 0
                     for(var j = 0; j < this.selected_subcategories.length; j++){
-                        console.log(row);
                         for(var k = 0; k < row.subcategories_options.length; k++){
                             if (row.subcategories_options[k].value == this.selected_subcategories[j].value){
-                               both ++;
+                                both ++;
                             }
                         }
                     }
@@ -186,6 +179,7 @@ export default {
 
             }
         }
+
     }
 }
 </script>

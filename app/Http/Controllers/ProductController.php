@@ -58,8 +58,8 @@ class ProductController extends Controller
         $valid = $request->validate([
             'product_code' => 'required|unique:products|string|max:255',
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
-            'colors' => 'required|array|min:1',
+            'description' => 'nullable|string|max:1000',
+            'colors' => 'nullable|array|min:0',
             'colors.*' => 'required|array|min:4',
             'colors.*.id' => 'required|integer',
             'subcategories' => 'required|array|min:1',
@@ -82,17 +82,6 @@ class ProductController extends Controller
             'msg' => 'The product was created successfully',
             'route' => route('products.edit', $product->id)
         ])->setStatusCode(Response::HTTP_CREATED);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Product $product
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Product $product)
-    {
-        //
     }
 
     /**
@@ -128,8 +117,8 @@ class ProductController extends Controller
         $valid = $request->validate([
             'product_code' => 'required|string|max:255',
             'name' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
-            'colors' => 'required|array|min:1',
+            'description' => 'nullable|string|max:1000',
+            'colors' => 'nullable|array',
             'colors.*' => 'required|array|min:4',
             'colors.*.id' => 'required|integer',
             'subcategories' => 'required|array|min:1',

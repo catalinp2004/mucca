@@ -25,6 +25,7 @@ Vue.use(BootstrapVue)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('category', require('./views/Admin/Category.vue').default);
+Vue.component('categories', require('./views/Admin/Categories.vue').default);
 Vue.component('product_form', require('./views/Admin/ProductForm.vue').default);
 Vue.component('products', require('./views/Admin/Products.vue').default);
 
