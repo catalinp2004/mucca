@@ -23,14 +23,8 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $categories = Category::all();
-        foreach ($products as $product){
-            $options = [];
-            foreach ($product->subcategories as $subcat) {
-                array_push($options, array("value" => $subcat->id, "text" =>  $subcat->name_ro ));
-            }
-            $product['subcategories_options'] = $options;
-        }
 
+        $products = $this->selected_options($products);
 
         return view('admin.products')->with(['products' => $products, 'categories_options' => collect(CategoryWithSubcategoryResource::collection($categories))]);
     }
@@ -165,5 +159,38 @@ class ProductController extends Controller
             'msg' => 'Product was deleted successfully',
             'route' => route('products.index')
         ])->setStatusCode(Response::HTTP_OK);
+    }
+
+    public function randomize() {
+        $products =Product::all();
+        $max = $products->count();
+        $numbers = range(0, $max - 1);
+        shuffle($numbers);
+
+        foreach ($products as $key => $product){
+            $product->sort = $numbers[$key];
+            $product->save();
+        }
+
+        $products = Product::all();
+        $products = $this->selected_options($products);
+
+        return response()->json([
+            'msg' => 'Products were randomized successfully',
+            'products' => $products
+        ])->setStatusCode(Response::HTTP_OK);
+
+    }
+
+    protected function selected_options($products){
+        foreach ($products as $product){
+            $options = [];
+            foreach ($product->subcategories as $subcat) {
+                array_push($options, array("value" => $subcat->id, "text" =>  $subcat->name_ro ));
+            }
+            $product['subcategories_options'] = $options;
+        }
+
+        return $products;
     }
 }

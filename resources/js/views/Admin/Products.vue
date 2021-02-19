@@ -1,10 +1,17 @@
 <template>
     <div>
-        <b-button :href="main_route + '/admin/products/create'" variant="primary" class="mb-3 ">Add new product</b-button>
+        <b-button :href="main_route + '/admin/products/create'" variant="primary" class="mb-3">Add new product
+        </b-button>
         <b-container fluid>
             <!-- User Interface controls -->
             <b-row>
-                <b-col lg="6" class="my-1">
+                <b-col class="d-flex justify-content-center">
+                    <b-button @click="sortBy = 'sort', sortDesc=false" class="mb-3 mr-5">Site order</b-button>
+                    <b-button @click="randomize" class="mb-3 ">Randomize</b-button>
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col lg="6" class="my-1 mr-5">
                     <b-form-group
                         label="Categories"
                         label-for="categories"
@@ -12,8 +19,24 @@
                         label-align-sm="right"
                         class="mb-0"
                     >
-                        <multiselect id="categories" v-model='selected_subcategories' :options="categories_options" :close-on-select="false" :clear-on-select="false" :multiple="true" group-values="subcategories" group-label="category" :group-select="true" placeholder="Type to search" track-by="value" label="text">
-                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span></template>
+                        <multiselect
+                            id="categories"
+                            v-model='selected_subcategories'
+                            :options="categories_options"
+                            @select="filter = filter.length == '' ? filter + ' ' : filter"
+                            :close-on-select="false"
+                            :clear-on-select="false"
+                            :multiple="true"
+                            group-values="subcategories"
+                            group-label="category"
+                            :group-select="true"
+                            placeholder="Type to search"
+                            track-by="value"
+                            label="text"
+                        >
+                            <template slot="selection" slot-scope="{ values, search, isOpen }"><span
+                                class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} options selected</span>
+                            </template>
                             <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
                         </multiselect>
                     </b-form-group>
@@ -28,7 +51,7 @@
                         label-align-sm="right"
                         class="mb-0"
                     >
-                        <b-input-group >
+                        <b-input-group>
                             <b-form-input
                                 id="filter-input"
                                 v-model="filter"
@@ -92,7 +115,7 @@
                 responsive
             >
                 <template #cell(actions)="row">
-                    <b-button :href="main_route + '/admin/products/'+ row.item.id + '/edit'"class="mr-1">
+                    <b-button :href="main_route + '/admin/products/'+ row.item.id + '/edit'" class="mr-1">
                         View/Edit
                     </b-button>
                 </template>
@@ -108,34 +131,35 @@ import Multiselect from "vue-multiselect";
 
 export default {
     name: "Products",
-    components: { Multiselect},
+    components: {Multiselect},
     data() {
         return {
             fields: [
-                { key: 'name', label: 'Product Name', sortable: true, sortDirection: 'desc' },
-                { key: 'product_code', label: 'Product Code', sortable: true, class: 'text-center' },
-                { key: 'actions', label: 'Actions' }
+                {key: 'name', label: 'Product Name', sortable: true, sortDirection: 'desc'},
+                {key: 'product_code', label: 'Product Code', sortable: true, class: 'text-center'},
+                {key: 'actions', label: 'Actions'}
             ],
+            products: this.products_prop,
             totalRows: 1,
             currentPage: 1,
-            perPage: 5,
-            pageOptions: [5, 10, 15, 25, 50, 100],
-            sortBy: '',
+            perPage: 10,
+            pageOptions: [10, 25, 50, 100],
+            sortBy: 'name',
             sortDesc: false,
             sortDirection: 'asc',
             filter: " ",
-            selected_subcategories: (this.filter_categories != undefined) ? this.filter_categories: [],
+            selected_subcategories: (this.filter_categories != undefined) ? this.filter_categories : [],
         }
     },
     mounted() {
-        if (this.msg != undefined){
+        if (this.msg != undefined) {
             this.$bvToast.toast(this.msg, {title: 'Success!', variant: 'success'});
         }
         this.totalRows = this.products.length;
     },
     props: {
         main_route: String,
-        products: Array,
+        products_prop: Array,
         msg: String,
         categories_options: Array,
         filter_categories: Array,
@@ -146,7 +170,7 @@ export default {
             return this.fields
                 .filter(f => f.sortable)
                 .map(f => {
-                    return { text: f.label, value: f.key }
+                    return {text: f.label, value: f.key}
                 })
         },
 
@@ -161,23 +185,32 @@ export default {
             if (row.name.toLowerCase().search(filter.toLowerCase().trimEnd().trimStart()) == -1 && row.product_code.toLowerCase().search(filter.toLowerCase().trimEnd().trimStart()) == -1) {
                 return false;
             } else {
-                if (this.selected_subcategories.length == 0){
+                if (this.selected_subcategories.length == 0) {
                     return true;
                 } else {
                     var both = 0
-                    for(var j = 0; j < this.selected_subcategories.length; j++){
-                        for(var k = 0; k < row.subcategories_options.length; k++){
-                            if (row.subcategories_options[k].value == this.selected_subcategories[j].value){
-                                both ++;
+                    for (var j = 0; j < this.selected_subcategories.length; j++) {
+                        for (var k = 0; k < row.subcategories_options.length; k++) {
+                            if (row.subcategories_options[k].value == this.selected_subcategories[j].value) {
+                                both++;
                             }
                         }
                     }
-                    if(both == 0){
-                        return  false;
+                    if (both == 0) {
+                        return false;
                     } else return true;
                 }
 
             }
+        },
+        randomize() {
+            var self = this;
+            axios.get(self.main_route + '/admin/products/randomize').then(response => {
+                self.products = response.data.products;
+                self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success'});
+            }).catch(errors => {
+
+            });
         }
 
     }

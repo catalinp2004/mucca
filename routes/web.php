@@ -29,9 +29,10 @@ Route::group(['prefix' => 'admin'], function () {
         return view('admin.index');
     })->middleware('auth')->name('admin.index');
 
-    Route::resource('products', ProductController::class);
+    Route::resource('products', ProductController::class)->except('show');
     Route::resource('images', ImageController::class)->only(['store', 'show','destroy']);
     Route::resource('categories', CategoryController::class)->only(['index', 'show']);
     Route::resource('subcategories', SubcategoryController::class)->only(['store', 'show', 'update', 'destroy']);
     Route::get('/categories/{subcategory}/products', [CategoryController::class, 'showProducts'])->name('categories.products');
+    Route::get('/products/randomize', [ProductController::class, 'randomize'])->name('products.randomize');
 });
