@@ -2,7 +2,7 @@
     <div>
 
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1 class="mb-0">{{ category.name_ro }}</h1>
+            <h1 class="mb-0">{{ category.name_ro }} / {{ category.name_en }}</h1>
             <b-button squared @click="modal_show = !modal_show, modal_type = false " class="btn-mucca btn-mucca-success">Add new subcategory</b-button>
         </div>
         <hr class="mb-5">

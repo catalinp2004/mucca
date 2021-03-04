@@ -89,6 +89,10 @@
                 borderless
                 responsive
             >
+                <template v-slot:cell(index)="prod">
+                    {{ prod.index + 1 }}
+                </template>
+
                 <template #cell(actions)="row">
                     <b-button pill :href="main_route + '/admin/products/'+ row.item.id + '/edit'" class="mr-1" variant="success" size="sm">
                         <i class="fas fa-edit mr-1"></i>
@@ -150,6 +154,7 @@ export default {
     data() {
         return {
             fields: [
+                {key: 'index', label: 'Item no.'},
                 {key: 'name', label: 'Product Name (click to sort)', sortable: true, sortDirection: 'desc'},
                 {key: 'product_code', label: 'Product Code (click to sort)', sortable: true},
                 {key: 'actions', label: 'Actions', class: 'text-right'}
@@ -159,9 +164,8 @@ export default {
             currentPage: 1,
             perPage: 10,
             pageOptions: [10, 25, 50, 100],
-            sortBy: 'name',
-            sortDesc: false,
-            sortDirection: 'asc',
+            sortDesc: true,
+            sortDirection: 'desc',
             filter: " ",
             selected_subcategories: (this.filter_categories != undefined) ? this.filter_categories : [],
         }
