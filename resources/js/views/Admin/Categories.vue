@@ -9,7 +9,7 @@
             </template>
 
             <template v-slot:cell(name_ro)="cat">
-                <a :href="main_route + '/admin/categories/' + cat.item.id">{{ cat.item.name_ro }}</a>
+                <a :href="main_route + '/admin/categories/' + cat.item.id">{{ cat.item.name_ro }} / {{ cat.item.name_en }} </a>
             </template>
 
             <template v-slot:cell(subcategories)="cat">
@@ -29,7 +29,7 @@ export default {
     data() {
         return {
 
-            fields: [{key: 'index', label: 'Item no.'}, {key: 'name_ro', label: 'Category', sortable: true}, {key: 'subcategories', label: 'Products / Subcategories', class: "text-right"}],
+            fields: [{key: 'index', label: 'Item no.'}, {key: 'name_ro', label: 'Category (RO / EN)', sortable: true}, {key: 'subcategories', label: 'Products / Subcategories', class: "text-right"}],
             sortBy: 'name_ro',
             sortDesc: false,
             modal_type: false,

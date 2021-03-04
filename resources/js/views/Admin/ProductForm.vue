@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <b-form-group id="input-group-categories" label="Categories / subcategories:" label-for="categories" class="mb-5">
+                    <b-form-group id="input-group-categories" label="Subcategories:" label-for="categories" class="mb-5">
                         <multiselect id="categories" v-model='form.subcategories' :options="categories_options" :close-on-select="false" :clear-on-select="false" :multiple="true" group-values="subcategories" group-label="category" :group-select="true" placeholder="Type to search" track-by="value" label="text">
                             <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
                         </multiselect>

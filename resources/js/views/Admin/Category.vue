@@ -16,7 +16,7 @@
             </template>
 
             <template v-slot:cell(name_ro)="subcat">
-                <a :href="main_route + '/admin/subcategories/' + subcat.item.id">{{ subcat.item.name_ro }}</a>
+                <a :href="main_route + '/admin/subcategories/' + subcat.item.id">{{ subcat.item.name_ro }} / {{ subcat.item.name_en }}</a>
             </template>
 
             <template v-slot:cell(edit)="subcat">
@@ -67,7 +67,7 @@ export default {
             form: {name_ro: null, name_en: null, image: null},
             fields: [{key: 'index', label: 'No.'}, {
                 key: 'name_ro',
-                label: 'Subcategory',
+                label: 'Subcategory (RO / EN)',
                 sortable: true
             }, {key: 'edit', label: 'Actions', class: "text-right"}],
             errors: null,

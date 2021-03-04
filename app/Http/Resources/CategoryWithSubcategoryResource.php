@@ -17,12 +17,12 @@ class CategoryWithSubcategoryResource extends JsonResource
         $options = [];
 
         foreach ($this->subcategories as $subcat) {
-            array_push($options, array("value" => $subcat->id, "text" =>  $subcat->name_ro ));
+            array_push($options, array("value" => $subcat->id, "text" =>  $subcat->name_ro . ' / ' . $subcat->name_en ));
         }
 
         return [
 
-            'category' => $this->name_ro,
+            'category' => $this->name_ro . ' / ' . $this->name_en,
             'subcategories' => $options
 
         ];
