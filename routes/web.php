@@ -36,3 +36,39 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/categories/{subcategory}/products', [CategoryController::class, 'showProducts'])->name('categories.products');
     Route::get('/products/randomize', [ProductController::class, 'randomize'])->name('products.randomize');
 });
+
+
+Route::get('optimize', function() {
+    \Artisan::call('optimize:clear');
+    return('All clear!');
+});
+
+Route::get('route-trans-clear', function() {
+    \Artisan::call('route:trans:clear');
+    return('Trans Routes cleared!');
+});
+
+Route::get('key-generate', function() {
+    \Artisan::call('key:generate');
+    return('Key generated!');
+});
+
+Route::get('storage-link', function() {
+    \Artisan::call('storage:link');
+    return('Storage link generated!');
+});
+
+Route::get('migrate', function() {
+    \Artisan::call('migrate', array('--path' => 'database/migrations', '--force' => true));
+    return('Migration should be complete!');
+});
+
+Route::get('migrate-fresh', function() {
+    \Artisan::call('migrate:fresh', array('--path' => 'database/migrations', '--force' => true));
+    return('Fresh Migration should be complete!');
+});
+
+Route::get('migrate-refresh', function() {
+    \Artisan::call('migrate:refresh', array('--path' => 'database/migrations', '--force' => true));
+    return('Refresh Migration should be complete!');
+});
