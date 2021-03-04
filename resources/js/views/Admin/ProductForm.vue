@@ -1,34 +1,44 @@
 <template>
     <div>
-        <h1 class="mb-5 text-center">{{title}}</h1>
-        <b-button v-if="form_type == 'edit'" class="d-flex flex-row mn-5" @click="deleteProduct" variant="danger">Delete product!</b-button>
-        <hr class="mb-3">
-        <my-drop-zone v-if="form_type == 'edit'" class="mb-5 col-lg-10" :csrf="csrf" :store_image="main_route + '/admin/images'"  :product="product"></my-drop-zone>
-        <hr class="mb-3" v-if="form_type == 'edit'">
+        <div class="row align-items-lg-center">
+            <div class="col-lg mb-3 mb-lg-0">
+                <h1 class="mb-0">{{ title }}</h1>
+            </div>
+            <div class="col-lg-auto">
+                <a :href="main_route + '/admin/products'" class="btn-mucca"><i class="fas fa-arrow-circle-left"></i> Back to product list</a>
+            </div>
+        </div>
+        
+        <hr class="mb-5">
+
         <b-form @submit.stop.prevent="onSubmit">
             <div class="row">
-                <div class="col-lg-10">
-                    <b-form-group id="input-group-product-code" label="Product Code:" label-for="product-code" c>
-                        <b-form-input id="product-code" v-model="form.product_code" placeholder="EG: MO8647"></b-form-input>
-                        <span v-if=" errors != null && errors.hasOwnProperty('product_code')" class="text-danger">{{ errors.product_code[0] }}</span>
-                    </b-form-group>
+                <div class="col-lg-8">
                     <b-form-group id="input-group-name" label="Product Name:" label-for="name">
                         <b-form-input id="name" v-model="form.name" placeholder="Enter name"></b-form-input>
                         <span v-if=" errors != null && errors.hasOwnProperty('name')" class="text-danger">{{ errors.name[0] }}</span>
                     </b-form-group>
-                    <b-form-group id="input-group-last-name" label="Description" label-for="description">
-                        <b-form-textarea id="description" v-model="form.description" placeholder="Enter something..." rows="3" max-rows="6"></b-form-textarea>
+            
+                    <b-form-group id="input-group-product-code" label="Product Code:" label-for="product-code">
+                        <b-form-input id="product-code" v-model="form.product_code" placeholder="EG: MO8647"></b-form-input>
+                        <span v-if=" errors != null && errors.hasOwnProperty('product_code')" class="text-danger">{{ errors.product_code[0] }}</span>
+                    </b-form-group>
+                
+                    <b-form-group id="input-group-last-name" label="Product description" label-for="description" class="mb-lg-0">
+                        <b-form-textarea id="description" v-model="form.description" placeholder="Enter description here..." rows="5"></b-form-textarea>
                         <span v-if=" errors != null && errors.hasOwnProperty('description')" class="text-danger">{{ errors.description[0] }}</span>
                     </b-form-group>
+                </div>
 
-                    <b-form-group id="input-group-categories" label="Categories:" label-for="categories">
+                <div class="col-lg-4">
+                    <b-form-group id="input-group-categories" label="Categories / subcategories:" label-for="categories" class="mb-5">
                         <multiselect id="categories" v-model='form.subcategories' :options="categories_options" :close-on-select="false" :clear-on-select="false" :multiple="true" group-values="subcategories" group-label="category" :group-select="true" placeholder="Type to search" track-by="value" label="text">
                             <span slot="noResult">Oops! No elements found. Consider changing the search query.</span>
                         </multiselect>
                         <span v-if=" errors != null && errors.hasOwnProperty('subcategories')" class="text-danger">{{ errors.subcategories[0] }}</span>
                     </b-form-group>
 
-                    <b-form-group label="Colors available:">
+                    <b-form-group label="Available product colors:">
                         <b-form-checkbox
                             v-for="color in colors_options"
                             v-model="form.colors"
@@ -36,25 +46,42 @@
                             :value="color"
                             :name="color.hex_code"
                             inline
+                            plain
+                            class="color-check"
                         >
-                            <h1 class="fas fa-circle" :style="'color:#'+ color.hex_code"></h1>
+                            <span class="color-label" :class="(color.hex_code == 'FFFFFF') ? 'is-white' : ''" :style="'background-color:#'+ color.hex_code"><!-- --></span>
                         </b-form-checkbox>
                         <span v-if=" errors != null && errors.hasOwnProperty('colors')" class="text-danger">{{ errors.colors[0] }}</span>
                     </b-form-group>
-
                 </div>
             </div>
+        
+            <hr class="my-5" v-if="form_type == 'edit'">
+            
+            <my-drop-zone v-if="form_type == 'edit'" :csrf="csrf" :store_image="main_route + '/admin/images'" :product="product"></my-drop-zone>
+
+            <hr class="mt-5 mb-4" v-if="form_type == 'edit'">
+
             <div class="row">
-                <div class="col-lg-10">
-                    <div class="light-bg p-4 mt-5">
+                <div class="col text-right">
+                    <b-button v-if="form_type == 'edit'" @click="deleteProduct" class="btn-mucca btn-mucca-danger"><i class="fas fa-trash-alt mr-2"></i> Delete product!</b-button>
+                </div>
+            </div>
+
+            <hr class="my-4" v-if="form_type == 'edit'">
+
+            <div class="row">
+                <div class="col">
+                    <div class="light-bg p-4 mt-4">
                         <div class="d-flex flex-column flex-sm-row justify-content-sm-between">
-                            <a class="btn btn-primary" :href="main_route + '/admin/products'"><i class="fas fa-long-arrow-alt-left mr-1"></i> Back to Product list</a>
-                            <b-button variant="success" type="submit"><i class="fas fa-save mr-2"></i> {{form_type == "create" ? "Create" : "Update"}}</b-button>
+                            <a class="btn-mucca" :href="main_route + '/admin/products'"><i class="fas fa-long-arrow-alt-left mr-1"></i> Back to product list</a>
+                            <b-button type="submit" class="btn-mucca btn-mucca-success"><i class="fas fa-save mr-2"></i> {{form_type == "create" ? "Create" : "Update"}}</b-button>
                         </div>
                     </div>
                 </div>
             </div>
         </b-form>
+        
     </div>
 </template>
 
@@ -93,13 +120,13 @@ export default {
             if (this.form_type == 'create'){
                 return 'Add new product';
             } else if (this.form_type == 'edit'){
-                return 'Edit product ' + this.form.product_code;
+                return 'Edit product: ' + this.form.name + ' (' + this.form.product_code + ')';
             }
         }
     },
     mounted() {
         if (this.msg != undefined){
-            this.$bvToast.toast(this.msg, {title: 'Success!', variant: 'success'});
+            this.$bvToast.toast(this.msg, {title: 'Success!', variant: 'success', solid: true, toaster: 'b-toaster-bottom-right'});
         }
     },
     methods: {
@@ -118,7 +145,7 @@ export default {
             if (self.form_type == 'edit' ){
                 axios.patch(self.main_route + '/admin/products/' + self.product.id, self.form).then(response => {
                     self.errors = false;
-                    self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success'});
+                    self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success', solid: true, toaster: 'b-toaster-bottom-right'});
                 }).catch(error => {
                     self.errors = error.response.data.errors;
                 });

@@ -1,14 +1,15 @@
 <template>
     <div>
-        <h3 class="mb-3"> Upload Gallery Photos:</h3>
-        <vue-dropzone  v-on:vdropzone-success="remove_thumb" v-on:vdropzone-success-multiple="upload_complete" ref="dropzone" id="dropzone" :options="dropzoneOptions">
-        </vue-dropzone>
-        <div class="row mt-4">
+        <h3 class="mb-0">Product images</h3>
+        <p>First image will be used as Product cover photo</p>
+        <div class="row my-4">
             <div v-for="(image, index) in images" :key="index" class="col-6 col-md-4 col-lg-3 mb-3">
                 <b-img :src="'/../storage/img/products/' + image.filename" fluid class="mb-3"></b-img>
-                <a class="mr-3" @click="deleteImage(image.id)" href="#"><i class="fas fa-trash-alt"></i> Delete</a>
+                <a class="mr-3 text-danger" @click="deleteImage(image.id)" href="#"><i class="fas fa-trash-alt"></i> Delete image</a>
             </div>
         </div>
+        <h3 class="mb-3"> Upload product images:</h3>
+        <vue-dropzone  v-on:vdropzone-success="remove_thumb" v-on:vdropzone-success-multiple="upload_complete" ref="dropzone" id="dropzone" :options="dropzoneOptions"></vue-dropzone>
     </div>
 
 </template>
@@ -80,7 +81,7 @@
                 axios.get('/admin/images/'+this.product.id).then(response => {
                     vm.errors = false;
                     vm.images = response.data.images;
-                    this.$bvToast.toast('Image(s) uploaded successfully.', {title: 'Success!', variant: 'success'});
+                    this.$bvToast.toast('Image(s) uploaded successfully.', {title: 'Success!', variant: 'success', solid: true, toaster: 'b-toaster-bottom-right'});
                 }).catch(error => {
                     vm.errors = error.response.data.errors;
                 });
@@ -94,7 +95,7 @@
                 var result = confirm("Are you sure?");
                 if (result) {
                     axios.delete('/admin/images/'+ id ).then(response => {
-                        this.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success'});
+                        this.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success', solid: true, toaster: 'b-toaster-bottom-right'});
                         vm.images = response.data.images;
                     }).catch(errors => {
                         this.errors = errors.response.data.errors;
@@ -116,15 +117,6 @@
     margin-right: auto;
     padding: 0;
 }
-
-/* .dropzone .dz-preview .dz-success-mark,
-.dropzone .dz-preview .dz-error-mark {
-    margin-left: -23px;
-    margin-top: -35px;
-    background-color: #ffffff;
-    border-radius: 50%;
-    padding: 1px;
-} */
 
 .dropzone .dz-preview:hover .dz-image img {
     -webkit-transform: none;

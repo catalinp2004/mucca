@@ -1,22 +1,22 @@
 <template>
     <div>
-        <b-button :href="main_route + '/admin/products/create'" variant="primary" class="mb-3">Add new product
-        </b-button>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="mb-0">Products</h1>
+            <b-button squared :href="main_route + '/admin/products/create'" class="btn-mucca btn-mucca-success">Add new product</b-button>
+        </div>
+        <hr class="mb-5">
+
+        <div class="text-center my-5">
+        </div>
         <b-container fluid>
             <!-- User Interface controls -->
-            <b-row>
-                <b-col class="d-flex justify-content-center">
-                    <b-button @click="sortBy = 'sort', sortDesc=false" class="mb-3 mr-5">Site order</b-button>
-                    <b-button @click="randomize" class="mb-3 ">Randomize</b-button>
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col lg="6" class="my-1 mr-5">
+            <b-row class="mb-5 align-items-center">
+                <b-col lg="6" class="my-1">
                     <b-form-group
                         label="Categories"
                         label-for="categories"
-                        label-cols-sm="3"
-                        label-align-sm="right"
+                        label-cols="auto"
+                        label-align="left"
                         class="mb-0"
                     >
                         <multiselect
@@ -30,7 +30,7 @@
                             group-values="subcategories"
                             group-label="category"
                             :group-select="true"
-                            placeholder="Type to search"
+                            placeholder="Type to search Categories and Subcategories"
                             track-by="value"
                             label="text"
                         >
@@ -41,14 +41,12 @@
                         </multiselect>
                     </b-form-group>
                 </b-col>
-            </b-row>
-            <b-row>
                 <b-col lg="6" class="my-1">
                     <b-form-group
-                        label="Filter"
+                        label="Product Search"
                         label-for="filter-input"
-                        label-cols-sm="3"
-                        label-align-sm="right"
+                        label-cols="auto"
+                        label-align-sm="left"
                         class="mb-0"
                     >
                         <b-input-group>
@@ -56,7 +54,7 @@
                                 id="filter-input"
                                 v-model="filter"
                                 type="search"
-                                placeholder="Type to Search"
+                                placeholder="Search in product names and codes"
                             ></b-form-input>
 
                             <b-input-group-append>
@@ -66,33 +64,9 @@
                     </b-form-group>
                 </b-col>
             </b-row>
-            <b-row>
-                <b-col sm="5" md="6" class="my-1">
-                    <b-form-group
-                        label="Per page"
-                        label-for="per-page-select"
-                        label-cols-sm="6"
-                        label-cols-md="4"
-                        label-cols-lg="3"
-                        label-align-sm="right"
-                        class="mb-0"
-                    >
-                        <b-form-select
-                            id="per-page-select"
-                            v-model="perPage"
-                            :options="pageOptions"
-                        ></b-form-select>
-                    </b-form-group>
-                </b-col>
-
-                <b-col sm="7" md="6" class="my-1">
-                    <b-pagination
-                        v-model="currentPage"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                        align="fill"
-                        class="my-0"
-                    ></b-pagination>
+            <b-row class="mb-3">
+                <b-col lang="6">
+                    <b-button @click="sortBy = 'sort', sortDesc=false" class="btn-mucca mr-5">Click to sort table below according to current website order </b-button>
                 </b-col>
             </b-row>
 
@@ -112,17 +86,58 @@
                 @filtered="onFiltered"
                 striped
                 hover
+                borderless
                 responsive
             >
                 <template #cell(actions)="row">
-                    <b-button :href="main_route + '/admin/products/'+ row.item.id + '/edit'" class="mr-1">
+                    <b-button pill :href="main_route + '/admin/products/'+ row.item.id + '/edit'" class="mr-1" variant="success" size="sm">
+                        <i class="fas fa-edit mr-1"></i>
                         View/Edit
                     </b-button>
                 </template>
 
             </b-table>
+
+            <hr class="my-4">
+
+            <b-row>
+                <b-col sm="6" md="4" class="my-1">
+                    <b-form-group
+                        label="Products per page"
+                        label-for="per-page-select"
+                        label-cols-sm="auto"
+                        label-align-sm="left"
+                        class="mb-0"
+                    >
+                        <b-form-select
+                            id="per-page-select"
+                            v-model="perPage"
+                            :options="pageOptions"
+                        ></b-form-select>
+                    </b-form-group>
+                </b-col>
+
+                <b-col sm="6" md="8" class="my-1">
+                    <b-pagination
+                        v-model="currentPage"
+                        :total-rows="totalRows"
+                        :per-page="perPage"
+                        align="right"
+                        class="my-0"
+                    ></b-pagination>
+                </b-col>
+            </b-row>
+
+            <hr class="my-4">
+            
+            <b-row>
+                <b-col class="text-right">
+                    <b-button @click="randomize" class="btn-warning" variant="warning">Randomize product ordering on website!</b-button>
+                </b-col>
+            </b-row>
+            <hr class="my-4">
         </b-container>
-        <b-button :href="main_route + '/admin'" variant="primary" class="mb-3 ">Back</b-button>
+        <a :href="main_route + '/admin'" class="btn-mucca mt-32"><i class="fas fa-arrow-circle-left"></i> Back</a>
     </div>
 </template>
 
@@ -135,9 +150,9 @@ export default {
     data() {
         return {
             fields: [
-                {key: 'name', label: 'Product Name', sortable: true, sortDirection: 'desc'},
-                {key: 'product_code', label: 'Product Code', sortable: true, class: 'text-center'},
-                {key: 'actions', label: 'Actions'}
+                {key: 'name', label: 'Product Name (click to sort)', sortable: true, sortDirection: 'desc'},
+                {key: 'product_code', label: 'Product Code (click to sort)', sortable: true},
+                {key: 'actions', label: 'Actions', class: 'text-right'}
             ],
             products: this.products_prop,
             totalRows: 1,
@@ -153,7 +168,7 @@ export default {
     },
     mounted() {
         if (this.msg != undefined) {
-            this.$bvToast.toast(this.msg, {title: 'Success!', variant: 'success'});
+            this.$bvToast.toast(this.msg, {title: 'Success!', variant: 'success', solid: true, toaster: 'b-toaster-bottom-right'});
         }
         this.totalRows = this.products.length;
     },
@@ -205,12 +220,15 @@ export default {
         },
         randomize() {
             var self = this;
-            axios.get(self.main_route + '/admin/products/randomize').then(response => {
-                self.products = response.data.products;
-                self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success'});
-            }).catch(errors => {
-
-            });
+            var result = confirm("Are you sure you want to randomize the product order on the website?");
+            if (result) {
+                axios.get(self.main_route + '/admin/products/randomize').then(response => {
+                    self.products = response.data.products;
+                    self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success', solid: true, toaster: 'b-toaster-bottom-right'});
+                }).catch(errors => {
+    
+                });
+            }
         }
 
     }
