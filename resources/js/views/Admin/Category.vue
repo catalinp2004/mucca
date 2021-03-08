@@ -10,7 +10,7 @@
         <div class="text-center my-5">
         </div>
 
-        <b-table striped borderless hover responsive :items="copy_of_category.subcategories" :fields="fields" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc">
+        <b-table striped borderless hover responsive :items="copy_of_category.subcategories" :fields="fields" :sort-desc.sync="sortDesc">
             <template v-slot:cell(index)="subcat">
                 {{ subcat.index + 1 }}
             </template>
@@ -71,7 +71,6 @@ export default {
                 sortable: true
             }, {key: 'edit', label: 'Actions', class: "text-right"}],
             errors: null,
-            sortBy: 'name_ro',
             sortDesc: false,
             modal_type: false,
             modal_show: false,

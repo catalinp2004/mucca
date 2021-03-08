@@ -93,6 +93,14 @@
                     {{ prod.index + 1 }}
                 </template>
 
+                <template v-slot:cell(created_at)="prod">
+                    {{ formatDate(prod.item.created_at) }}
+                </template>
+
+                <template v-slot:cell(updated_at)="prod">
+                    {{ formatDate(prod.item.updated_at) }}
+                </template>
+
                 <template #cell(actions)="row">
                     <b-button pill :href="main_route + '/admin/products/'+ row.item.id + '/edit'" class="mr-1" variant="success" size="sm">
                         <i class="fas fa-edit mr-1"></i>
@@ -157,6 +165,8 @@ export default {
                 {key: 'index', label: 'Item no.'},
                 {key: 'name', label: 'Product Name (click to sort)', sortable: true, sortDirection: 'desc'},
                 {key: 'product_code', label: 'Product Code (click to sort)', sortable: true},
+                {key: 'created_at', label: 'Created at (click to sort)', sortable: true, sortDirection: 'desc'},
+                {key: 'updated_at', label: 'Updated at (click to sort)', sortable: true, sortDirection: 'desc'},
                 {key: 'actions', label: 'Actions', class: 'text-right'}
             ],
             products: this.products_prop,
@@ -164,6 +174,7 @@ export default {
             currentPage: 1,
             perPage: 10,
             pageOptions: [10, 25, 50, 100],
+            sortBy: 'created_at',
             sortDesc: true,
             sortDirection: 'desc',
             filter: " ",
@@ -195,6 +206,17 @@ export default {
 
     },
     methods: {
+        formatDate(date) {
+            var d = new Date(date);
+            var date = 
+                d.getUTCFullYear() + "-" +
+                ("0" + (d.getUTCMonth()+1)).slice(-2) + "-" +
+                ("0" + d.getUTCDate()).slice(-2) + ", " +
+                ("0" + d.getUTCHours()).slice(-2) + ":" +
+                ("0" + d.getUTCMinutes()).slice(-2);
+
+            return date;
+        },
         onFiltered(filteredItems) {
             // Trigger pagination to update the number of buttons/pages due to filtering
             this.totalRows = filteredItems.length

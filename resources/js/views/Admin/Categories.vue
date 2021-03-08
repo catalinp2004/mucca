@@ -2,7 +2,7 @@
     <div>
         <h1 class="mb-3">Categories</h1>
         <hr class="mb-5">
-        <b-table striped hover responsive borderless :items="categories" :fields="fields" :sort-by.sync="sortBy"
+        <b-table striped hover responsive borderless :items="categories" :fields="fields"
                  :sort-desc.sync="sortDesc">
             <template v-slot:cell(index)="cat">
                 {{ cat.index + 1 }}
@@ -30,7 +30,6 @@ export default {
         return {
 
             fields: [{key: 'index', label: 'Item no.'}, {key: 'name_ro', label: 'Category (RO / EN)', sortable: true}, {key: 'subcategories', label: 'Products / Subcategories', class: "text-right"}],
-            sortBy: 'name_ro',
             sortDesc: false,
             modal_type: false,
             modal_show: false,
