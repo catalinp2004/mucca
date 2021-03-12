@@ -76,7 +76,7 @@
                 :fields="fields"
                 :current-page="currentPage"
                 :per-page="perPage"
-                :filter="filter"
+                :filter="computed_filter"
                 :filter-function="filterTable"
                 :sort-by.sync="sortBy"
                 :sort-desc.sync="sortDesc"
@@ -141,7 +141,7 @@
             </b-row>
 
             <hr class="my-4">
-            
+
             <b-row>
                 <b-col class="text-right">
                     <b-button @click="randomize" class="btn-warning" variant="warning">Randomize product ordering on website!</b-button>
@@ -203,12 +203,16 @@ export default {
                     return {text: f.label, value: f.key}
                 })
         },
+        computed_filter() {
+            // Create an options list from our fields
+            return this.filter.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        },
 
     },
     methods: {
         formatDate(date) {
             var d = new Date(date);
-            var date = 
+            var date =
                 d.getUTCFullYear() + "-" +
                 ("0" + (d.getUTCMonth()+1)).slice(-2) + "-" +
                 ("0" + d.getUTCDate()).slice(-2) + ", " +
@@ -252,7 +256,7 @@ export default {
                     self.products = response.data.products;
                     self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success', solid: true, toaster: 'b-toaster-bottom-right'});
                 }).catch(errors => {
-    
+
                 });
             }
         }
