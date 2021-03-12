@@ -49,7 +49,9 @@
                 <a v-if="form.image != null" href="#" class="d-flex flex-row justify-content-center" @click="form.image = null">&times; Remove image</a>
 
                 <hr>
-                <b-button v-if="modal_type" @click="deleteSubcategory" class="btn-mucca btn-mucca-danger">Delete subcategory!</b-button>
+                <b-button v-if="modal_type && !form.has_products" @click="deleteSubcategory" class="btn-mucca btn-mucca-danger">Delete subcategory!</b-button>
+                <b-button v-else-if="modal_type && form.has_products" disabled class="btn-mucca btn-mucca-danger">Delete subcategory!</b-button>
+                <span  v-if="modal_type && form.has_products" class="text-danger">Has related products.</span>
             </form>
         </b-modal>
 

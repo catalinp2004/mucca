@@ -15,6 +15,8 @@ class Subcategory extends Model
         'image',
     ];
 
+    protected $appends = ['has_products'];
+
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -23,5 +25,10 @@ class Subcategory extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function getHasProductsAttribute()
+    {
+        return $this->products()->count() != 0;
     }
 }

@@ -134,6 +134,7 @@ class ProductController extends Controller
 
         return response()->json([
             'msg' => 'The product was updated successfully',
+            'ro'
         ])->setStatusCode(Response::HTTP_OK);
     }
 
