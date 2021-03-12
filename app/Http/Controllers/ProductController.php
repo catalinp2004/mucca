@@ -132,9 +132,11 @@ class ProductController extends Controller
             $product->subcategories()->attach($subcategory['value']);
         }
 
+        session()->flash('msg', 'Product was updated successfully');
+
         return response()->json([
             'msg' => 'The product was updated successfully',
-            'ro'
+            'route' => route('products.index')
         ])->setStatusCode(Response::HTTP_OK);
     }
 

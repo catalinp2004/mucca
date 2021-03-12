@@ -8,7 +8,7 @@
                 <a :href="main_route + '/admin/products'" class="btn-mucca"><i class="fas fa-arrow-circle-left"></i> Back to product list</a>
             </div>
         </div>
-        
+
         <hr class="mb-5">
 
         <b-form @submit.stop.prevent="onSubmit">
@@ -18,12 +18,12 @@
                         <b-form-input id="name" v-model="form.name" placeholder="Enter name"></b-form-input>
                         <span v-if=" errors != null && errors.hasOwnProperty('name')" class="text-danger">{{ errors.name[0] }}</span>
                     </b-form-group>
-            
+
                     <b-form-group id="input-group-product-code" label="Product Code:" label-for="product-code">
                         <b-form-input id="product-code" v-model="form.product_code" placeholder="EG: MO8647"></b-form-input>
                         <span v-if=" errors != null && errors.hasOwnProperty('product_code')" class="text-danger">{{ errors.product_code[0] }}</span>
                     </b-form-group>
-                
+
                     <b-form-group id="input-group-last-name" label="Product description" label-for="description" class="mb-lg-0">
                         <b-form-textarea id="description" v-model="form.description" placeholder="Enter description here..." rows="5"></b-form-textarea>
                         <span v-if=" errors != null && errors.hasOwnProperty('description')" class="text-danger">{{ errors.description[0] }}</span>
@@ -55,9 +55,9 @@
                     </b-form-group>
                 </div>
             </div>
-        
+
             <hr class="my-5" v-if="form_type == 'edit'">
-            
+
             <my-drop-zone v-if="form_type == 'edit'" :csrf="csrf" :store_image="main_route + '/admin/images'" :product="product"></my-drop-zone>
 
             <hr class="mt-5 mb-4" v-if="form_type == 'edit'">
@@ -81,7 +81,7 @@
                 </div>
             </div>
         </b-form>
-        
+
     </div>
 </template>
 
@@ -144,7 +144,9 @@ export default {
             }
             if (self.form_type == 'edit' ){
                 axios.patch(self.main_route + '/admin/products/' + self.product.id, self.form).then(response => {
+                    let url = response.data.route;
                     self.errors = false;
+                    window.location.href = url;
                     self.$bvToast.toast(response.data.msg, {title: 'Success!', variant: 'success', solid: true, toaster: 'b-toaster-bottom-right'});
                 }).catch(error => {
                     self.errors = error.response.data.errors;
