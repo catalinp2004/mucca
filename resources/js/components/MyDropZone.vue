@@ -4,8 +4,8 @@
         <p>First image will be used as Product cover photo</p>
         <div class="row my-4">
             <div v-for="(image, index) in images" :key="index" class="col-6 col-md-4 col-lg-3 mb-3">
-                <!-- <b-img :src="'/../storage/img/products/' + image.filename" fluid class="mb-3"></b-img> -->
-                <b-img :src="'/laravel/public/storage/img/products/' + image.filename" fluid class="mb-3"></b-img>
+<!--                 <b-img :src="'/../storage/img/products/' + product.folder_name+ '/' + image.filename" fluid class="mb-3"></b-img>-->
+                <b-img :src="'/laravel/public/storage/img/products/' + product.folder_name + '/' + image.filename" fluid class="mb-3"></b-img>
                 <a class="mr-3 text-danger" @click="deleteImage(image.id)" href="#"><i class="fas fa-trash-alt"></i> Delete image</a>
             </div>
         </div>
