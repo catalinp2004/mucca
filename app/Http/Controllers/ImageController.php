@@ -31,7 +31,6 @@ class ImageController extends Controller
 
         $product = Product::find($valid['id']);
         $dir_name = "public/img/products";
-        error_log(print_r($request->all(),1));
         foreach ($valid['file'] as $file){
             error_log(print_r($file,1));
             $filename = $file->getClientOriginalName();
