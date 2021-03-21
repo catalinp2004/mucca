@@ -19,14 +19,10 @@ class CreateApiProductsTable extends Migration
             $table->string('id_category');
             $table->string('name');
             $table->string('subname');
-            $table->string('label');
-            $table->text('description');
-            $table->string('descspec');
-            $table->string('specification_name');
-            $table->string('img_a');
-            $table->string('img_b');
-            $table->string('img_c');
-            $table->string('img_d');
+            $table->string('label')->nullable();
+            $table->text('description')->nullable();
+            $table->text('descspec')->nullable();
+            $table->string('specification_name')->nullable();
             $table->timestamps();
         });
     }

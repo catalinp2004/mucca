@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateApiColorsProductsTable extends Migration
+class CreateApiImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateApiColorsProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('api_colors_products', function (Blueprint $table) {
+        Schema::create('api_images', function (Blueprint $table) {
             $table->id();
-            $table->string('id_api_product');
-            $table->string('id_api_color');
-
+            $table->string('filename');
+            $table->string('id_commodity');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateApiColorsProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('api_colors_products');
+        Schema::dropIfExists('api_images');
     }
 }

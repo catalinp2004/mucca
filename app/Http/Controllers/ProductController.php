@@ -24,24 +24,8 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $categories = Category::all();
-
         $products = $this->selected_options($products);
-        $client = new SoapClient("https://www.adler.info/b2b.wsdl",
-        array( "trace" => true,
-        "stream_context" =>true,
-        "exceptions"=>false,
-        "login" => "muccaprod",
-        "password" => "jqKUvT",
-        ));
-        $result=$client->products(array ('id_lang' => 'ro', 'lists' => 'yes', 'structure' => 'complex'));
-        dd($result->commodity);
-        $url =
-            'https://share.adler.info/images/product/C36/C36_32_C_xl.jpg';
 
-        $img = 'logo.jpg';
-
-// Function to write image into file
-        file_put_contents($img, file_get_contents($url));
         return view('admin.products')->with(['products' => $products, 'categories_options' => collect(CategoryWithSubcategoryResource::collection($categories))]);
     }
 
