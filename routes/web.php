@@ -17,10 +17,22 @@ use App\Http\Controllers\ImageController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-})->name('main');
+    return view('index');
+})->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/clienti', function () {
+    return view('clienti');
+})->name('clienti');
+
+Route::get('/info', function () {
+    return view('info_page');
+})->name('info');
+
+Route::get('/povestea', function () {
+    return view('povestea');
+})->name('povestea');
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['prefix' => 'admin'], function () {
 
     Auth::routes();
