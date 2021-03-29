@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import router from './router/index.js'
 require('./bootstrap');
 
 window.Vue = require('vue').default;
@@ -28,6 +29,7 @@ Vue.component('category', require('./views/Admin/Category.vue').default);
 Vue.component('categories', require('./views/Admin/Categories.vue').default);
 Vue.component('product_form', require('./views/Admin/ProductForm.vue').default);
 Vue.component('products', require('./views/Admin/Products.vue').default);
+Vue.component('App', require('./App.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -37,4 +39,5 @@ Vue.component('products', require('./views/Admin/Products.vue').default);
 
 const app = new Vue({
     el: '#app',
+    router,
 });

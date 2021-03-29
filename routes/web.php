@@ -16,21 +16,13 @@ use App\Http\Controllers\ImageController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::view('/', 'index')->name('home');
+Route::view('/info', 'info_page')->name('info');
+Route::view('/clienti', 'clienti')->name('clienti');
+Route::view('/povestea', 'povestea')->name('povestea');
 
-Route::get('/clienti', function () {
-    return view('clienti');
-})->name('clienti');
-
-Route::get('/info', function () {
-    return view('info_page');
-})->name('info');
-
-Route::get('/povestea', function () {
-    return view('povestea');
-})->name('povestea');
+Route::view('/catalog/{any}', 'catalog')->where('any', '.*');
+Route::view('/catalog', 'catalog');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['prefix' => 'admin'], function () {

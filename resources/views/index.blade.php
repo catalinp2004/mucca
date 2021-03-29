@@ -39,7 +39,7 @@
                     </div>
 
                     <div class="col-md-9 col-lg-12 col-xl-9 links d-flex align-items-end justify-content-md-end justify-content-lg-start justify-content-xl-end pl-xl-5">
-                        <a href="#" class="mr-3">Date de identificare</a>
+                        <a href="route('catalog', ['category' => 'Office', 'search' => 'rocket'])" class="mr-3">Date de identificare</a>
                         <a href="#" class="mr-3">Confidentialitate</a>
                         <a href="#">Cookies</a>
                     </div>
