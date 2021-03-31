@@ -1,7 +1,7 @@
 @extends('admin.main')
 @section('content')
     <product_form
-        main_route="{{route('main')}}"
+        main_route="{{route('home')}}"
         :categories_options="{{$categories_options}}"
         :colors_options="{{$colors_options}}"
         form_type="edit"

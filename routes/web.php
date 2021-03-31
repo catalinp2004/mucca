@@ -22,7 +22,7 @@ Route::view('/clienti', 'clienti')->name('clienti');
 Route::view('/povestea', 'povestea')->name('povestea');
 
 Route::view('/catalog/{any}', 'catalog')->where('any', '.*');
-Route::view('/catalog', 'catalog');
+Route::view('/catalog', 'catalog')->name('catalog');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::group(['prefix' => 'admin'], function () {

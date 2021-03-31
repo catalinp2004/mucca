@@ -9,7 +9,7 @@
 
     <title>Mucca</title>
     <meta name="description" content="Materiale publicitare si de vizibilitate.">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">

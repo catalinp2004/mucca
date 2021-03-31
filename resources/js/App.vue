@@ -1,11 +1,58 @@
 <template>
-    <div id="app">
-        <div>
-            <div class="d-flex">
-                <router-link to="/catalog/product">product</router-link>
-                <router-link to="/catalog">products</router-link>
+    <div id="app" class="catalog-page-wrapper pad-left-catalog pad-right pad-top d-flex">
+        <nav class="nav-catalog mb-4 mb-md-5 mb-lg-0">
+
+            <div class="navbrand-toggler-wrapper d-flex justify-content-between">
+                <a href="/" class="navbar-brand mb-lg-5 py-0">
+                    <img src="/img/logo_mucca_catalog.png" srcset="/img/logo_mucca_catalog.svg 1x" alt="logo-mucca">
+                </a>
+
+                <button class="navbar-toggler-catalog px-0" data-toggle="collapse" data-target="#catalog-menu-collapse">
+                    <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar top-bar img-fluid d-block mb-2">
+                    <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar middle-bar img-fluid d-block mb-2">
+                    <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar bottom-bar img-fluid d-block">
+                </button>
             </div>
-        </div>
+
+            <div class="collapse navbar-collapse" id="catalog-menu-collapse">
+                <div class="d-flex flex-column flex-sm-row flex-lg-column justify-content-between justify-content-sm-start justify-content-lg-between align-items-start pt-5 pt-lg-0">
+                    <ul class="navbar-nav nav-category mb-5 ml-sm-5 ml-lg-0 order-sm-2 order-lg-1">
+                        <li class="nav-item">
+                            <router-link to="/catalog" class="nav-link nav-link-toplist pt-0">All</router-link>
+                        </li>
+                        <li class="nav-item" v-for="cat in categories">
+                            <router-link :to="'#'" class="nav-link">{{cat.name_ro}}</router-link>
+                        </li>
+                    </ul>
+
+                    <div class="ml-sm-5 ml-lg-0 order-sm-1 order-lg-2">
+                        <ul class="navbar-nav nav-all-pages">
+                            <li class="nav-item">
+                                <a href="/" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/povestea" class="nav-link">Povestea noastra</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#servicii" class="nav-link">Servicii</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/catalog" class="nav-link">Catalog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/clienti" class="nav-link">Clienti</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#clienti" class="nav-link">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </nav>
         <transition name="page-change" mode="out-in">
             <router-view class="h-100"></router-view>
         </transition>
@@ -16,6 +63,18 @@
 <script>
 export default {
     name: "App",
+    data(){
+        return{
+            categories: this.$store.state.categories,
+            errors:null
+        }
+    },
+    created() {
+        this.$store.dispatch('categories').then( () => {
+                this.categories = this.$store.getters.getCategories
+            }
+        );
+    }
 }
 </script>
 

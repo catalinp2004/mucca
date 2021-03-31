@@ -9,7 +9,7 @@
         <a href="#servicii" class="nav-link">Servicii</a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link">Catalog</a>
+        <a href="{{route('catalog')}}" class="nav-link">Catalog</a>
     </li>
     <li class="nav-item">
         <a href="{{route('clienti')}}" class="nav-link">Clienti</a>
