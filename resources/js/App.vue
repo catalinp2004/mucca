@@ -21,7 +21,7 @@
                             <router-link to="/catalog" class="nav-link nav-link-toplist pt-0">All</router-link>
                         </li>
                         <li class="nav-item" v-for="cat in categories">
-                            <router-link :to="'#'" class="nav-link">{{cat.name_ro}}</router-link>
+                            <a @click="selected_category = cat.name_ro" class="nav-link">{{cat.name_ro}}</a>
                         </li>
                     </ul>
 
@@ -69,11 +69,22 @@ export default {
             errors:null
         }
     },
+    computed: {
+        selected_category:{
+            get() {
+                return this.$store.getters.getSelected;
+            },
+            set(newValue) {
+                this.$store.commit('setSelected', newValue)
+            }
+        },
+    },
     created() {
         this.$store.dispatch('categories').then( () => {
                 this.categories = this.$store.getters.getCategories
             }
         );
+        this.$store.dispatch('products_count');
     }
 }
 </script>

@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::get('/categories', [\App\Http\Controllers\CatalogController::class, 'getCategories']);
 Route::post('/products', [\App\Http\Controllers\CatalogController::class, 'getProducts']);
+Route::get('/products/count', [\App\Http\Controllers\CatalogController::class, 'getCountProducts']);

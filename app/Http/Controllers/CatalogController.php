@@ -15,6 +15,10 @@ class CatalogController extends Controller
     {
         return response(['categories'=>CategoryResource::collection(Category::all())])->setStatusCode(Response::HTTP_OK);
     }
+    public function getCountProducts()
+    {
+        return response(['count'=>Product::all()->count()])->setStatusCode(Response::HTTP_OK);
+    }
 
 
     public function getProducts(Request $request)
@@ -22,9 +26,9 @@ class CatalogController extends Controller
         $valid = $request->validate([
             'per_page' => 'required|integer|min:12|max:48',
             'search' => 'nullable|string',
-            'category' => 'nullable|integer',
+            'category' => 'nullable|string',
             'current_page' => 'required|integer',
-            'subcategory' => 'nullable|integer',
+            'subcategory' => 'nullable|string',
             'colors' => 'nullable|array',
         ]);
         error_log(print_r($valid['per_page'],1));
