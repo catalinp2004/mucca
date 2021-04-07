@@ -75,10 +75,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "Product"
+  name: "Product",
+  data: function data() {
+    return {
+      product: null,
+      loading: true
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/api/products/' + this.$route.params.slug).then(function (response) {
+      _this.product = response.data.product;
+      _this.loading = false;
+    })["catch"](function (error) {});
+  }
 });
 
 /***/ }),
@@ -755,228 +767,114 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "products-filter-wrapper" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "filter-menu d-flex flex-column flex-md-row justify-content-between pl-lg-5 mb-4 mb-md-5"
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass:
-                "breadcrumbs order-2 order-lg-1 pad-left-catalog pl-lg-0"
-            },
-            [
-              _c("a", { attrs: { href: "#" } }, [
-                _vm._v("Home / All / Eating & Drinking / Tower /")
-              ])
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "product container-fluid pad-left-catalog pl-lg-5" },
-        [
-          _c("div", { staticClass: "row mb-5" }, [
-            _c("div", { staticClass: "col-md-5 mb-5 mb-md-0" }, [
-              _c("span", { staticClass: "product-code" }, [
-                _vm._v("cod MO8656")
-              ]),
-              _vm._v(" "),
-              _c("h3", { staticClass: "product-title mt-5 mb-4" }, [
-                _vm._v("Tower on two"),
-                _c("br"),
-                _vm._v(" lines")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "product-description mb-5" }, [
-                _vm._v(
-                  "Drinking bottle in Tritan™ which is BPA free. Leak-free. It is supplied with a small drinking glass. Capacity: 700 ml. Leak free."
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "product-colors d-flex flex-wrap" }, [
-                _c("span", { staticClass: "colors-title" }, [_vm._v("Colors")]),
-                _vm._v(" "),
-                _c("span", {
-                  staticClass: "color",
-                  staticStyle: { "background-color": "#D3C0C0" }
-                }),
-                _vm._v(" "),
-                _c("span", {
-                  staticClass: "color",
-                  staticStyle: { "background-color": "#BC3A3A" }
-                }),
-                _vm._v(" "),
-                _c("span", {
-                  staticClass: "color",
-                  staticStyle: { "background-color": "#7B9FC3" }
-                }),
-                _vm._v(" "),
-                _c("span", {
-                  staticClass: "color",
-                  staticStyle: { "background-color": "#9A9A9A" }
-                })
-              ])
-            ]),
-            _vm._v(" "),
+  return !_vm.loading
+    ? _c("div", { staticClass: "products-filter-wrapper" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "filter-menu d-flex flex-column flex-md-row justify-content-between pl-lg-5 mb-4 mb-md-5"
+          },
+          [
             _c(
               "div",
               {
                 staticClass:
-                  "col-md-7 pad-right-catalog pr-md-0 position-relative"
+                  "breadcrumbs order-2 order-lg-1 pad-left-catalog pl-lg-0"
               },
               [
-                _c("div", { attrs: { id: "slider" } }, [
-                  _c("div", { staticClass: "slide" }, [
-                    _c("img", {
-                      staticClass: "img-fluid img-slide",
-                      attrs: {
-                        src: "assets/tower_slide_1.jpg",
-                        alt: "catalog-product-1"
+                _c("a", { attrs: { href: "/" } }, [_vm._v("Home")]),
+                _vm._v(" / "),
+                _c("router-link", { attrs: { to: "/catalog" } }, [
+                  _vm._v("All")
+                ]),
+                _vm._v("  / "),
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: {
+                        path: "/catalog",
+                        query: {
+                          category: encodeURIComponent(
+                            _vm.product.first_category
+                          )
+                        }
                       }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "zoom-icon",
-                        attrs: {
-                          href: "#",
-                          "data-toggle": "lightbox",
-                          "data-gallery": "gallery-1",
-                          "data-remote": "assets/tower_slide_1.jpg"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.product.first_category))]
+                ),
+                _vm._v("  / "),
+                _c(
+                  "router-link",
+                  {
+                    attrs: {
+                      to: {
+                        path: "/catalog",
+                        query: {
+                          category: encodeURIComponent(
+                            _vm.product.first_category
+                          ),
+                          subcategory: encodeURIComponent(
+                            _vm.product.first_subcategory
+                          )
                         }
-                      },
-                      [
-                        _c("img", {
-                          staticClass: "img-fluid",
-                          attrs: {
-                            src: "assets/zoom_in.png",
-                            srcset: "assets/zoom_in.svg" + " 1x",
-                            alt: ""
-                          }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "slide" }, [
-                    _c("img", {
-                      staticClass: "img-fluid img-slide",
-                      attrs: {
-                        src: "assets/tower_slide_2.jpg",
-                        alt: "catalog-product-2"
                       }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "a",
-                      {
-                        staticClass: "zoom-icon",
-                        attrs: {
-                          href: "#",
-                          "data-toggle": "lightbox",
-                          "data-gallery": "gallery-1",
-                          "data-remote": "assets/tower_slide_2.jpg"
-                        }
-                      },
-                      [
-                        _c("img", {
-                          staticClass: "img-fluid",
-                          attrs: {
-                            src: "assets/zoom_in.png",
-                            srcset: "assets/zoom_in.svg" + " 1x",
-                            alt: ""
-                          }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "slide",
-                      attrs: { "data-toggle": "lightbox" }
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "img-fluid img-slide",
-                        attrs: {
-                          src: "assets/tower_slide_3.jpg",
-                          alt: "catalog-product-3"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "zoom-icon",
-                          attrs: {
-                            href: "#",
-                            "data-toggle": "lightbox",
-                            "data-gallery": "gallery-1",
-                            "data-remote": "assets/tower_slide_3.jpg"
-                          }
-                        },
-                        [
-                          _c("img", {
-                            staticClass: "img-fluid",
-                            attrs: {
-                              src: "assets/zoom_in.png",
-                              srcset: "assets/zoom_in.svg" + " 1x",
-                              alt: ""
-                            }
-                          })
-                        ]
-                      )
-                    ]
-                  )
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.product.first_subcategory))]
+                ),
+                _vm._v(" /\n            ")
+              ],
+              1
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "product container-fluid pad-left-catalog pl-lg-5" },
+          [
+            _c("div", { staticClass: "row mb-5" }, [
+              _c("div", { staticClass: "col-md-5 mb-5 mb-md-0" }, [
+                _c("span", { staticClass: "product-code" }, [
+                  _vm._v("cod " + _vm._s(_vm.product.product_code))
                 ]),
                 _vm._v(" "),
-                _c("ul", { staticClass: "slider-thumbs d-flex" }, [
-                  _c("li", [
-                    _c("button", {
-                      staticClass: "thumb thumb-1",
-                      attrs: { "data-slide-nr": "1" }
+                _c("h3", { staticClass: "product-title mt-5 mb-4" }, [
+                  _vm._v(_vm._s(_vm.product.name))
+                ]),
+                _vm._v(" "),
+                _c("p", { staticClass: "product-description mb-5" }, [
+                  _vm._v(_vm._s(_vm.product.description))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "product-colors d-flex flex-wrap" },
+                  [
+                    _c("span", { staticClass: "colors-title" }, [
+                      _vm._v("Colors")
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.product.colors, function(color) {
+                      return _c("span", {
+                        staticClass: "color",
+                        style: "background-color:#" + color.hex_code + ";"
+                      })
                     })
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("button", {
-                      staticClass: "thumb thumb-2",
-                      attrs: { "data-slide-nr": "2" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("li", [
-                    _c("button", {
-                      staticClass: "thumb thumb-3",
-                      attrs: { "data-slide-nr": "3" }
-                    })
-                  ])
-                ])
-              ]
-            )
-          ])
-        ]
-      )
-    ])
-  }
-]
+                  ],
+                  2
+                )
+              ])
+            ])
+          ]
+        )
+      ])
+    : _vm._e()
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -1331,7 +1229,9 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "d-flex align-items-center",
-                    attrs: { to: "/catalog/" + product.slug }
+                    attrs: {
+                      to: { name: "product", params: { slug: product.slug } }
+                    }
                   },
                   [
                     _c("img", {

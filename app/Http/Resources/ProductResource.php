@@ -14,6 +14,7 @@ class ProductResource extends JsonResource
      */
     public function toArray($request)
     {
+        $subcategory = $this->subcategories->first();
         return [
             'id' => $this->id,
             'slug' => $this->slug,
@@ -21,6 +22,8 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'filename' => '/'.$this->folder_name.'/'.$this->images->first()['filename'],
+            'first_subcategory' => $subcategory->name_ro,
+            'first_category' => $subcategory->category->name_ro,
             'colors' => ColorResource::collection($this->colors)
         ];
     }

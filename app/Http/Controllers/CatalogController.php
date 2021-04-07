@@ -25,6 +25,11 @@ class CatalogController extends Controller
     {
         return response(['categories'=>CategoryResource::collection(Category::all())])->setStatusCode(Response::HTTP_OK);
     }
+    public function getProduct($slug)
+    {
+        $product = Product::where('slug', $slug)->first();
+        return response(['product' => ProductResource::make($product)])->setStatusCode(Response::HTTP_OK);
+    }
     public function getColors()
     {
         return response(['colors'=>ColorResource::collection(Color::all())])->setStatusCode(Response::HTTP_OK);

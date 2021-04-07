@@ -18,3 +18,4 @@ Route::get('/colors', [\App\Http\Controllers\CatalogController::class, 'getColor
 Route::get('/products/random', [\App\Http\Controllers\CatalogController::class, 'getRandom']);
 Route::post('/products', [\App\Http\Controllers\CatalogController::class, 'getProducts']);
 Route::get('/products/count', [\App\Http\Controllers\CatalogController::class, 'getCountProducts']);
+Route::get('/products/{slug}', [\App\Http\Controllers\CatalogController::class, 'getProduct']);

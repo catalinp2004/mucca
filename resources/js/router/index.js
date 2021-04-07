@@ -11,7 +11,6 @@ const router = new VueRouter({
             path: '/catalog',
             component: () => import(/* webpackChunkName: "person" */ '../views/Catalog/Products'),
             beforeEnter: (to, from, next) => {
-                console.log('da');
                 if (to.query.category != undefined){
                    store.commit('setSelected', decodeURIComponent(to.query.category));
                 }
@@ -23,7 +22,7 @@ const router = new VueRouter({
             component: () => import(/* webpackChunkName: "person" */ '../views/NotFound')
         },
         {
-            path: '/catalog/product',
+            path: '/catalog/:slug',
             name: 'product',
             component:  () => import(/* webpackChunkName: "person" */ '../views/Catalog/Product'),
         }
