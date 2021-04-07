@@ -1197,5 +1197,37 @@ li.slick-active button:before {
     }
 }
 
+.color-check input {
+    display: none;
+}
+.color-label {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+}
+
+.color-label.is-white {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #CCCCCC;
+}
+
+.color-label::before {
+    display: inline-block;
+    content: ' ';
+    width: 46px;
+    height: 46px;
+    position: absolute;
+    top: -7px;
+    left: -7px;
+    border: 3px solid transparent;
+    border-radius: 50%;
+    transition: all .15s ease;
+}
+.color-check input:checked ~ label .color-label::before {
+    border-color: #000000;;
+}
 
 

@@ -8,7 +8,6 @@ class ColorResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
@@ -17,6 +16,7 @@ class ColorResource extends JsonResource
         return [
             'id' => $this->id,
             'hex_code' => $this->hex_code,
+            'name' => $this->name,
         ];
     }
 }

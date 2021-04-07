@@ -18,10 +18,10 @@
                 <div class="d-flex flex-column flex-sm-row flex-lg-column justify-content-between justify-content-sm-start justify-content-lg-between align-items-start pt-5 pt-lg-0">
                     <ul class="navbar-nav nav-category mb-5 ml-sm-5 ml-lg-0 order-sm-2 order-lg-1">
                         <li class="nav-item">
-                            <router-link to="/catalog" class="nav-link nav-link-toplist pt-0">All</router-link>
+                            <router-link to="/catalog" @click="selected_category = null" v-bind:class="{'nav-link':true, 'nav-link-toplist pt-0':(selected_category == null)}">All</router-link>
                         </li>
                         <li class="nav-item" v-for="cat in categories">
-                            <a @click="selected_category = cat.name_ro" class="nav-link">{{cat.name_ro}}</a>
+                            <router-link :to="{path:'/catalog', query:{category: encodeURIComponent(cat.name_ro)}}" @click="selected_category = cat.name_ro" v-bind:class="{'nav-link':true, 'nav-link-toplist pt-0':(selected_category == cat.name_ro)}">{{cat.name_ro}}</router-link>
                         </li>
                     </ul>
 
@@ -79,12 +79,13 @@ export default {
             }
         },
     },
-    created() {
+    created(){
         this.$store.dispatch('categories').then( () => {
                 this.categories = this.$store.getters.getCategories
             }
         );
         this.$store.dispatch('products_count');
+        this.$store.dispatch('colors');
     }
 }
 </script>

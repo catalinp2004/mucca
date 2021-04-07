@@ -8,12 +8,16 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         categories: [],
+        colors: [],
         count_products: 0,
         selected_category: null,
     },
     mutations: {
         setCategories (state, categories) {
             state.categories = categories;
+        },
+        setColors (state, colors) {
+            state.colors = colors;
         },
         setCount (state, count) {
             state.count_products = count;
@@ -29,6 +33,12 @@ const store = new Vuex.Store({
                 commit('setCategories', resp.data.categories)
             });
         },
+        colors({commit}) {
+            return axios.get('/api/colors')
+            .then(resp => {
+                commit('setColors', resp.data.colors)
+            });
+        },
         products_count({commit}) {
             return axios.get('/api/products/count')
             .then(resp => {
@@ -40,6 +50,7 @@ const store = new Vuex.Store({
         getCategories: state => state.categories,
         getCount: state => state.count_products,
         getSelected: state => state.selected_category,
+        getColors: state => state.colors,
     },
 });
 
