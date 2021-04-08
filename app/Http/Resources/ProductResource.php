@@ -21,10 +21,9 @@ class ProductResource extends JsonResource
             'product_code' => $this->product_code,
             'name' => $this->name,
             'description' => $this->description,
-            'filename' => '/'.$this->folder_name.'/'.$this->images->first()['filename'],
+            'filename' => '/storage/img/products/'.$this->folder_name.'/'.$this->images->first()['filename'],
             'first_subcategory' => $subcategory->name_ro,
             'first_category' => $subcategory->category->name_ro,
-            'colors' => ColorResource::collection($this->colors)
         ];
     }
 }

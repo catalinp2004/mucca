@@ -74,10 +74,10 @@
                     </div>
                 </div>
             </div>
-            @include('partials/_footer')
         </div>
 
     </div>
+    @include('partials/_footer')
 
 @include('partials/_scripts')
 

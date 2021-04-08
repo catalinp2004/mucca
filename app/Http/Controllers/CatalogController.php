@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\ColorResource;
+use App\Http\Resources\ImageResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Category;
 use App\Models\Color;
@@ -28,7 +29,19 @@ class CatalogController extends Controller
     public function getProduct($slug)
     {
         $product = Product::where('slug', $slug)->first();
-        return response(['product' => ProductResource::make($product)])->setStatusCode(Response::HTTP_OK);
+        $category_id = $product->subcategories->first()->category_id;
+
+        $subcategories = DB::table('categories')
+            ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+            ->where('categories.id', $category_id)
+            ->get()->pluck('id')->unique();
+        $subcategories_products = DB::table('product_subcategory')
+            ->join('subcategories', 'product_subcategory.subcategory_id', '=', 'subcategories.id')
+            ->whereIn('subcategories.id', $subcategories)
+            ->get()->pluck('product_id')->unique();
+
+        $products = Product::whereIn('id', $subcategories_products)->take(8)->get();
+        return response(['product' => ProductResource::make($product),'colors' => ColorResource::collection($product->colors), 'images'=>ImageResource::collection($product->images), 'products'=>ProductResource::collection($products)])->setStatusCode(Response::HTTP_OK);
     }
     public function getColors()
     {
@@ -61,21 +74,21 @@ class CatalogController extends Controller
                 ->join('subcategories', 'product_subcategory.subcategory_id', '=', 'subcategories.id')
                 ->whereIn('subcategories.id', $subcategories)
                 ->get()->pluck('product_id')->unique();
-            return $q->whereIn('id', $subcategories_products);;
+            return $q->whereIn('id', $subcategories_products);
         });
         $products->when($valid['category'] != null && $valid['subcategory'] != null, function ($q) use ($valid) {
             $subcategories_products = DB::table('product_subcategory')
                 ->join('subcategories', 'product_subcategory.subcategory_id', '=', 'subcategories.id')
                 ->where('subcategories.name_ro', $valid['subcategory'])
                 ->get()->pluck('product_id')->unique();
-            return $q->whereIn('id', $subcategories_products);;
+            return $q->whereIn('id', $subcategories_products);
         });
         $products->when($valid['colors'] != null, function ($q) use ($valid) {
             $colors_products = DB::table('color_product')
                 ->join('colors', 'color_product.color_id', '=', 'colors.id')
                 ->whereIn('colors.name', $valid['colors'])
                 ->get()->pluck('product_id')->unique();
-            return $q->whereIn('id', $colors_products);;
+            return $q->whereIn('id', $colors_products);
         });
         $products->when($valid['search'] != null, function ($q) use ($valid) {
             return $q->where(function ($query) use ($valid){

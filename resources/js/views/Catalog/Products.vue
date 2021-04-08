@@ -1,104 +1,107 @@
 <template>
-    <div class="products-filter-wrapper">
+    <div>
+        <h1 v-if="loading">Loading</h1>
+        <div v-if="!loading" class="products-filter-wrapper">
 
-        <div class="filter-menu d-flex flex-column flex-md-row justify-content-between pl-lg-5 mb-4 mb-md-5">
-            <div class="breadcrumbs order-2 order-lg-1">
-                <a href="/">Home</a> / <router-link to="/catalog">All</router-link> /
+            <div class="filter-menu d-flex justify-content-end pl-lg-5 mb-4 mb-md-5">
+                <!--            <div class="breadcrumbs order-2 order-lg-1">-->
+                <!--                <a href="/">Home</a> / <router-link to="/catalog">All</router-link> /-->
+                <!--            </div>-->
 
-            </div>
-
-            <div class="order-1 order-lg-2 d-flex d-lg-block mb-4 mb-md-0">
-                <button @click="randomize" class="btn btn-randomize mr-2 mr-md-4">Randomize</button>
-                <button class="btn btn-search" @click="show_filter = !show_filter">
-                    <span>Search / Filter</span>
-                    <img src="/img/stoggler_search.png" srcset="/img/toggler_search.svg 1x" class="img-fluid">
-                </button>
-                <div id="search-menu" v-bind:class="{show: show_filter}">
-                    <form @submit.prevent class="form search-form catalog-form show">
-                        <button type="button" id="close-search-menu" class="ml-auto"
-                                @click="show_filter = !show_filter">
-                            <img src="/img/search_menu_close.png" srcset="/img/search_menu_close.svg 1x"
-                                 class="img-fluid mb-5">
-                        </button>
-                        <div class="input-group input-group-catalog">
-                            <input type="text" class="form-control" v-model="search" placeholder="COD PRODUS / CUVÂNT"
-                                   aria-label="Username" aria-describedby="search">
-                            <div class="input-group-prepend">
+                <div class="order-1 order-lg-2 d-flex d-lg-block mb-4 mb-md-0">
+                    <button @click="randomize" class="btn btn-randomize mr-2 mr-md-4">Randomize</button>
+                    <button class="btn btn-search" @click="show_filter = !show_filter">
+                        <span>Search / Filter</span>
+                        <img src="/img/stoggler_search.png" srcset="/img/toggler_search.svg 1x" class="img-fluid">
+                    </button>
+                    <div id="search-menu" v-bind:class="{show: show_filter}">
+                        <form @submit.prevent class="form search-form catalog-form show">
+                            <button type="button" id="close-search-menu" class="ml-auto"
+                                    @click="show_filter = !show_filter">
+                                <img src="/img/search_menu_close.png" srcset="/img/search_menu_close.svg 1x"
+                                     class="img-fluid mb-5">
+                            </button>
+                            <div class="input-group input-group-catalog">
+                                <input type="text" class="form-control" v-model="search" placeholder="COD PRODUS / CUVÂNT"
+                                       aria-label="Username" aria-describedby="search">
+                                <div class="input-group-prepend">
                                 <span class="input-group-text" id="search"><img src="/img/icon_search.png"
                                                                                 srcset="/img/icon_search.svg 1x"
                                                                                 alt="icon-search"
                                                                                 class="img-fluid"></span>
-                                <span for="#search" class="search-span">Search</span>
+                                    <span for="#search" class="search-span">Search</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="input-group input-group-catalog">
-                            <span class="search-span">Categorie</span>
-                            <b-form-select @change="resetSubcategory" id="input-category" class="form-control"
-                                           v-model="category">
-                                <option :value="null">All</option>
-                                <option v-for="category in categories" :value="category">{{ category.name_ro }}</option>
-                            </b-form-select>
-                        </div>
-                        <div class="input-group input-group-catalog">
-                            <span class="search-span">Subcategorie</span>
-                            <b-form-select id="input-category" class="form-control" v-model="subcategory">
-                                <option :value="null">All</option>
-                                <option v-for="subcat in subcategoryOptions" :value="subcat">{{ subcat.name_ro }}
-                                </option>
-                            </b-form-select>
-                        </div>
-                        <b-button v-b-toggle href="#example-collapse" @click.prevent>Culori</b-button>
-                        <!--                        <div class="input-group input-group-catalog">-->
-                        <!--                            <span class="search-span">Culoare</span>-->
-                        <!--                            <select id="input-color" class="form-control">-->
-                        <!--                                <option selected>All</option>-->
-                        <!--                            </select>-->
-                        <b-collapse id="example-collapse" class="input-group input-group-catalog">
-                            <b-form-checkbox
-                                v-for="color in colors"
-                                v-model="selected_colors"
-                                :key="color.id"
-                                :value="color.name"
-                                inline
-                                plain
-                                class="color-check"
-                            >
+                            <div class="input-group input-group-catalog">
+                                <span class="search-span">Categorie</span>
+                                <b-form-select @change="resetSubcategory" id="input-category" class="form-control"
+                                               v-model="category">
+                                    <option :value="null">All</option>
+                                    <option v-for="category in categories" :value="category">{{ category.name_ro }}</option>
+                                </b-form-select>
+                            </div>
+                            <div class="input-group input-group-catalog">
+                                <span class="search-span">Subcategorie</span>
+                                <b-form-select id="input-category" class="form-control" v-model="subcategory">
+                                    <option :value="null">All</option>
+                                    <option v-for="subcat in subcategoryOptions" :value="subcat">{{ subcat.name_ro }}
+                                    </option>
+                                </b-form-select>
+                            </div>
+                            <b-button v-b-toggle href="#example-collapse" @click.prevent>Culori</b-button>
+                            <!--                        <div class="input-group input-group-catalog">-->
+                            <!--                            <span class="search-span">Culoare</span>-->
+                            <!--                            <select id="input-color" class="form-control">-->
+                            <!--                                <option selected>All</option>-->
+                            <!--                            </select>-->
+                            <b-collapse id="example-collapse" class="input-group input-group-catalog">
+                                <b-form-checkbox
+                                    v-for="color in colors"
+                                    v-model="selected_colors"
+                                    :key="color.id"
+                                    :value="color.name"
+                                    inline
+                                    plain
+                                    class="color-check"
+                                >
                                 <span class="color-label" :class="(color.hex_code == 'FFFFFF') ? 'is-white' : ''"
                                       :style="'background-color:#'+ color.hex_code"><!-- --></span>
-                            </b-form-checkbox>
-                        </b-collapse>
-                        <!--                        </div>-->
-                        <div class="d-flex form-catalog-buttons justify-content-between">
-                            <button @click="changeFilter" class="btn btn-apply">Apply</button>
-                            <button @click="resetFilter" class="btn btn-clear">Clear all</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="products pl-lg-5">
-
-            <div class="row">
-                <div v-for="product in products" class="col-6 col-lg-3 product-case mb-4 mb-lg-0 mt-4">
-                    <img :src="'/storage/img/products'+product.filename" class="img-fluid mb-3">
-                    <p>{{ product.name }}</p>
-                    <router-link :to="{ name: 'product', params: {slug: product.slug } }" class="d-flex align-items-center">
-                        <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3">
-                        <p class="mb-0">Vezi produs</p>
-                    </router-link>
+                                </b-form-checkbox>
+                            </b-collapse>
+                            <!--                        </div>-->
+                            <div class="d-flex form-catalog-buttons justify-content-between">
+                                <button @click="changeFilter" class="btn btn-apply">Apply</button>
+                                <button @click="resetFilter" class="btn btn-clear">Clear all</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
+            <div class="products pl-lg-5">
+
+                <div class="row">
+                    <h4 v-if="products.length == 0">Ups, no products found!</h4>
+                    <div v-for="product in products" class="col-6 col-lg-3 product-case mb-4 mb-lg-0 mt-4">
+                        <img :src="product.filename" class="img-fluid mb-3">
+                        <p>{{ product.name }}</p>
+                        <router-link :to="{ name: 'product', params: {slug: product.slug } }" class="d-flex align-items-center">
+                            <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3">
+                            <p class="mb-0">Vezi produs</p>
+                        </router-link>
+                    </div>
+                </div>
+
+            </div>
+            <b-pagination v-if="products.length != 0"
+                v-model="current_page "
+                @input="changePage"
+                :total-rows="nr_products"
+                :per-page="per_page"
+                class=" my-5 d-flex justify-content-center align-items-center py-5"
+                size="lg"
+            ></b-pagination>
         </div>
-        <b-pagination
-            v-model="current_page "
-            @input="changePage"
-            :total-rows="nr_products"
-            :per-page="per_page"
-            class=" my-5 d-flex justify-content-center align-items-center py-5"
-            size="lg"
-        ></b-pagination>
     </div>
 </template>
 <script>
@@ -109,6 +112,7 @@ export default {
     data: function () {
         return {
 
+            loading: true,
             category: null,
             subcategory: null,
             selected_colors: [],
@@ -131,6 +135,11 @@ export default {
     watch: {
         show_filter: function (val) {
             this.closeFilter();
+        },
+        url_current_page: function (val) {
+            this.current_page = val;
+            this.closeFilter();
+            this.showProducts()
         },
         url_search: function (val) {
             this.query_search = val;
@@ -157,6 +166,11 @@ export default {
         url_search() {
             if (this.$route.query.search != undefined) {
                 return decodeURIComponent(this.$route.query.search);
+            } else return null;
+        },
+        url_current_page() {
+            if (this.$route.query.current_page != undefined) {
+                return this.$route.query.current_page;
             } else return null;
         },
         url_subcategory() {
@@ -209,6 +223,7 @@ export default {
     },
     methods: {
         showProducts() {
+            this.loading = true;
             axios.post('/api/products', {
                 colors: this.query_colors.length > 0 ? this.query_colors : null,
                 subcategory: this.query_subcategory,
@@ -221,6 +236,8 @@ export default {
                 this.products = response.data.products;
             }).catch(error => {
             });
+            this.loading = false;
+
         },
         changeFilter(e) {
             e.preventDefault();
@@ -282,14 +299,13 @@ export default {
                 if (this.current_page != 1) {
                     this.$router.push({path: '/catalog', query: {current_page: this.current_page}}).catch(err => err);
                 } else this.$router.push({path: '/catalog', query: null}).catch(err => err);
-
                 this.show_filter = false;
                 this.showProducts();
             }
         },
         closeFilter() {
-            this.category = this.category != null ? this.categories.find(el => el.name_ro == this.query_category) : null;
-            this.subcategory = this.category != null && this.subcategory != null ? this.category.subcategories.find(el => el.name_ro == this.query_subcategory) : null;
+            this.category = this.query_category != null ? this.categories.find(el => el.name_ro == this.query_category) : null;
+            this.subcategory = this.query_category != null && this.query_subcategory != null ? this.category.subcategories.find(el => el.name_ro == this.query_subcategory) : null;
             this.selected_colors = this.query_colors;
             this.search = this.query_search;
         },

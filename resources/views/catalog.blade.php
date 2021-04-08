@@ -9,6 +9,8 @@
 </div>
 @include("partials/_footer")
 @include("partials/_scripts")
+<script defer src="{{ asset('js/app.js') }}"></script>
+
 
 </body>
 </html>
