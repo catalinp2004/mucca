@@ -19,6 +19,7 @@ use App\Http\Controllers\ImageController;
 Route::view('/', 'index')->name('home');
 Route::view('/info', 'info_page')->name('info');
 Route::view('/clienti', 'clienti')->name('clienti');
+Route::view('/contact', 'contact')->name('contact');
 Route::view('/povestea', 'povestea')->name('povestea');
 
 Route::view('/catalog/{any}', 'catalog')->where('any', '.*');
