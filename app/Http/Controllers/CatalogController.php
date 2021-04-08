@@ -51,34 +51,40 @@ class CatalogController extends Controller
             'current_page' => 'required|integer',
         ]);
 
-        $products = Product::orderBy('sort');
-        if ($valid['category'] != null && $valid['subcategory'] == null){
-            $category = Category::where('name_ro', $valid['category'])->first();
-            $subcategories = Subcategory::where('category_id', $category->id)->get()->pluck('id');
+        $products = Product::query();
+        $products->when($valid['category'] != null && $valid['subcategory'] == null, function ($q) use ($valid) {
+            $subcategories = DB::table('categories')
+                ->join('subcategories', 'categories.id', '=', 'subcategories.category_id')
+                ->where('categories.name_ro', $valid['category'])
+                ->get()->pluck('id')->unique();
             $subcategories_products = DB::table('product_subcategory')
                 ->join('subcategories', 'product_subcategory.subcategory_id', '=', 'subcategories.id')
                 ->whereIn('subcategories.id', $subcategories)
                 ->get()->pluck('product_id')->unique();
-            $products = $products->whereIn('id', $subcategories_products);
-        } else if ($valid['category'] != null && $valid['subcategory'] != null){
+            return $q->whereIn('id', $subcategories_products);;
+        });
+        $products->when($valid['category'] != null && $valid['subcategory'] != null, function ($q) use ($valid) {
             $subcategories_products = DB::table('product_subcategory')
                 ->join('subcategories', 'product_subcategory.subcategory_id', '=', 'subcategories.id')
                 ->where('subcategories.name_ro', $valid['subcategory'])
                 ->get()->pluck('product_id')->unique();
-            $products = $products->whereIn('id', $subcategories_products);
-        }
-        if ($valid['colors'] != null){
+            return $q->whereIn('id', $subcategories_products);;
+        });
+        $products->when($valid['colors'] != null, function ($q) use ($valid) {
             $colors_products = DB::table('color_product')
                 ->join('colors', 'color_product.color_id', '=', 'colors.id')
                 ->whereIn('colors.name', $valid['colors'])
                 ->get()->pluck('product_id')->unique();
-            $products = $products->whereIn('id', $colors_products);
-        }
-        if ($valid['search'] != null){
-            $products = $products->whereRaw('UPPER(`product_code`) LIKE ?', ['%' . strtoupper($valid['search']) . '%'])->orWhereRaw('UPPER(`name`) LIKE ?', ['%' . strtoupper($valid['search']) . '%']);
-        }
+            return $q->whereIn('id', $colors_products);;
+        });
+        $products->when($valid['search'] != null, function ($q) use ($valid) {
+            return $q->where(function ($query) use ($valid){
+                $query->whereRaw('UPPER(`product_code`) LIKE ?', ['%' . strtoupper($valid['search']) . '%'])
+                    ->orWhereRaw('UPPER(`name`) LIKE ?', ['%' . strtoupper($valid['search']) . '%']);
+            });
+        });
         $nr_products = $products->count();
-        $products = $products->skip(($valid['per_page']*($valid['current_page']-1)))->take($valid['per_page'])->get();
+        $products = $products->orderBy('sort')->skip(($valid['per_page']*($valid['current_page']-1)))->take($valid['per_page'])->get();
         return response(['products'=>ProductResource::collection($products), 'nr_products' => $nr_products])->setStatusCode(Response::HTTP_OK);
     }
 
