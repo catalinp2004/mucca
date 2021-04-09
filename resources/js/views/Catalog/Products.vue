@@ -18,12 +18,12 @@
                             <button type="button" id="close-search-menu" class="ml-auto"
                                     @click="show_filter = !show_filter">
                                 <img src="/img/search_menu_close.png" srcset="/img/search_menu_close.svg 1x"
-                                     class="img-fluid mb-5">
+                                    class="img-fluid mb-5">
                             </button>
                             <div class="input-group input-group-catalog">
                                 <input type="text" class="form-control" v-model="search"
-                                       placeholder="COD PRODUS / CUVÂNT" aria-label="Username"
-                                       aria-describedby="search">
+                                    placeholder="COD PRODUS / CUVÂNT" aria-label="Username"
+                                    aria-describedby="search">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="search"><img src="/img/icon_search.png"
                                                                                     srcset="/img/icon_search.svg 1x"
@@ -34,8 +34,8 @@
                             <div class="input-group input-group-catalog">
                                 <label for="input-category" class="search-label">Categorie</label>
                                 <b-form-select @change="resetSubcategory" id="input-scategory"
-                                               class="form-control custom-select"
-                                               v-model="category">
+                                            class="form-control custom-select"
+                                            v-model="category">
                                     <option :value="null">All</option>
                                     <option v-for="category in categories" :key="category.id" :value="category">{{
                                             category.name_ro
@@ -51,27 +51,22 @@
                                     </option>
                                 </b-form-select>
                             </div>
-                            <b-button v-b-toggle href="#example-collapse" @click.prevent>Culori</b-button>
-                            <!--                        <div class="input-group input-group-catalog">-->
-                            <!--                            <span class="search-label">Culoare</span>-->
-                            <!--                            <select id="input-color" class="form-control">-->
-                            <!--                                <option selected>All</option>-->
-                            <!--                            </select>-->
-                            <b-collapse id="example-collapse" class="input-group input-group-catalog">
-                                <b-form-checkbox
-                                    v-for="color in colors"
-                                    v-model="selected_colors"
-                                    :key="color.id"
-                                    :value="color.name"
-                                    inline
-                                    plain
-                                    class="color-check"
-                                >
-                                <span class="color-label" :class="(color.hex_code == 'FFFFFF') ? 'is-white' : ''"
-                                      :style="'background-color:#'+ color.hex_code"><!-- --></span>
-                                </b-form-checkbox>
-                            </b-collapse>
-                            <!--                        </div>-->
+                            <div class="input-group input-group-catalog">
+                                <b-button v-b-toggle.color_collapse variant="outline" @click.prevent class="filter-color-btn form-control mb-5">Culori</b-button>
+                                <b-collapse id="color_collapse">
+                                    <b-form-checkbox
+                                        v-for="color in colors"
+                                        v-model="selected_colors"
+                                        :key="color.id"
+                                        :value="color.name"
+                                        inline
+                                        plain
+                                        class="color-check"
+                                    >
+                                        <span class="color-label" :class="(color.hex_code == 'FFFFFF') ? 'is-white' : ''" :style="'background-color:#'+ color.hex_code" :title="color.name"><!-- --></span>
+                                    </b-form-checkbox>
+                                </b-collapse>
+                            </div>
                             <div class="d-flex form-catalog-buttons justify-content-between">
                                 <button @click="changeFilter" class="btn btn-apply">Apply</button>
                                 <button @click="resetFilter" class="btn btn-clear">Clear all</button>
@@ -111,6 +106,7 @@
             ></b-pagination>
 
         </div>
+        <div :class="show_filter ? 'show' : ''" @click="show_filter = false" class="search-backdrop"><!-- --></div>
     </div>
 </template>
 <script>
