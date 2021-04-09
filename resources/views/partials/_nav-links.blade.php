@@ -15,6 +15,6 @@
         <a href="{{route('clienti')}}" class="nav-link">Clienti</a>
     </li>
     <li class="nav-item">
-        <a href="#clienti" class="nav-link">Contact</a>
+        <a href="{{route('contact')}}" class="nav-link">Contact</a>
     </li>
 </ul>

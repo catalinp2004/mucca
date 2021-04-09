@@ -16,7 +16,7 @@ ul {
 ol {
     list-style-type: decimal;
     list-style-position: inside;
- }
+}
 
 p, li {
     max-width: 960px;
@@ -194,7 +194,7 @@ a {
     border-left: 0;
 }
 
-.search-form span.search-span {
+.search-form label.search-label {
     position: absolute;
     top: -10px;
     left: 10px;
@@ -204,7 +204,7 @@ a {
     z-index: 3;
 }
 
-.search-span, .welcome-section footer a {
+.search-label, .welcome-section footer a {
     font-size: 0.87rem;
 }
 
@@ -256,6 +256,12 @@ a {
 @media (max-width: 1199px) {
     .welcome-section h1, .welcome-section form {
         margin-bottom: 40px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .welcome-section footer a {
+        white-space: nowrap;
     }
 }
 
@@ -389,17 +395,17 @@ a {
         blink-caret 1s .75s step-end infinite both;
 }
 
-  /* The typing effect */
-  @keyframes typing {
+/* The typing effect */
+@keyframes typing {
     from { width: 0 }
     to { width: 100% }
-  }
+}
 
-  /* The typewriter cursor effect */
-  @keyframes blink-caret {
+/* The typewriter cursor effect */
+@keyframes blink-caret {
     from, to { border-color: transparent }
     50% { border-color: #EAEAEA; }
-  }
+}
 
 @media (max-width:991px) {
     .page-pad .lang-switcher {
@@ -491,6 +497,10 @@ a {
 
 .p-large {
     font-size: 1.25rem;
+}
+
+a.p-large {
+    color: #000000;
 }
 
 .playfully-p {
@@ -611,7 +621,7 @@ img.line {
 
 /* .materiale-h4-span::before {
     content: '';
-    background-image: url(public/img/yellow_circle.png);
+    background-image: url(../img/yellow_circle.png);
     background-position: center;
     background-size: contain;
     background-repeat: no-repeat;
@@ -756,7 +766,7 @@ img.line {
 .client-logo {
     margin-left: 50px;
     margin-bottom: 50px;
-    max-width: 68px;
+    max-width: 100px;
     height: auto;
 }
 
@@ -941,8 +951,10 @@ img.line {
     top: 0;
     right: -100%;
     z-index: 99;
+    height: 100%;
     background-color: #ffffff;
     transition: all 0.35s ease;
+    overflow-y: auto;
 }
 
 #search-menu.show {
@@ -951,11 +963,19 @@ img.line {
 }
 
 #search-menu form {
-    height: 100vh;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     padding: 50px 100px 50px 100px;
+}
+
+#search-menu .input-group {
+    margin-bottom: 3rem;
+}
+
+#search-menu select {
+    border-radius: 0;
 }
 
 #close-search-menu {
@@ -971,7 +991,11 @@ img.line {
 
 .catalog-form .form-control {
     padding: 1rem;
-    height: auto;
+    height: 55px;
+}
+
+.input-group > .custom-select {
+    z-index: 2;
 }
 
 .form-catalog-buttons button {
@@ -1162,17 +1186,17 @@ li.slick-active button:before {
     margin: 6px 3px;
 }
 
-/*.thumb-1 {*/
-/*    background-image: url("assets/thumb_1.jpg");*/
-/*}*/
+.thumb-1 {
+    background-image: url("../img/thumb_1.jpg");
+}
 
-/*.thumb-2 {*/
-/*    background-image: url("assets/thumb_2.jpg");*/
-/*}*/
+.thumb-2 {
+    background-image: url("../img/thumb_2.jpg");
+}
 
-/*.thumb-3 {*/
-/*    background-image: url("assets/thumb_3.jpg");*/
-/*}*/
+.thumb-3 {
+    background-image: url("../img/thumb_3.jpg");
+}
 
 @media (max-width: 991px) {
     .product-nav-wrapper {
@@ -1197,37 +1221,31 @@ li.slick-active button:before {
     }
 }
 
-.color-check input {
-    display: none;
-}
-.color-label {
-    width: 32px;
-    height: 32px;
-    display: inline-block;
-    border-radius: 50%;
-    position: relative;
+/* ========== CONTACT PAGE STYLES ========== */
+
+.contact-social-icon {
+    width: 41px;
+    height: auto;
 }
 
-.color-label.is-white {
-    width: 34px;
-    height: 34px;
-    border: 1px solid #CCCCCC;
+.links.small a {
+    font-size: 0.75rem;
 }
 
-.color-label::before {
-    display: inline-block;
-    content: ' ';
-    width: 46px;
-    height: 46px;
-    position: absolute;
-    top: -7px;
-    left: -7px;
-    border: 3px solid transparent;
-    border-radius: 50%;
-    transition: all .15s ease;
-}
-.color-check input:checked ~ label .color-label::before {
-    border-color: #000000;;
+.contact a {
+    color: #000000;
+    font-weight: 500;
 }
 
+#map {
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+}
+
+@media (max-width: 991px) {
+    .home-row.contact-row {
+        height: auto;
+    }
+}
 

@@ -14,9 +14,9 @@
 
                     <div class="contact mb-5 mb-md-0 mb-lg-5 mb-xl-0">
                         <div class="mb-5">
-                            <a href="#"><img src="assets/icon_instagram.png" srcset="assets/icon_instagram.svg 1x" alt="icon-instagram" class="img-fluid contact-social-icon mr-3"></a>
-                            <a href="#"><img src="assets/icon_linkedin.png" srcset="assets/icon_linkedin.svg 1x" alt="icon_linkedin" class="img-fluid contact-social-icon mr-3"></a>
-                            <a href="#"><img src="assets/icon_waze.png" srcset="assets/icon_waze.svg 1x" alt="" class="img-fluid"></a>
+                            <a href="#"><img src="{{asset('img/icon_instagram.png')}}" srcset="{{asset('img/icon_instagram.svg')}} 1x" alt="icon-instagram" class="img-fluid contact-social-icon mr-3"></a>
+                            <a href="#"><img src="{{asset('img/icon_linkedin.png')}}" srcset="{{asset('img/icon_linkedin.svg')}} 1x" alt="icon_linkedin" class="img-fluid contact-social-icon mr-3"></a>
+                            <a href="#"><img src="{{asset('img/icon_waze.png')}}" srcset="{{asset('img/icon_waze.svg')}} 1x" alt="" class="img-fluid"></a>
                         </div>
 
                         <a href="mailto:hello@mucca.ro" class="d-block mb-3">hello@mucca.ro</a>
@@ -138,7 +138,7 @@
                 position: markerPos,
                 map: map,
                 icon: {
-                    url: 'assets/marker.svg',
+                    url: '{{asset("img/marker.svg")}}',
                     // scaledSize: new google.maps.Size(100, 100),
                     // size: new google.maps.Size(200, 200),
                     anchor: new google.maps.Point(84, 15),
