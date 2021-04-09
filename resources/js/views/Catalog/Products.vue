@@ -89,10 +89,9 @@
                     <div v-for="product in products" class="col-6 col-lg-3 product-case mb-4 mb-lg-0 mt-4">
                         <img :src="product.filename" class="img-fluid mb-3">
                         <p>{{ product.name }}</p>
-                        <router-link :to="{ name: 'product', params: {slug: product.slug } }"
-                                     class="d-flex align-items-center">
+                        <router-link :to="{ name: 'product', params: {slug: product.slug } }" class="d-flex align-items-center">
                             <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3">
-                            <p class="mb-0">Vezi produs</p>
+                            <span class="mb-0">Vezi produs</span>
                         </router-link>
                     </div>
                 </div>

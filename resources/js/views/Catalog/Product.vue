@@ -27,8 +27,7 @@
                     <p class="product-description mb-5">{{ product.description }}</p>
                     <div class="product-colors d-flex flex-wrap">
                         <span class="colors-title">Colors</span>
-                        <span v-for="color in colors" class="color"
-                              :style="'background-color:#'+color.hex_code+';'"><!-- --></span>
+                        <span v-for="color in colors" class="color" :style="'background-color:#'+color.hex_code+';'"><!-- --></span>
 
                     </div>
                 </div>

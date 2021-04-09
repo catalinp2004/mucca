@@ -42,113 +42,113 @@
         </div>
     </div>
 
-    @include('partials/_scripts')
+@include('partials/_scripts')
 
 <script>
-        function initMap() {
-            var myLatLng = {lat: 44.388938, lng: 26.136833};
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: myLatLng,
-                zoom: 14,
-                mapTypeControl: false,
-                disableDefaultUI: true,
-                styles: [
-                    {
-                        "featureType": "administrative",
-                        "elementType": "labels.text.fill",
-                        "stylers": [
-                            {
-                                "color": "#444444"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "landscape",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "color": "#f2f2f2"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "poi",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "visibility": "off"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "saturation": -100
-                            },
-                            {
-                                "lightness": 45
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.highway",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "visibility": "simplified"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "road.arterial",
-                        "elementType": "labels.icon",
-                        "stylers": [
-                            {
-                                "visibility": "off"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "transit",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "visibility": "off"
-                            }
-                        ]
-                    },
-                    {
-                        "featureType": "water",
-                        "elementType": "all",
-                        "stylers": [
-                            {
-                                "color": "#88e9ad"
-                            },
-                            {
-                                "visibility": "on"
-                            }
-                        ]
-                    }
-                ]
-            });
-            var markerPos = {lat: 44.388938, lng: 26.136833};
-            var marker = new google.maps.Marker({
-                position: markerPos,
-                map: map,
-                icon: {
-                    url: '{{asset("img/marker.svg")}}',
-                    // scaledSize: new google.maps.Size(100, 100),
-                    // size: new google.maps.Size(200, 200),
-                    anchor: new google.maps.Point(84, 15),
-                    origin: new google.maps.Point(0, 0)
+    function initMap() {
+        var myLatLng = {lat: 44.388938, lng: 26.136833};
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: myLatLng,
+            zoom: 14,
+            mapTypeControl: false,
+            disableDefaultUI: true,
+            styles: [
+                {
+                    "featureType": "administrative",
+                    "elementType": "labels.text.fill",
+                    "stylers": [
+                        {
+                            "color": "#444444"
+                        }
+                    ]
                 },
-                title: 'mucca'
-            });
-        }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCoeOAfbHXymUstK4xvncZ7PEGiK0Pctk&callback=initMap" async defer></script>
+                {
+                    "featureType": "landscape",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "color": "#f2f2f2"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "poi",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "saturation": -100
+                        },
+                        {
+                            "lightness": 45
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "visibility": "simplified"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "labels.icon",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "visibility": "off"
+                        }
+                    ]
+                },
+                {
+                    "featureType": "water",
+                    "elementType": "all",
+                    "stylers": [
+                        {
+                            "color": "#88e9ad"
+                        },
+                        {
+                            "visibility": "on"
+                        }
+                    ]
+                }
+            ]
+        });
+        var markerPos = {lat: 44.388938, lng: 26.136833};
+        var marker = new google.maps.Marker({
+            position: markerPos,
+            map: map,
+            icon: {
+                url: '{{asset("img/marker.svg")}}',
+                // scaledSize: new google.maps.Size(100, 100),
+                // size: new google.maps.Size(200, 200),
+                anchor: new google.maps.Point(84, 15),
+                origin: new google.maps.Point(0, 0)
+            },
+            title: 'mucca'
+        });
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCoeOAfbHXymUstK4xvncZ7PEGiK0Pctk&callback=initMap" async defer></script>
 
 </body>
 </html>

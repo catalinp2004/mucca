@@ -100,15 +100,10 @@
 
 </div>
 
-
-
-
 @include('partials/_scripts')
 
 <!-- ANIMATION SCRIPTS -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js" integrity="sha256-ur/YlHMU96MxHEsy3fHGszZHas7NzH4RQlD4tDVvFhw=" crossorigin="anonymous"></script>
-
 <script>
     AOS.init();
 </script>

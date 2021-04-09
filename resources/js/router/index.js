@@ -3,13 +3,17 @@ import Vue from 'vue';
 /* Vue Router */
 import VueRouter from 'vue-router';
 import store from '../store/index.js'
+import Products from '../views/Catalog/Products'
+import Product from '../views/Catalog/Product'
+import NotFound from '../views/NotFound'
+
 Vue.use(VueRouter);
 
 const router = new VueRouter({
     routes: [
         {
             path: '/catalog',
-            component: () => import(/* webpackChunkName: "person" */ '../views/Catalog/Products'),
+            component: Products,
             beforeEnter: (to, from, next) => {
                 if (to.query.category != undefined){
                    store.commit('setSelected', decodeURIComponent(to.query.category));
@@ -18,14 +22,14 @@ const router = new VueRouter({
             }
         },
         {
-            path: '*',
-            component: () => import(/* webpackChunkName: "person" */ '../views/NotFound')
-        },
-        {
             path: '/catalog/:slug',
             name: 'product',
-            component:  () => import(/* webpackChunkName: "person" */ '../views/Catalog/Product'),
-        }
+            component: Product,
+        },
+        {
+            path: '*',
+            component: NotFound
+        },
     ],
     mode: 'history',
 });
