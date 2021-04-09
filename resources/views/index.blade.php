@@ -17,12 +17,14 @@
                     </span>
             </h1>
 
-            <form class="form-inline search-form">
+            <form class="form-inline search-form" method="GET" action="/catalog">
 
                 <div class="input-group" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1500">
-                    <input type="text" class="form-control" placeholder="COD PRODUS / CUVÂNT" aria-label="Username" aria-describedby="search">
+                    <input type="text" name="search" class="form-control" placeholder="COD PRODUS / CUVÂNT" aria-label="Username" aria-describedby="search">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="search"><img src="{{ asset('img/icon_search.png') }}" srcset="{{ asset('img/icon_search.svg') }} 1x" alt="icon-search" class="img-fluid"></span>
+                        <button class="home-submit" type="submit">
+                            <span class="input-group-text" id="search"><img src="{{ asset('img/icon_search.png') }}" srcset="{{ asset('img/icon_search.svg') }} 1x" alt="icon-search" class="img-fluid"></span>
+                        </button>
                         <label for="#search" class="search-label">Search</label>
                     </div>
                 </div>
