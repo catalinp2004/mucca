@@ -290,6 +290,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Products",
@@ -306,7 +311,7 @@ __webpack_require__.r(__webpack_exports__);
       query_search: null,
       per_page: 12,
       current_page: 1,
-      products: null,
+      products: [],
       show_filter: false,
       watch: true,
       error: null
@@ -1371,15 +1376,20 @@ var render = function() {
                                 staticClass: "input-group input-group-catalog"
                               },
                               [
-                                _c("span", { staticClass: "search-span" }, [
-                                  _vm._v("Categorie")
-                                ]),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "search-label",
+                                    attrs: { for: "input-category" }
+                                  },
+                                  [_vm._v("Categorie")]
+                                ),
                                 _vm._v(" "),
                                 _c(
                                   "b-form-select",
                                   {
-                                    staticClass: "form-control",
-                                    attrs: { id: "input-category" },
+                                    staticClass: "form-control custom-select",
+                                    attrs: { id: "input-scategory" },
                                     on: { change: _vm.resetSubcategory },
                                     model: {
                                       value: _vm.category,
@@ -1400,7 +1410,12 @@ var render = function() {
                                       return _c(
                                         "option",
                                         { domProps: { value: category } },
-                                        [_vm._v(_vm._s(category.name_ro))]
+                                        [
+                                          _vm._v(
+                                            _vm._s(category.name_ro) +
+                                              "\n                                "
+                                          )
+                                        ]
                                       )
                                     })
                                   ],
@@ -1416,15 +1431,20 @@ var render = function() {
                                 staticClass: "input-group input-group-catalog"
                               },
                               [
-                                _c("span", { staticClass: "search-span" }, [
-                                  _vm._v("Subcategorie")
-                                ]),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "search-label",
+                                    attrs: { for: "input-subcategory" }
+                                  },
+                                  [_vm._v("Subcategorie")]
+                                ),
                                 _vm._v(" "),
                                 _c(
                                   "b-form-select",
                                   {
-                                    staticClass: "form-control",
-                                    attrs: { id: "input-category" },
+                                    staticClass: "form-control custom-select",
+                                    attrs: { id: "input-subcategory" },
                                     model: {
                                       value: _vm.subcategory,
                                       callback: function($$v) {
@@ -1654,7 +1674,7 @@ var staticRenderFns = [
         })
       ]),
       _vm._v(" "),
-      _c("span", { staticClass: "search-span", attrs: { for: "#search" } }, [
+      _c("label", { staticClass: "search-label", attrs: { for: "search" } }, [
         _vm._v("Search")
       ])
     ])

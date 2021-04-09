@@ -22,27 +22,31 @@
                                      class="img-fluid mb-5">
                             </button>
                             <div class="input-group input-group-catalog">
-                                <input type="text" class="form-control" v-model="search" placeholder="COD PRODUS / CUVÂNT"
-                                       aria-label="Username" aria-describedby="search">
+                                <input type="text" class="form-control" v-model="search"
+                                       placeholder="COD PRODUS / CUVÂNT" aria-label="Username"
+                                       aria-describedby="search">
                                 <div class="input-group-prepend">
-                                <span class="input-group-text" id="search"><img src="/img/icon_search.png"
-                                                                                srcset="/img/icon_search.svg 1x"
-                                                                                alt="icon-search"
-                                                                                class="img-fluid"></span>
-                                    <span for="#search" class="search-span">Search</span>
+                                    <span class="input-group-text" id="search"><img src="/img/icon_search.png"
+                                                                                    srcset="/img/icon_search.svg 1x"
+                                                                                    alt="icon-search" class="img-fluid"></span>
+                                    <label for="search" class="search-label">Search</label>
                                 </div>
                             </div>
                             <div class="input-group input-group-catalog">
-                                <span class="search-span">Categorie</span>
-                                <b-form-select @change="resetSubcategory" id="input-category" class="form-control"
+                                <label for="input-category" class="search-label">Categorie</label>
+                                <b-form-select @change="resetSubcategory" id="input-scategory"
+                                               class="form-control custom-select"
                                                v-model="category">
                                     <option :value="null">All</option>
-                                    <option v-for="category in categories" :value="category">{{ category.name_ro }}</option>
+                                    <option v-for="category in categories" :value="category">{{
+                                            category.name_ro
+                                        }}
+                                    </option>
                                 </b-form-select>
                             </div>
                             <div class="input-group input-group-catalog">
-                                <span class="search-span">Subcategorie</span>
-                                <b-form-select id="input-category" class="form-control" v-model="subcategory">
+                                <label for="input-subcategory" class="search-label">Subcategorie</label>
+                                <b-form-select id="input-subcategory" class="form-control custom-select" v-model="subcategory">
                                     <option :value="null">All</option>
                                     <option v-for="subcat in subcategoryOptions" :value="subcat">{{ subcat.name_ro }}
                                     </option>
@@ -50,7 +54,7 @@
                             </div>
                             <b-button v-b-toggle href="#example-collapse" @click.prevent>Culori</b-button>
                             <!--                        <div class="input-group input-group-catalog">-->
-                            <!--                            <span class="search-span">Culoare</span>-->
+                            <!--                            <span class="search-label">Culoare</span>-->
                             <!--                            <select id="input-color" class="form-control">-->
                             <!--                                <option selected>All</option>-->
                             <!--                            </select>-->
@@ -85,7 +89,8 @@
                     <div v-for="product in products" class="col-6 col-lg-3 product-case mb-4 mb-lg-0 mt-4">
                         <img :src="product.filename" class="img-fluid mb-3">
                         <p>{{ product.name }}</p>
-                        <router-link :to="{ name: 'product', params: {slug: product.slug } }" class="d-flex align-items-center">
+                        <router-link :to="{ name: 'product', params: {slug: product.slug } }"
+                                     class="d-flex align-items-center">
                             <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3">
                             <p class="mb-0">Vezi produs</p>
                         </router-link>
@@ -94,12 +99,12 @@
 
             </div>
             <b-pagination v-if="products.length != 0"
-                v-model="current_page "
-                @input="changePage"
-                :total-rows="nr_products"
-                :per-page="per_page"
-                class=" my-5 d-flex justify-content-center align-items-center py-5"
-                size="lg"
+                          v-model="current_page "
+                          @input="changePage"
+                          :total-rows="nr_products"
+                          :per-page="per_page"
+                          class=" my-5 d-flex justify-content-center align-items-center py-5"
+                          size="lg"
             ></b-pagination>
         </div>
     </div>
@@ -125,7 +130,7 @@ export default {
             per_page: 12,
             current_page: 1,
 
-            products: null,
+            products: [],
 
             show_filter: false,
             watch: true,
@@ -186,7 +191,7 @@ export default {
         url_colors() {
             if (this.$route.query.colors != undefined) {
                 var colors = this.$route.query.colors;
-                if (!Array.isArray(this.$route.query.colors)){
+                if (!Array.isArray(this.$route.query.colors)) {
                     colors = [colors];
                 }
                 return colors.map(function (x) {
@@ -340,7 +345,7 @@ export default {
             }
             if (this.$route.query.colors != undefined) {
                 var colors = this.$route.query.colors;
-                if (!Array.isArray(this.$route.query.colors)){
+                if (!Array.isArray(this.$route.query.colors)) {
                     colors = [colors];
                 }
                 this.selected_colors = colors.map(function (x) {
@@ -359,12 +364,12 @@ export default {
     beforeRouteUpdate(to, from, next) {
         if (to.query.search != undefined || to.query.subcategory != undefined || to.query.colors != undefined) {
             this.watch = false;
-            if (to.query.category != undefined){
+            if (to.query.category != undefined) {
                 this.$store.commit('setSelected', decodeURIComponent(to.query.category));
             } else this.$store.commit('setSelected', null);
         } else if (to.query.category != undefined) {
             this.$store.commit('setSelected', decodeURIComponent(to.query.category));
-        } else if(to.query.category == undefined){
+        } else if (to.query.category == undefined) {
             this.$store.commit('setSelected', null);
         }
         next();
