@@ -1,6 +1,6 @@
 <template>
-    <div id="app" class="catalog-page-wrapper pad-left-catalog pad-right pad-top d-flex">
-        <nav class="nav-catalog mb-4 mb-md-5 mb-lg-0">
+    <div class="catalog-page-wrapper pad-top flex-fill d-flex flex-column flex-lg-row" :class="isProductsPage ? '' : ''">
+        <nav class="nav-catalog pad-left-catalog pad-right-catalog mb-4 mb-md-5 mb-lg-0">
 
             <div class="navbrand-toggler-wrapper d-flex justify-content-between">
                 <a href="/" class="navbar-brand mb-lg-5 py-0">
@@ -20,7 +20,7 @@
                         <li class="nav-item">
                             <router-link to="/catalog" @click="selected_category = null" v-bind:class="{'nav-link':true, 'nav-link-toplist pt-0':(selected_category == null)}">All</router-link>
                         </li>
-                        <li class="nav-item" v-for="cat in categories">
+                        <li class="nav-item" v-for="cat in categories" :key="cat.id">
                             <router-link :to="{path:'/catalog', query:{category: encodeURIComponent(cat.name_ro)}}" @click="selected_category = cat.name_ro" v-bind:class="{'nav-link':true, 'nav-link-toplist pt-0':(selected_category == cat.name_ro)}">{{cat.name_ro}}</router-link>
                         </li>
                     </ul>
@@ -54,7 +54,7 @@
 
         </nav>
         <transition name="page-change" mode="out-in">
-            <router-view class="h-100"></router-view>
+            <router-view class="router-view flex-fill d-flex flex-column"></router-view>
         </transition>
     </div>
 </template>
@@ -78,6 +78,9 @@ export default {
                 this.$store.commit('setSelected', newValue)
             }
         },
+        isProductsPage: function() {
+            return this.$route.name === 'products'
+        }
     },
     created(){
         this.$store.dispatch('categories').then( () => {
@@ -89,7 +92,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

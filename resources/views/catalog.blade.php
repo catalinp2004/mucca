@@ -1,6 +1,6 @@
 @include('partials/_head')
 <body>
-<div id="app">
+<div id="app" class="d-flex flex-column">
     <App></App>
 </div>
 <div class="container-fluid">

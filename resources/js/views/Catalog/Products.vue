@@ -1,15 +1,14 @@
 <template>
     <div>
-        <h1 v-if="loading">Loading</h1>
-        <div v-if="!loading" class="products-filter-wrapper">
+        <div class="products-filter-wrapper w-100 d-flex flex-column pad-right">
 
-            <div class="filter-menu d-flex justify-content-end pl-lg-5 mb-4 mb-md-5">
+            <div class="filter-menu d-flex justify-content-end mb-5">
                 <!--            <div class="breadcrumbs order-2 order-lg-1">-->
                 <!--                <a href="/">Home</a> / <router-link to="/catalog">All</router-link> /-->
                 <!--            </div>-->
 
-                <div class="order-1 order-lg-2 d-flex d-lg-block mb-4 mb-md-0">
-                    <button @click="randomize" class="btn btn-randomize mr-2 mr-md-4">Randomize</button>
+                <div class="order-1 order-lg-2 d-flex d-lg-block">
+                    <button @click="randomize" class="btn btn-randomize mr-3">Randomize</button>
                     <button class="btn btn-search" @click="show_filter = !show_filter">
                         <span>Search / Filter</span>
                         <img src="/img/stoggler_search.png" srcset="/img/toggler_search.svg 1x" class="img-fluid">
@@ -38,7 +37,7 @@
                                                class="form-control custom-select"
                                                v-model="category">
                                     <option :value="null">All</option>
-                                    <option v-for="category in categories" :value="category">{{
+                                    <option v-for="category in categories" :key="category.id" :value="category">{{
                                             category.name_ro
                                         }}
                                     </option>
@@ -48,7 +47,7 @@
                                 <label for="input-subcategory" class="search-label">Subcategorie</label>
                                 <b-form-select id="input-subcategory" class="form-control custom-select" v-model="subcategory">
                                     <option :value="null">All</option>
-                                    <option v-for="subcat in subcategoryOptions" :value="subcat">{{ subcat.name_ro }}
+                                    <option v-for="subcat in subcategoryOptions" :key="subcat.id" :value="subcat">{{ subcat.name_ro }}
                                     </option>
                                 </b-form-select>
                             </div>
@@ -82,14 +81,18 @@
                 </div>
             </div>
 
-            <div class="products pl-lg-5">
-
-                <div class="row">
-                    <h4 v-if="products.length == 0">Ups, no products found!</h4>
-                    <div v-for="product in products" class="col-6 col-lg-3 product-case mb-4 mb-lg-0 mt-4">
-                        <img :src="product.filename" class="img-fluid mb-3">
-                        <p>{{ product.name }}</p>
-                        <router-link :to="{ name: 'product', params: {slug: product.slug } }" class="d-flex align-items-center">
+            <div class="products flex-fill pad-left-mobile pl-lg-5">
+                <div v-if="loading" class="loader">
+                    <div class="spinner">Loading...</div>
+                </div>
+                <div v-else class="row">
+                    <h4 v-if="products.length == 0">Hmm... We couldn't find that!</h4>
+                    <div v-for="product in products" :key="product.id" class="col-6 col-lg-3 product-case d-flex flex-column align-items-start margin-bottom">
+                        <router-link :to="{ name: 'product', params: {slug: product.slug } }">
+                            <img :src="product.filename" class="img-fluid mb-3">
+                        </router-link>
+                        <h4><router-link :to="{ name: 'product', params: {slug: product.slug } }">{{ product.name }}</router-link></h4>
+                        <router-link :to="{ name: 'product', params: {slug: product.slug } }" class="d-flex align-items-center mt-auto">
                             <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3">
                             <span class="mb-0">Vezi produs</span>
                         </router-link>
@@ -97,6 +100,7 @@
                 </div>
 
             </div>
+
             <b-pagination v-if="products.length != 0"
                           v-model="current_page "
                           @input="changePage"
@@ -105,11 +109,11 @@
                           class=" my-5 d-flex justify-content-center align-items-center py-5"
                           size="lg"
             ></b-pagination>
+
         </div>
     </div>
 </template>
 <script>
-import store from "../../store";
 
 export default {
     name: "Products",
@@ -238,9 +242,9 @@ export default {
             }).then(response => {
                 this.nr_products = response.data.nr_products;
                 this.products = response.data.products;
+                this.loading = false;
             }).catch(error => {
             });
-            this.loading = false;
 
         },
         changeFilter(e) {
@@ -375,7 +379,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-
-</style>

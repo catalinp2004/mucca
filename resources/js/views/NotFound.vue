@@ -1,5 +1,5 @@
 <template>
-    <p>404 - Page not found!</p>
+    <p class="align-items-center mt-5">404 - Nu am gasit acest produs!</p>
 </template>
 
 <script>

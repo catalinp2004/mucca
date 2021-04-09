@@ -28,7 +28,7 @@ class CatalogController extends Controller
     }
     public function getProduct($slug)
     {
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::where('slug', $slug)->firstOrFail();
         $category_id = $product->subcategories->first()->category_id;
 
         $subcategories = DB::table('categories')

@@ -13,6 +13,7 @@ const router = new VueRouter({
     routes: [
         {
             path: '/catalog',
+            name: 'products',
             component: Products,
             beforeEnter: (to, from, next) => {
                 if (to.query.category != undefined){
@@ -22,13 +23,13 @@ const router = new VueRouter({
             }
         },
         {
+            path: '/catalog/404',
+            component: NotFound
+        },
+        {
             path: '/catalog/:slug',
             name: 'product',
             component: Product,
-        },
-        {
-            path: '*',
-            component: NotFound
         },
     ],
     mode: 'history',

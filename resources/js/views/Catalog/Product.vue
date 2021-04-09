@@ -1,47 +1,46 @@
 <template>
-    <div v-if="!loading" class="products-filter-wrapper">
-        <div class="filter-menu d-flex flex-column flex-md-row justify-content-between pl-lg-5 mb-4 mb-md-5">
-            <div class="breadcrumbs order-2 order-lg-1 pad-left-catalog pl-lg-0">
-                <a href="/">Home</a> /
-                <router-link to="/catalog">All</router-link>
-                /
-                <router-link :to="{path:'/catalog', query:{category: encodeURIComponent(product.first_category)}}">
-                    {{ product.first_category }}
-                </router-link>
-                /
-                <router-link
-                    :to="{path:'/catalog', query:{category: encodeURIComponent(product.first_category), subcategory: encodeURIComponent(product.first_subcategory)}}">
-                    {{ product.first_subcategory }}
-                </router-link>
-                /
-            </div>
-        </div>
-
-        <div class="product container-fluid pad-left-catalog pl-lg-5">
+    <div v-if="!loading" class="products-filter-wrapper d-flex flex-column">
+        <div class="product container-fluid pad-left-catalog mb-5">
 
             <div class="row mb-5">
 
                 <div class="col-md-5 mb-5 mb-md-0">
+
+                    <div class="breadcrumbs mb-5">
+                        <a href="/">Home</a> /
+                        <router-link to="/catalog">All</router-link>
+                        /
+                        <router-link :to="{path:'/catalog', query:{category: encodeURIComponent(product.first_category)}}">
+                            {{ product.first_category }}
+                        </router-link>
+                        /
+                        <router-link
+                            :to="{path:'/catalog', query:{category: encodeURIComponent(product.first_category), subcategory: encodeURIComponent(product.first_subcategory)}}">
+                            {{ product.first_subcategory }}
+                        </router-link>
+                        /
+                    </div>
+
                     <span class="product-code">cod {{ product.product_code }}</span>
                     <h3 class="product-title mt-5 mb-4">{{ product.name }}</h3>
                     <p class="product-description mb-5">{{ product.description }}</p>
                     <div class="product-colors d-flex flex-wrap">
                         <span class="colors-title">Colors</span>
-                        <span v-for="color in colors" class="color" :style="'background-color:#'+color.hex_code+';'"><!-- --></span>
+                        <span v-for="color in colors" :key="color.id" class="color" :style="'background-color:#'+color.hex_code+';'"><!-- --></span>
 
                     </div>
                 </div>
                 <div class="col-md-7 pad-right-catalog pr-md-0 position-relative">
                     <VueSlickCarousel ref="slider" id="slider" v-bind="settings_slider">
-                            <div class="slide" v-for="image in images">
-                                <img :src="image" class="img-fluid img-slide" alt="catalog-product-1">
+                            <div class="slide" v-for="(image, index) in images" :key="index">
+                                <img :src="image" class="img-slide" alt="catalog-product-1">
 <!--                                <a href="#" class="zoom-icon" data-toggle="lightbox" data-gallery="gallery-1" :data-remote="image">-->
 <!--                                    <img src="/img/zoom_in.png" srcset="/img/zoom_in.svg 1x" class="img-fluid" alt="">-->
 <!--                                </a>-->
                             </div>
                     </VueSlickCarousel>
-                    <ul class="slider-thumbs d-flex">
-                        <li v-for="(image, index) in images">
+                    <ul class="slider-thumbs d-flex ml-0 px-0">
+                        <li v-for="(image, index) in images" :key="index">
                             <button class="thumb" :style="'background-image: url(..'+image+');'" @click="$refs.slider.goTo(index)"><!-- --></button>
                         </li>
                     </ul>
@@ -49,15 +48,19 @@
             </div>
 
         </div>
-        <div>
+        <div class="slider-wrapper pad-left-catalog mb-5">
             <p class="pad-left-mobile pl-lg-0 pad-right-mobile text-center text-sm-left"><strong>S-ar putea să-ți placă și următoarele produse</strong></p>
             <VueSlickCarousel class="slider-browse" v-bind="settings_browse">
-                <div class="slide slide-browse" v-for="(prod,index) in products">
-                    <img :src="prod.filename" class="img-fluid mb-3" :alt="'catalog-product-'+index">
-                    <p>{{ prod.name }}</p>
-                    <router-link :to="'/catalog/'+prod.slug" class="d-flex align-items-center">
+                <div class="slide slide-browse" v-for="(prod,index) in products" :key="prod.id">
+                    <router-link :to="'/catalog/'+prod.slug">
+                        <img :src="prod.filename" class="img-fluid mb-3" :alt="'catalog-product-'+index">
+                    </router-link>
+                    <h4>
+                        <router-link :to="'/catalog/'+prod.slug">{{ prod.name }}</router-link>
+                    </h4>
+                    <router-link :to="'/catalog/'+prod.slug" class="browse-link d-flex align-items-center mt-auto">
                         <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3" alt="">
-                        <p class="mb-0">Vezi produs</p>
+                        <a class="mb-0">Vezi produs</a>
                     </router-link>
                 </div>
             </VueSlickCarousel>
@@ -80,7 +83,6 @@ export default {
             products: null,
             colors: null,
             images: null,
-            thumbsSwiper: null,
             loading: true,
             settings_slider:{
                 autoplay: true,
@@ -90,6 +92,7 @@ export default {
                 swipeToSlide: true,
                 vertical: true,
                 arrows: false,
+                adaptiveHeight: true
             },
             settings_browse: {
                 autoplay: true,
@@ -142,6 +145,9 @@ export default {
                 this.images = response.data.images;
                 this.loading = false;
             }).catch(error => {
+                if (error.response.status === 404) {
+                    this.$router.replace('/catalog/404')
+                };
             });
         }
     },
@@ -157,6 +163,3 @@ export default {
     }
 }
 </script>
-
-<style scoped>
-</style>
