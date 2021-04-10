@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="products-filter-wrapper w-100 d-flex flex-column pad-right">
+        <div class="products-filter-wrapper w-100 d-flex flex-column flex-fill pad-right">
 
-            <div class="filter-menu d-flex justify-content-end mb-5">
+            <div class="filter-menu d-flex justify-content-center justify-content-sm-end mb-5">
                 <!--            <div class="breadcrumbs order-2 order-lg-1">-->
                 <!--                <a href="/">Home</a> / <router-link to="/catalog">All</router-link> /-->
                 <!--            </div>-->
 
-                <div class="order-1 order-lg-2 d-flex d-lg-block">
+                <div class="order-1 order-lg-2 d-flex d-lg-block ml-3 ml-sm-0">
                     <button @click="randomize" class="btn btn-randomize mr-3">Randomize</button>
                     <button class="btn btn-search" @click="show_filter = !show_filter">
                         <span>Search / Filter</span>
@@ -101,7 +101,7 @@
                           @input="changePage"
                           :total-rows="nr_products"
                           :per-page="per_page"
-                          class=" my-5 d-flex justify-content-center align-items-center py-5"
+                          class="d-flex justify-content-center align-items-center margin-bottom"
                           size="lg"
             ></b-pagination>
 
