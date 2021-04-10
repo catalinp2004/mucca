@@ -13,20 +13,20 @@
                     <h1 class="mb-5">Contact</h1>
 
                     <div class="contact mb-5">
-                        <a href="#"><img src="{{asset('img/icon_instagram.png')}}" srcset="{{asset('img/icon_instagram.svg')}} 1x" alt="icon-instagram" class="img-fluid contact-social-icon mr-3"></a>
-                        <a href="#"><img src="{{asset('img/icon_linkedin.png')}}" srcset="{{asset('img/icon_linkedin.svg')}} 1x" alt="icon_linkedin" class="img-fluid contact-social-icon mr-3"></a>
-                        <a href="#"><img src="{{asset('img/icon_waze.png')}}" srcset="{{asset('img/icon_waze.svg')}} 1x" alt="" class="img-fluid"></a>
+                        <a href="https://www.instagram.com/mucca_production_advertising/" target="_blank" rel="noopener"><img src="{{asset('img/icon_instagram.png')}}" srcset="{{asset('img/icon_instagram.svg')}} 1x" alt="icon-instagram" class="img-fluid contact-social-icon mr-3"></a>
+                        <a href="https://www.linkedin.com/company/mucca-production-&-advertising" target="_blank" rel="noopener"><img src="{{asset('img/icon_linkedin.png')}}" srcset="{{asset('img/icon_linkedin.svg')}} 1x" alt="icon_linkedin" class="img-fluid contact-social-icon mr-3"></a>
+                        <a href="https://ul.waze.com/ul?place=ChIJUfbnHjT_sUARM-tT5iPLnSo&ll=44.37161050%2C26.18120460&navigate=yes" target="_blank" rel="noopener"><img src="{{asset('img/icon_waze.png')}}" srcset="{{asset('img/icon_waze.svg')}} 1x" alt="" class="img-fluid"></a>
                     </div>
                     <div class="contact margin-bottom">
                         <a href="mailto:hello@mucca.ro" class="d-block mb-3">hello@mucca.ro</a>
                         <a href="tel:+40758094410" class="d-block mb-3">0758 904 410</a>
-                        <a href="#" class="d-block">Șos. Olteniței nr. 209, <br>Popești Leordeni, Ilfov, 077160</a>
+                        <a href="https://ul.waze.com/ul?place=ChIJUfbnHjT_sUARM-tT5iPLnSo&ll=44.37161050%2C26.18120460&navigate=yes" target="_blank" rel="noopener"" class="d-block">Șos. Olteniței nr. 209, <br>Popești Leordeni, Ilfov, 077160</a>
                     </div>
 
                     <div class="links small d-flex mb-5 mb-md-0">
-                        <a href="#" class="mr-3">Date de identificare</a>
-                        <a href="#" class="mr-3">Confidentialitate</a>
-                        <a href="#">Cookies</a>
+                        <a href="{{ route('info') }}" class="mr-3">Date de identificare</a>
+                        <a href="{{ route('info') }}#confidentialitate" class="mr-3">Confidentialitate</a>
+                        <a href="{{ route('info') }}#cookies">Cookies</a>
                     </div>
 
                 </div>
@@ -45,7 +45,7 @@
 
 <script>
     function initMap() {
-        var myLatLng = {lat: 44.388938, lng: 26.136833};
+        var myLatLng = {lat: 44.3716105, lng: 26.1812046};
         var map = new google.maps.Map(document.getElementById('map'), {
             center: myLatLng,
             zoom: 14,
@@ -132,7 +132,7 @@
                 }
             ]
         });
-        var markerPos = {lat: 44.388938, lng: 26.136833};
+        var markerPos = {lat: 44.3716105, lng: 26.1812046};
         var marker = new google.maps.Marker({
             position: markerPos,
             map: map,

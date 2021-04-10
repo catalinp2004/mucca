@@ -24,16 +24,16 @@
         <div class="contact-nav">
 
             <div class="contact my-5">
-                <a href="#"><img src="{{asset('img/icon_instagram.png')}}" srcset="{{asset('img/icon_instagram.svg')}} 1x" alt="icon-instagram" class="img-fluid d-inline-block mr-2"></a>
-                <a href="#"><img src="{{asset('img/icon_linkedin.png')}}" srcset="{{asset('img/icon_linkedin.svg')}} 1x" alt="icon_linkedin" class="img-fluid d-inline-block"></a>
+                <a href="https://www.instagram.com/mucca_production_advertising/" target="_blank" rel="noopener"><img src="{{asset('img/icon_instagram.png')}}" srcset="{{asset('img/icon_instagram.svg')}} 1x" alt="icon-instagram" class="img-fluid d-inline-block mr-2"></a>
+                <a href="https://www.linkedin.com/company/mucca-production-&-advertising" target="_blank" rel="noopener"><img src="{{asset('img/icon_linkedin.png')}}" srcset="{{asset('img/icon_linkedin.svg')}} 1x" alt="icon_linkedin" class="img-fluid d-inline-block"></a>
                 <a href="mailto:hello@mucca.ro" class="d-block my-2">hello@mucca.ro</a>
                 <a href="tel:+40758094410" class="d-block">0758 904 410</a>
             </div>
 
             <div class="links">
                 <a href="{{route('info')}}" class="mr-3">Date de identificare</a>
-                <a href="{{route('info')}}" class="mr-3">Confidentialitate</a>
-                <a href="{{route('info')}}">Cookies</a>
+                <a href="{{route('info')}}#confidentialitate" onclick="collapseNav()" class="mr-3">Confidentialitate</a>
+                <a href="{{route('info')}}#cookies" onclick="collapseNav()">Cookies</a>
             </div>
 
         </div>

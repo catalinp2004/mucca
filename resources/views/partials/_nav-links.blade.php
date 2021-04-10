@@ -6,7 +6,7 @@
         <a href="{{route('povestea')}}" class="nav-link">Povestea noastra</a>
     </li>
     <li class="nav-item">
-        <a href="#servicii" class="nav-link">Servicii</a>
+        <a href="{{route('povestea')}}#servicii" class="nav-link" onclick="collapseNav()">Servicii</a>
     </li>
     <li class="nav-item">
         <a href="{{route('catalog')}}" class="nav-link">Catalog</a>
