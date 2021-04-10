@@ -36,7 +36,7 @@
                                 <a href="/povestea" class="nav-link">Povestea noastra</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#servicii" class="nav-link">Servicii</a>
+                                <a href="/povestea#servicii" class="nav-link">Servicii</a>
                             </li>
                             <li class="nav-item">
                                 <a href="/catalog" class="nav-link">Catalog</a>
@@ -45,7 +45,7 @@
                                 <a href="/clienti" class="nav-link">Clienti</a>
                             </li>
                             <li class="nav-item">
-                                <a href="#clienti" class="nav-link">Contact</a>
+                                <a href="/contact" class="nav-link">Contact</a>
                             </li>
                         </ul>
                     </div>
