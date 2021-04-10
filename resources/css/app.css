@@ -963,10 +963,6 @@ img.line {
     width: 100%;
 }
 
-#catalog-menu-collapse {
-    display: block;
-}
-
 /* *** Vue Page Transition *** */
 .page-change-enter-active {
     transition: all .1s ease;
@@ -1028,6 +1024,12 @@ img.line {
     }
     .pagination span.prev, .pagination span.next {
         min-width: 80px;
+    }
+}
+
+@media (min-width: 992px) {
+    #catalog-menu-collapse {
+        display: block!important;
     }
 }
 

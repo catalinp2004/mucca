@@ -7,14 +7,16 @@
                     <img src="/img/logo_mucca_catalog.png" srcset="/img/logo_mucca_catalog.svg 1x" alt="logo-mucca">
                 </a>
 
-                <button class="navbar-toggler-catalog px-0" data-toggle="collapse" data-target="#catalog-menu-collapse">
-                    <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar top-bar img-fluid d-block mb-2">
-                    <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar middle-bar img-fluid d-block mb-2">
-                    <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar bottom-bar img-fluid d-block">
-                </button>
+                <b-navbar-toggle  class="navbar-toggler-catalog px-0" target="catalog-menu-collapse">
+                    <template #default="{  }">
+                        <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar top-bar img-fluid d-block mb-2">
+                        <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar middle-bar img-fluid d-block mb-2">
+                        <img src="/img/toggler_bar_catalog.png" srcset="/img/toggler_bar_catalog.svg 1x" alt="toggler-bar" class="toggler-bar bottom-bar img-fluid d-block">
+                    </template>
+                </b-navbar-toggle>
             </div>
 
-            <div class="collapse navbar-collapse" id="catalog-menu-collapse">
+            <b-collapse id="catalog-menu-collapse" >
                 <div class="d-flex flex-column flex-sm-row flex-lg-column justify-content-between justify-content-sm-start justify-content-lg-between align-items-start pt-5 pt-lg-0">
                     <ul class="navbar-nav nav-category mb-5 ml-sm-5 ml-lg-0 order-sm-2 order-lg-1">
                         <li class="nav-item">
@@ -50,7 +52,7 @@
 
                 </div>
 
-            </div>
+            </b-collapse>
 
         </nav>
         <transition name="page-change" mode="out-in">

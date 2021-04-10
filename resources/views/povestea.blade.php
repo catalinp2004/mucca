@@ -152,7 +152,7 @@
                         </div>
                         <div class="col-md-6 d-flex flex-column justify-content-center align-items-center bk-blue giveaway-col">
                             <p class="text-center mb-5 catalog-p">Vezi cele peste 5000 de produse din catalogul nostru.</p>
-                            <button class="btn btn-materiale">Go</button>
+                            <a href="{{ route('catalog') }}" class="btn btn-materiale">Go</a>
                         </div>
                     </div>
                 </div>
