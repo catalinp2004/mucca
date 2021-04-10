@@ -1507,3 +1507,26 @@ li.slick-active button:before {
     }
   }
   
+
+
+
+
+  /* COOKIES STYLE */
+#cc_div #cm {
+    border-radius: 0;
+}
+
+.c_darkmode #cc_div #cm {
+    background-color: #000000;
+}
+
+#cc_div a {
+    text-decoration: underline;
+}
+
+.c_darkmode #cc_div #cm button:first-child,
+.c_darkmode #cc_div #cs_buttons button:first-child,
+.c_darkmode #cc_div .c_b_toggle input:checked~.sc_toggle {
+    background-color: #65D07D;
+    color: #FFFFFF;
+}

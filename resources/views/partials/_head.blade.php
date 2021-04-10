@@ -20,7 +20,8 @@
             }
         </style>
     </noscript>
-
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.2/dist/cookieconsent.css">
     <!-- CSS STYLESHEET -->
     <link rel="stylesheet" text="text/css" href="{{ mix('css/app.css') }}">
 
