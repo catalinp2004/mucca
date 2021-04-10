@@ -10,21 +10,20 @@
                 @include('partials/_home_nav')
 
                 <div>
-                    <h1 class="my-5">Contact</h1>
+                    <h1 class="mb-5">Contact</h1>
 
-                    <div class="contact mb-5 mb-md-0 mb-lg-5 mb-xl-0">
-                        <div class="mb-5">
-                            <a href="#"><img src="{{asset('img/icon_instagram.png')}}" srcset="{{asset('img/icon_instagram.svg')}} 1x" alt="icon-instagram" class="img-fluid contact-social-icon mr-3"></a>
-                            <a href="#"><img src="{{asset('img/icon_linkedin.png')}}" srcset="{{asset('img/icon_linkedin.svg')}} 1x" alt="icon_linkedin" class="img-fluid contact-social-icon mr-3"></a>
-                            <a href="#"><img src="{{asset('img/icon_waze.png')}}" srcset="{{asset('img/icon_waze.svg')}} 1x" alt="" class="img-fluid"></a>
-                        </div>
-
+                    <div class="contact mb-5">
+                        <a href="#"><img src="{{asset('img/icon_instagram.png')}}" srcset="{{asset('img/icon_instagram.svg')}} 1x" alt="icon-instagram" class="img-fluid contact-social-icon mr-3"></a>
+                        <a href="#"><img src="{{asset('img/icon_linkedin.png')}}" srcset="{{asset('img/icon_linkedin.svg')}} 1x" alt="icon_linkedin" class="img-fluid contact-social-icon mr-3"></a>
+                        <a href="#"><img src="{{asset('img/icon_waze.png')}}" srcset="{{asset('img/icon_waze.svg')}} 1x" alt="" class="img-fluid"></a>
+                    </div>
+                    <div class="contact margin-bottom">
                         <a href="mailto:hello@mucca.ro" class="d-block mb-3">hello@mucca.ro</a>
                         <a href="tel:+40758094410" class="d-block mb-3">0758 904 410</a>
-                        <a href="#" class="d-block mb-5">Șos. Olteniței nr. 209, <br>Popești Leordeni, Ilfov, 077160</a>
+                        <a href="#" class="d-block">Șos. Olteniței nr. 209, <br>Popești Leordeni, Ilfov, 077160</a>
                     </div>
 
-                    <div class="links small d-flex">
+                    <div class="links small d-flex mb-5 mb-md-0">
                         <a href="#" class="mr-3">Date de identificare</a>
                         <a href="#" class="mr-3">Confidentialitate</a>
                         <a href="#">Cookies</a>
@@ -139,9 +138,9 @@
             map: map,
             icon: {
                 url: '{{asset("img/marker.svg")}}',
-                // scaledSize: new google.maps.Size(100, 100),
-                // size: new google.maps.Size(200, 200),
-                anchor: new google.maps.Point(84, 15),
+                scaledSize: new google.maps.Size(54, 60),
+                size: new google.maps.Size(54, 60),
+                anchor: new google.maps.Point(46, 15),
                 origin: new google.maps.Point(0, 0)
             },
             title: 'mucca'
