@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-md-5 offset-md-1 bk-blue d-flex flex-column align-items-center justify-content-center scroll-col">
                     <p class="catalog-p text-center">Scroll to our<br> contact details</p>
-                    <button class="btn btn-materiale">Go</button>
+                    <a href="#contact" class="btn btn-materiale">Go</a>
                 </div>
             </div>
         </div>
@@ -113,7 +113,7 @@
             <p>Site-ul nostru contine link-uri catre alte pagini web, de regula ale clientilor nostri. Aceste site-uri pot fi detinute si operate de alte companii si organizatii, care pot avea alte politici de securitate si de protectie a datelor personale. Mucca nu adminte vreo responsabilitate cu privire la informatiile, materialele, produsele sau serviciile incluse sau accesibile prin intermediul acestor website-uri.</p>
             <p><strong>Actualizarile Politicii</strong></p>
             <p>Acesata politica este in prima editie si are aplicabilitate din data de 25 mai 2018. Ne rezervam dreptul de a face orice completari sau modificari in aceasta Politica privind modulele cookie. Te rugam sa vizitezi aceasta pagina periodic, pentru a te informa asupra modificarilor ce pot aparea.</p>
-            <p><strong>Contact</strong></p>
+            <p id="contact"><strong>Contact</strong></p>
             <p>Daca ai nelamuriri sau doresti sa ne adresezi solicitari cu privire la aspectele descrise aici, poti sa ne scrii la adresa de e-mail <a href="mailto:hello@mucca.ro"><strong>hello@mucca.ro</strong></a> sau ne poti transmite o scrisoare la adresa <strong>Ilfov, Popesti Leordeni, Sos. Oltenitei nr. 209.</strong></p>
         </div>
 

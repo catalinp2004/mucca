@@ -601,7 +601,7 @@ img.line {
     background-color: #59A8D9;
 }
 
-.btn-materiale {
+.info-page .btn-materiale {
     padding: 15px 60px;
     background-color: #000000;
     border-radius: 0;
@@ -610,7 +610,7 @@ img.line {
     font-weight: 700;
 }
 
-.btn-materiale:hover {
+.info-page .btn-materiale:hover {
     color: #000000;
     background-color: #ffffff;
 }
