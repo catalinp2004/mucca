@@ -245,7 +245,7 @@ export default {
         },
         changeFilter(e) {
             e.preventDefault();
-            if (this.search != null || this.category != null || this.subcategory != null || this.selected_colors.length != 0) {
+            if (!(this.search ==  this.query_search && this.query_category == (this.category != null ? this.category.name_ro : null) && (this.subcategory != null ? this.subcategory.name_ro : null) == this.query_subcategory && this.arraysEqual(this.query_colors, this.selected_colors))) {
                 this.query_search = this.search != null ? this.search : null;
                 this.query_category = this.category != null ? this.category.name_ro : null;
                 this.query_subcategory = this.subcategory != null ? this.subcategory.name_ro : null;
@@ -358,7 +358,24 @@ export default {
                 this.current_page = parseInt(this.$route.query.current_page);
             }
             this.showProducts();
+        },
+         arraysEqual(a, b) {
+            if (a === b) return true;
+            if (a == null || b == null) return false;
+            if (a.length !== b.length) return false;
+
+            // If you don't care about the order of the elements inside
+            // the array, you should sort both arrays here.
+            // Please note that calling sort on an array will modify that array.
+            // you might want to clone your array first.
+            var c = JSON.parse(JSON.stringify(a));
+            var d = JSON.parse(JSON.stringify(b));
+            for (var i = 0; i < c.length; ++i) {
+                if (c[i] !== d[i]) return false;
+            }
+            return true;
         }
+
     },
     beforeRouteUpdate(to, from, next) {
         if (to.query.search != undefined || to.query.subcategory != undefined || to.query.colors != undefined) {
