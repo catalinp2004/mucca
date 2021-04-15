@@ -96,14 +96,17 @@
 
             </div>
 
-            <b-pagination v-if="products.length != 0"
-                          v-model="current_page "
-                          @input="changePage"
-                          :total-rows="nr_products"
-                          :per-page="per_page"
-                          class="d-flex justify-content-center align-items-center margin-bottom"
-                          size="lg"
-            ></b-pagination>
+            <div class="d-flex justify-content-center">
+                <b-pagination 
+                            v-if="products.length != 0"
+                            v-model="current_page "
+                            @input="changePage"
+                            :total-rows="nr_products"
+                            :per-page="per_page"
+                            class="margin-bottom"
+                            size="lg"
+                ></b-pagination>
+            </div>
 
         </div>
         <div :class="show_filter ? 'show' : ''" @click="show_filter = false" class="search-backdrop"><!-- --></div>

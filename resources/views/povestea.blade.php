@@ -131,7 +131,7 @@
                 </div>
                 <div class="col-md-8 offset-md-1">
                     <h4 class="materiale-h4">Materiale<br> suport eveniment</h4>
-                    <p>Știi momentele alea cu multă adrenalină din preziua evenimentului? Când iei pentru a n-a oara lista cu materiale și vrei să le bifezi: badge-uri nominale, lanyards, suport badge-uri, badge-uri blanc pentru orice eventualitate, tricouri staff, tricouri promoteri, plăsuțe, SWAG, materiale parteneri, sticker-e, premii, călăreți, vouchere-e, mape de presă… Dacă îți place cu adevărat adrenalina, livrăm totul în ultimul moment. Altfel, o facem relaxat și fără stres și te ajutăm la check. Dacă este ceva în neregulă, avem timp și pentru implementarea unui back-up plan.</p>
+                    <p>Știi momentele alea cu multă adrenalină din preziua evenimentului? Când reiei lista cu materiale și vrei să le bifezi: badge-uri nominale, lanyards, suport badge-uri, badge-uri blanc pentru orice eventualitate, tricouri staff, tricouri promoteri, plăsuțe, SWAG, materiale parteneri, sticker-e, premii, călăreți, vouchere-e, mape de presă… Dacă îți place cu adevărat adrenalina, livrăm totul în ultimul moment. Altfel, o facem relaxat și fără stres și te ajutăm la check. Dacă este ceva în neregulă, avem timp și pentru implementarea unui back-up plan.</p>
                 </div>
             </div>
         </div>

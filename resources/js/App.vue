@@ -19,10 +19,10 @@
             <b-collapse id="catalog-menu-collapse" >
                 <div class="d-flex flex-column flex-sm-row flex-lg-column justify-content-between justify-content-sm-start justify-content-lg-between align-items-start pt-5 pt-lg-0">
                     <ul class="navbar-nav nav-category mb-5 ml-sm-5 ml-lg-0 order-sm-2 order-lg-1">
-                        <li class="nav-item">
+                        <li class="nav-item" @click="close_nav">
                             <router-link to="/catalog" @click="selected_category = null" v-bind:class="{'nav-link':true, 'nav-link-toplist':(selected_category == null)}">All</router-link>
                         </li>
-                        <li class="nav-item" v-for="cat in categories" :key="cat.id">
+                        <li class="nav-item" v-for="cat in categories" :key="cat.id" @click="close_nav">
                             <router-link :to="{path:'/catalog', query:{category: encodeURIComponent(cat.name_ro)}}" @click="selected_category = cat.name_ro" v-bind:class="{'nav-link':true, 'nav-link-toplist':(selected_category == cat.name_ro)}">{{cat.name_ro}}</router-link>
                         </li>
                     </ul>
@@ -91,6 +91,11 @@ export default {
         );
         this.$store.dispatch('products_count');
         this.$store.dispatch('colors');
-    }
+    },
+    methods: {
+        close_nav: function() {
+            this.$root.$emit('bv::toggle::collapse', 'catalog-menu-collapse')
+        }
+    },
 }
 </script>

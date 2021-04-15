@@ -601,7 +601,7 @@ img.line {
     background-color: #59A8D9;
 }
 
-.info-page .btn-materiale {
+.btn-materiale {
     padding: 15px 60px;
     background-color: #000000;
     border-radius: 0;
@@ -610,7 +610,7 @@ img.line {
     font-weight: 700;
 }
 
-.info-page .btn-materiale:hover {
+.btn-materiale:hover {
     color: #000000;
     background-color: #ffffff;
 }
@@ -770,21 +770,14 @@ img.line {
 /* ========== CLIENTS PAGE STYLES ========== */
 
 .client-logo {
-    margin-left: 50px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     margin-bottom: 50px;
-    max-width: 100px;
-    height: auto;
+    /* max-width: 100px; */
 }
 
 .clients-case {
     margin-bottom: 70px;
-}
-
-@media (max-width: 1199px) {
-    .client-logo {
-        margin-right: 50px;
-        margin-left: 0;
-    }
 }
 
 /* ========== CATALOG STYLES ========== */
@@ -913,22 +906,6 @@ img.line {
     border: none;
 }
 
-.pagination span {
-    width: 58px;
-    height: 58px;
-    border: 1px solid #EAEAEA;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.875rem;
-    font-weight: 500;
-}
-
-.pagination .page-item {
-    margin-left: .375rem;
-    margin-right: .375rem;
-}
-
 .pagination .page-item:not(.active) .page-link,
 .pagination .page-item.disabled .page-link {
     background-color: transparent;
@@ -1014,16 +991,11 @@ img.line {
     .btn-search img {
         display: none;
     }
-    .pagination span {
-        min-width: 30px;
-        min-height: 30px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .pagination span.prev, .pagination span.next {
-        min-width: 80px;
+
+    .pagination-lg .page-link {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        line-height: 1.5;
     }
 }
 
