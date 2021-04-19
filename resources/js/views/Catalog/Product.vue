@@ -7,16 +7,16 @@
                 <div class="col-md-5 mb-5 mb-md-0">
 
                     <div class="breadcrumbs mb-5">
-                        <a href="/">Home</a> /
-                        <router-link to="/catalog">All</router-link>
+                        <a :href=" (lang == 'en' ? '/en' : '') + '/' ">Home</a> /
+                        <router-link :to="(lang == 'en' ? '/en' : '') + '/catalog'">All</router-link>
                         /
-                        <router-link :to="{path:'/catalog', query:{category: encodeURIComponent(product.first_category)}}">
-                            {{ product.first_category }}
+                        <router-link :to="{path:(lang == 'en' ? '/en' : '') + '/catalog', query:{category: encodeURIComponent(product.first_category.name_ro)}}">
+                            {{lang == 'ro' ? product.first_category.name_ro : product.first_category.name_en}}
                         </router-link>
                         /
                         <router-link
-                            :to="{path:'/catalog', query:{category: encodeURIComponent(product.first_category), subcategory: encodeURIComponent(product.first_subcategory)}}">
-                            {{ product.first_subcategory }}
+                            :to="{path:(lang == 'en' ? '/en' : '') + '/catalog', query:{category: encodeURIComponent(product.first_category.name_ro), subcategory: encodeURIComponent(product.first_subcategory_name_ro)}}">
+                            {{lang == 'ro' ? product.first_subcategory.name_ro : product.first_subcategory.name_en}}
                         </router-link>
                         /
                     </div>
@@ -49,18 +49,18 @@
 
         </div>
         <div class="slider-wrapper pad-left-catalog mb-5">
-            <p class="pad-left-mobile pl-lg-0 pad-right-mobile text-center text-sm-left"><strong>S-ar putea să-ți placă și următoarele produse</strong></p>
+            <p class="pad-left-mobile pl-lg-0 pad-right-mobile text-center text-sm-left"><strong>{{lang == 'ro' ? 'S-ar putea să-ți placă și următoarele produse' : 'You may also like the following products...'}}</strong></p>
             <VueSlickCarousel class="slider-browse" v-bind="settings_browse">
                 <div class="slide slide-browse" v-for="(prod,index) in products" :key="prod.id">
-                    <router-link :to="'/catalog/'+prod.slug">
+                    <router-link :to="(lang == 'en' ? '/en' :'') + '/catalog/'+prod.slug">
                         <img :src="prod.filename" class="img-fluid mb-3" :alt="'catalog-product-'+index">
                     </router-link>
                     <h4>
-                        <router-link :to="'/catalog/'+prod.slug">{{ prod.name }}</router-link>
+                        <router-link :to="(lang == 'en' ? '/en' :'') + '/catalog/'+prod.slug">{{ prod.name }}</router-link>
                     </h4>
-                    <router-link :to="'/catalog/'+prod.slug" class="browse-link d-flex align-items-center mt-auto">
+                    <router-link :to="(lang == 'en' ? '/en' :'') + '/catalog/'+prod.slug" class="browse-link d-flex align-items-center mt-auto">
                         <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3" alt="">
-                        <a class="mb-0">Vezi produs</a>
+                        <a class="mb-0">{{lang == 'ro' ? 'Vezi produs' : 'See product'}}</a>
                     </router-link>
                 </div>
             </VueSlickCarousel>
@@ -146,12 +146,18 @@ export default {
                 this.loading = false;
             }).catch(error => {
                 if (error.response.status === 404) {
-                    this.$router.replace('/catalog/404')
+                    this.$router.replace((this.lang == 'en' ? '/en' :'') + '/catalog/404')
                 };
             });
         }
     },
     computed:{
+        lang(){
+            if(this.$route.path.split('/')[1] == 'en') {
+                return 'en';
+            }
+            else return 'ro';
+        },
         url_slug() {
             return this.$route.params.slug;
         }

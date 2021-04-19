@@ -14,7 +14,18 @@
     </div>
 
     <div class="lang-switcher pad-right pad-right-home">
-        <span class="active">RO</span> | <span>EN</span>
+        @if(LaravelLocalization::getCurrentLocale() == 'ro')
+            <span class="active">RO</span>
+        @else
+            <a rel="alternate" hreflang="ro" href="{{ LaravelLocalization::getLocalizedURL('ro', null, []) }}">RO</a>
+        @endif
+        |
+        @if(LaravelLocalization::getCurrentLocale() == 'en')
+            <span class="active">EN</span>
+        @else
+            <a rel="alternate" hreflang="en"
+               href="{{ LaravelLocalization::getLocalizedURL('en', null, []) }}">EN</a>
+        @endif
     </div>
 
     <div class="navbar-collapse d-flex flex-column justify-content-between align-items-start pad-left pad-right pad-top pad-bottom" id="home-menu-collapse">
@@ -29,13 +40,11 @@
                 <a href="mailto:hello@mucca.ro" class="d-block my-2">hello@mucca.ro</a>
                 <a href="tel:+40758094410" class="d-block">0758 904 410</a>
             </div>
-
             <div class="links">
-                <a href="{{route('info')}}" class="mr-3">Date de identificare</a>
-                <a href="{{route('info')}}#confidentialitate" onclick="collapseNav()" class="mr-3">Confidentialitate</a>
+                <a href="{{route('info')}}" class="mr-3">{{__('Date de identificare')}}</a>
+                <a href="{{route('info')}}#confidentialitate" onclick="collapseNav()" class="mr-3">{{__('Confidentialitate')}}</a>
                 <a href="{{route('info')}}#cookies" onclick="collapseNav()">Cookies</a>
             </div>
-
         </div>
     </div>
 

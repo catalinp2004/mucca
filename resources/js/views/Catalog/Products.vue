@@ -22,7 +22,7 @@
                             </button>
                             <div class="input-group input-group-catalog">
                                 <input type="text" class="form-control" v-model="search"
-                                    placeholder="COD PRODUS / CUVÂNT" aria-label="Username"
+                                    :placeholder="(lang == 'ro' ? 'COD PRODUS / CUVÂNT' : 'CODE / KEY WORD')" aria-label="Username"
                                     aria-describedby="search">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="search"><img src="/img/icon_search.png"
@@ -32,27 +32,28 @@
                                 </div>
                             </div>
                             <div class="input-group input-group-catalog">
-                                <label for="input-category" class="search-label">Categorie</label>
+                                <label for="input-category" class="search-label">{{(lang == 'ro' ? 'Categorie' : 'Category')}}</label>
                                 <b-form-select @change="resetSubcategory" id="input-scategory"
                                             class="form-control custom-select"
                                             v-model="category">
                                     <option :value="null">All</option>
                                     <option v-for="category in categories" :key="category.id" :value="category">{{
-                                            category.name_ro
+                                            lang == 'ro' ? category.name_ro : category.name_en
                                         }}
                                     </option>
                                 </b-form-select>
                             </div>
                             <div class="input-group input-group-catalog">
-                                <label for="input-subcategory" class="search-label">Subcategorie</label>
+                                <label for="input-subcategory" class="search-label">{{(lang == 'ro' ? 'Subcategorie' : 'Subcategory')}}</label>
                                 <b-form-select id="input-subcategory" class="form-control custom-select" v-model="subcategory">
                                     <option :value="null">All</option>
-                                    <option v-for="subcat in subcategoryOptions" :key="subcat.id" :value="subcat">{{ subcat.name_ro }}
+                                    <option v-for="subcat in subcategoryOptions" :key="subcat.id" :value="subcat">{{ lang == 'ro' ? subcat.name_ro : subcat.name_en}}
                                     </option>
                                 </b-form-select>
                             </div>
                             <div class="input-group input-group-catalog">
-                                <b-button v-b-toggle.color_collapse variant="outline" @click.prevent class="filter-color-btn form-control mb-5">Culori</b-button>
+                                <b-button v-b-toggle.color_collapse variant="outline" @click.prevent class="filter-color-btn form-control mb-5">
+                                    {{ (lang == 'ro' ? 'Culori' : 'Colors') }}</b-button>
                                 <b-collapse id="color_collapse">
                                     <b-form-checkbox
                                         v-for="color in colors"
@@ -83,13 +84,13 @@
                 <div v-else class="row">
                     <h4 v-if="products.length == 0">Hmm... We couldn't find that!</h4>
                     <div v-for="product in products" :key="product.id" class="col-6 col-lg-3 product-case d-flex flex-column align-items-start margin-bottom">
-                        <router-link :to="{ name: 'product', params: {slug: product.slug } }">
+                        <router-link :to="(lang == 'en' ? '/en' :'') +'/catalog/'+ product.slug ">
                             <img :src="product.filename" class="img-fluid mb-3">
                         </router-link>
-                        <h4><router-link :to="{ name: 'product', params: {slug: product.slug } }">{{ product.name }}</router-link></h4>
-                        <router-link :to="{ name: 'product', params: {slug: product.slug } }" class="d-flex align-items-center mt-auto">
+                        <h4><router-link :to="(lang == 'en' ? '/en' :'') +'/catalog/'+ product.slug ">{{ product.name }}</router-link></h4>
+                        <router-link :to="(lang == 'en' ? '/en' :'') +'/catalog/'+ product.slug " class="d-flex align-items-center mt-auto">
                             <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3">
-                            <span class="mb-0">Vezi produs</span>
+                            <span class="mb-0">{{ lang == 'ro' ? 'Vezi produs' : 'See product'}}</span>
                         </router-link>
                     </div>
                 </div>
@@ -97,7 +98,7 @@
             </div>
 
             <div class="d-flex justify-content-center">
-                <b-pagination 
+                <b-pagination
                             v-if="products.length != 0"
                             v-model="current_page "
                             @input="changePage"
@@ -144,19 +145,15 @@ export default {
             this.closeFilter();
         },
         url_current_page: function (val) {
-            this.current_page = val;
-            this.closeFilter();
-            this.showProducts()
+            if (this.current_page != 1) {
+                this.current_page = val;
+            }
         },
         url_search: function (val) {
             this.query_search = val;
-            this.closeFilter();
-            this.showProducts()
         },
         url_subcategory: function (val) {
             this.query_subcategory = val;
-            this.closeFilter();
-            this.showProducts()
         },
         url_category: function (val) {
             this.query_category = val;
@@ -165,11 +162,15 @@ export default {
         },
         url_colors: function (val) {
             this.query_colors = val;
-            this.closeFilter();
-            this.showProducts()
         }
     },
     computed: {
+        lang(){
+            if(this.$route.path.split('/')[1] == 'en') {
+                return 'en';
+            }
+            else return 'ro';
+        },
         url_search() {
             if (this.$route.query.search != undefined) {
                 return decodeURIComponent(this.$route.query.search);
@@ -280,7 +281,7 @@ export default {
             if (this.current_page != 1) {
                 query.current_page = this.current_page;
             }
-            this.$router.push({path: '/catalog', query: query}).catch(err => err);
+            this.$router.push({path: (this.lang == 'en' ? '/en' :'')+'/catalog', query: query}).catch(err => err);
         },
         changePage() {
             this.changeUrl();
@@ -304,8 +305,8 @@ export default {
                 this.resetParams();
                 this.closeFilter();
                 if (this.current_page != 1) {
-                    this.$router.push({path: '/catalog', query: {current_page: this.current_page}}).catch(err => err);
-                } else this.$router.push({path: '/catalog', query: null}).catch(err => err);
+                    this.$router.push({path: (this.lang == 'en' ? '/en' :'') + '/catalog', query: {current_page: this.current_page}}).catch(err => err);
+                } else this.$router.push({path: (this.lang == 'en' ? '/en' :'') + '/catalog', query: null}).catch(err => err);
                 this.show_filter = false;
                 this.showProducts();
             }
@@ -324,7 +325,7 @@ export default {
             this.closeFilter();
             this.show_filter = false;
             this.current_page = 1;
-            this.$router.push({path: '/catalog', query: null}).catch(err => err);
+            this.$router.push({path: (this.lang == 'en' ? '/en' :'')+'/catalog', query: null}).catch(err => err);
             axios.get('/api/products/random').then(response => {
                 this.nr_products = response.data.nr_products;
                 this.products = response.data.products;

@@ -13,6 +13,7 @@ const router = new VueRouter({
     routes: [
         {
             path: '/catalog',
+            alias:['/en/catalog', '/ro/catalog'],
             name: 'products',
             component: Products,
             beforeEnter: (to, from, next) => {
@@ -23,10 +24,12 @@ const router = new VueRouter({
             }
         },
         {
+            alias:['/en/catalog/404', '/ro/catalog/404'],
             path: '/catalog/404',
             component: NotFound
         },
         {
+            alias:['/en/catalog/:slug', '/ro/catalog/:slug'],
             path: '/catalog/:slug',
             name: 'product',
             component: Product,

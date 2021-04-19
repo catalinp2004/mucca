@@ -20,7 +20,7 @@
             <form class="form-inline search-form" method="GET" action="/catalog">
 
                 <div class="input-group" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1500">
-                    <input type="text" name="search" class="form-control" placeholder="COD PRODUS / CUVÂNT" aria-label="Username" aria-describedby="search">
+                    <input type="text" name="search" class="form-control" placeholder="{{__('COD PRODUS / CUVÂNT')}}" aria-label="Username" aria-describedby="search">
                     <div class="input-group-prepend">
                         <button class="home-submit" type="submit">
                             <span class="input-group-text" id="search"><img src="{{ asset('img/icon_search.png') }}" srcset="{{ asset('img/icon_search.svg') }} 1x" alt="icon-search" class="img-fluid"></span>
@@ -41,8 +41,8 @@
                 </div>
 
                 <div class="col-md-9 col-lg-12 col-xl-9 links d-flex align-items-end justify-content-md-end justify-content-lg-start justify-content-xl-end pl-xl-5">
-                    <a href="{{ route('info') }}" class="mr-3">Date de identificare</a>
-                    <a href="{{ route('info') }}#confidentialitate" class="mr-3">Confidentialitate</a>
+                    <a href="{{ route('info') }}" class="mr-3">{{__('Date de identificare')}}</a>
+                    <a href="{{ route('info') }}#confidentialitate" class="mr-3">{{__('Confidentialitate')}}</a>
                     <a href="{{ route('info') }}#cookies">Cookies</a>
                 </div>
 
@@ -54,11 +54,11 @@
             <div class="row">
                 <div class="col-12 category-col d-flex flex-column justify-content-center align-items-center">
                     <h2 class="mb-4">Giveaways</h2>
-                    <a href="{{route('catalog')}}" class="btn btn-homepage">Da, asta vreau!</a>
+                    <a href="{{route('catalog')}}" class="btn btn-homepage">{{__('Da, asta vreau!')}}</a>
                 </div>
                 <div class="col-12 category-col d-flex flex-column justify-content-center align-items-center">
                     <h2 class="mb-4">Much more</h2>
-                    <a href="{{route('povestea')}}#servicii" class="btn btn-homepage">Da, intru aici!</a>
+                    <a href="{{route('povestea')}}#servicii" class="btn btn-homepage">{{__('Da, intru aici!')}}</a>
                 </div>
             </div>
         </div>

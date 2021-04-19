@@ -15,7 +15,7 @@
         <div class="col-12 pad-left pad-right">
             <div class="row">
                 <div class="col-xl-3 mb-5 mb-xl-0 title-col">
-                    <h2 class="mt-0 mb-0">Clienti</h2>
+                    <h2 class="mt-0 mb-0">{{__('Clienti')}}</h2>
                 </div>
 
                 <div class="col-xl-9 clients-case d-flex flex-wrap">

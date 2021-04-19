@@ -23,8 +23,8 @@ class ProductResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'filename' => Storage::url('img/products/'.$this->folder_name.'/'.$this->images->first()['filename']),
-            'first_subcategory' => $subcategory->name_ro,
-            'first_category' => $subcategory->category->name_ro,
+            'first_subcategory' => $subcategory,
+            'first_category' => $subcategory->category,
         ];
     }
 }

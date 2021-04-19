@@ -11,15 +11,15 @@
                 </a>
             </div>
             <div class="d-flex flex-column flex-sm-row flex-lg-column">
-                <a href="{{route('info')}}" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">Date de identificare</a>
-                <a href="{{route('info')}}#confidentialitate" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">Confidentialitate</a>
+                <a href="{{route('info')}}" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">{{__('Date de identificare')}}</a>
+                <a href="{{route('info')}}#confidentialitate" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">{{__('Confidentialitate')}}</a>
                 <a href="{{route('info')}}#cookies" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">Cookies</a>
             </div>
         </div>
         <div class="col-lg-9 pt-5 pad-right bk-black white d-flex flex-column pad-left-mobile pl-lg-5">
             <div class="row">
                 <div class="col-xl-8 mb-5 mb-xl-0">
-                    <h2 id="footer-h2" class="mb-5 text-center text-md-left">Te gândești la un proiect pilot?</h2>
+                    <h2 id="footer-h2" class="mb-5 text-center text-md-left">{{__('Te gândești la un proiect pilot?')}}</h2>
                     <div class="footer-contacts d-flex justify-content-center justify-content-md-start">
                         <img src="{{ asset('img/footer_arrow.png') }}" srcset="{{ asset('img/footer_arrow.png') }} 1x" alt="icon-arrow" class="img-fluid mr-3">
                         <a href="tel:+40758094410" class="mr-3 white"><strong>0758 904 410</strong></a>
