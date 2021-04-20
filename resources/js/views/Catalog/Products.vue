@@ -308,7 +308,9 @@ export default {
                     this.$router.push({path: (this.lang == 'en' ? '/en' :'') + '/catalog', query: {current_page: this.current_page}}).catch(err => err);
                 } else this.$router.push({path: (this.lang == 'en' ? '/en' :'') + '/catalog', query: null}).catch(err => err);
                 this.show_filter = false;
-                this.showProducts();
+                if (this.search != null || this.category != null || this.subcategory != null || this.selected_colors.length != 0) {
+                    this.showProducts();
+                }
             }
         },
         closeFilter() {

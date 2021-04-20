@@ -15,7 +15,7 @@
                         </router-link>
                         /
                         <router-link
-                            :to="{path:(lang == 'en' ? '/en' : '') + '/catalog', query:{category: encodeURIComponent(product.first_category.name_ro), subcategory: encodeURIComponent(product.first_subcategory_name_ro)}}">
+                            :to="{path:(lang == 'en' ? '/en' : '') + '/catalog', query:{category: encodeURIComponent(product.first_category.name_ro), subcategory: encodeURIComponent(product.first_subcategory.name_ro)}}">
                             {{lang == 'ro' ? product.first_subcategory.name_ro : product.first_subcategory.name_en}}
                         </router-link>
                         /
