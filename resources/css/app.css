@@ -623,6 +623,10 @@ img.line {
     font-weight: 700;
 }
 
+.info-page .btn-materiale {
+    color: #FFFFFF;
+}
+
 .btn-materiale:hover {
     color: #000000;
     background-color: #ffffff;
