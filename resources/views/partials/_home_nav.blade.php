@@ -42,7 +42,7 @@
             </div>
             <div class="links">
                 <a href="{{route('info')}}" class="mr-3">{{__('Date de identificare')}}</a>
-                <a href="{{route('info')}}#confidentialitate" onclick="collapseNav()" class="mr-3">{{__('Confidentialitate')}}</a>
+                <a href="{{route('info')}}#confidentialitate" onclick="collapseNav()" class="mr-3">{{__('Confidențialitate')}}</a>
                 <a href="{{route('info')}}#cookies" onclick="collapseNav()">Cookies</a>
             </div>
         </div>

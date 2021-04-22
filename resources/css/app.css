@@ -209,9 +209,13 @@ a {
     top: -10px;
     left: 10px;
     padding: 0 10px;
-    background-color: #f8fafc;
+    background-color: #FFFFFF;
     text-transform: uppercase;
     z-index: 3;
+}
+
+.home-body .search-form label.search-label {
+    background-color: #f8fafc;
 }
 
 .search-label, .welcome-section footer a {
@@ -225,6 +229,8 @@ a {
 
 .welcome-section footer img {
     max-width: 35px;
+    display: inline-block;
+    margin-bottom: 1rem;
 }
 
 .categories-section .row {
@@ -322,7 +328,6 @@ a {
 
 .toggler-wrapper {
     max-width: 400px;
-    width: 100%;
     padding-bottom: 30px;
 }
 
@@ -373,6 +378,10 @@ a {
 }
 
 .lang-switcher span.active {
+    color: #707070;
+}
+
+.lang-switcher a {
     color: #65D07D;
 }
 
@@ -767,8 +776,18 @@ img.line {
     color: #000000;
 }
 
+.info-page .lang-switcher a {
+    color: #65D07D;
+}
+
 .info-page footer a.white {
     color: #ffffff;
+}
+
+.catalog-page-wrapper .lang-switcher {
+    position: static;
+    top: auto;
+    left: auto;
 }
 
 /* ========== CLIENTS PAGE STYLES ========== */

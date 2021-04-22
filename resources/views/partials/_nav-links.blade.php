@@ -12,7 +12,7 @@
         <a href="{{route('catalog')}}" class="nav-link">Catalog</a>
     </li>
     <li class="nav-item">
-        <a href="{{route('clienti')}}" class="nav-link">{{__('Clienti')}}</a>
+        <a href="{{route('clienti')}}" class="nav-link">{{__('Clienți')}}</a>
     </li>
     <li class="nav-item">
         <a href="{{route('contact')}}" class="nav-link">Contact</a>

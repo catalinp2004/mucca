@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-3 pad-left d-flex align-items-center align-items-md-end align-items-lg-start flex-column flex-md-row flex-lg-column footer-col my-5">
             <img src="{{ asset('img/icon_logo_mucca.png') }}" srcset="{{ asset('img/icon_logo_mucca.png') }} 1x" alt="logo-mucca" class="img-fluid mb-lg-5 mr-4 mr-lg-0">
-            <div class="social-icons d-flex my-3 my-md-0 mb-lg-5 mr-4 mr-lg-0">
+            <div class="social-icons d-flex my-4 my-md-0 mb-lg-5 mr-4 mr-lg-0">
                 <a href="https://www.instagram.com/mucca_production_advertising/" target="_blank" rel="noopener">
                     <img src="{{ asset('img/icon_instagram.png') }}" srcset="{{ asset('img/icon_instagram.png') }} 1x" alt="icon-instagram" class="img-fluid mr-2">
                 </a>
@@ -12,7 +12,7 @@
             </div>
             <div class="d-flex flex-column flex-sm-row flex-lg-column">
                 <a href="{{route('info')}}" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">{{__('Date de identificare')}}</a>
-                <a href="{{route('info')}}#confidentialitate" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">{{__('Confidentialitate')}}</a>
+                <a href="{{route('info')}}#confidentialitate" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">{{__('Confidențialitate')}}</a>
                 <a href="{{route('info')}}#cookies" class="mb-lg-2 mr-4 mr-lg-0 text-center text-sm-left">Cookies</a>
             </div>
         </div>
@@ -27,14 +27,14 @@
                     </div>
                 </div>
                 <div class="col-xl-3 offset-xl-1 follow-case text-center text-md-left">
-                    <p>Follow us</p>
+                    <p @if (App::isLocale('ro')) lang="en" @endif>Follow us</p>
                     <a href="https://www.instagram.com/mucca_production_advertising/" target="_blank" rel="noopener" class="d-block white">Instagram</a>
                     <a href="https://www.linkedin.com/company/mucca-production-&-advertising" target="_blank" rel="noopener" class="white">Linkedin</a>
                 </div>
             </div>
             <div class="row mt-auto">
                 <div class="col-12">
-                    <span class="d-block text-center text-md-right mt-4 mt-lg-0 mb-5"><small>Copyright © 2021 Mucca. Powered by the Universe.</small></span>
+                    <span class="d-block text-center text-md-right mt-4 mt-lg-0 mb-5"><small>Copyright © 2021 Mucca. <span @if (App::isLocale('ro')) lang="en" @endif>Powered by the Universe.</span></small></span>
                 </div>
             </div>
         </div>

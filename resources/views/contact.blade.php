@@ -25,7 +25,7 @@
 
                     <div class="links small d-flex mb-5 mb-md-0">
                         <a href="{{ route('info') }}" class="mr-3">Date de identificare</a>
-                        <a href="{{ route('info') }}#confidentialitate" class="mr-3">Confidentialitate</a>
+                        <a href="{{ route('info') }}#confidentialitate" class="mr-3">Confidențialitate</a>
                         <a href="{{ route('info') }}#cookies">Cookies</a>
                     </div>
 

@@ -8,13 +8,13 @@
         <div class="welcome-section position-relative col-lg-6 d-flex flex-column justify-content-between pad-left pad-right pad-right-home pad-top pad-bottom">
 
             @include('partials/_home_nav')
-            <h1 class="h1-home">
-                    <span class="typewriter">
-                        <span class="span-1">What are you</span>
-                    </span><br>
+            <h1 class="h1-home" @if (App::isLocale('ro')) lang="en" @endif>
                 <span class="typewriter">
-                        <span class="span-2">looking for?</span>
-                    </span>
+                    <span class="span-1">What are you</span>
+                </span><br>
+                <span class="typewriter">
+                    <span class="span-2">looking for?</span>
+                </span>
             </h1>
 
             <form class="form-inline search-form" method="GET" action="/catalog">
@@ -25,7 +25,7 @@
                         <button class="home-submit" type="submit">
                             <span class="input-group-text" id="search"><img src="{{ asset('img/icon_search.png') }}" srcset="{{ asset('img/icon_search.svg') }} 1x" alt="icon-search" class="img-fluid"></span>
                         </button>
-                        <label for="#search" class="search-label">Search</label>
+                        <label for="#search" class="search-label" @if (App::isLocale('ro')) lang="en" @endif>Search</label>
                     </div>
                 </div>
 
@@ -42,7 +42,7 @@
 
                 <div class="col-md-9 col-lg-12 col-xl-9 links d-flex align-items-end justify-content-md-end justify-content-lg-start justify-content-xl-end pl-xl-5">
                     <a href="{{ route('info') }}" class="mr-3">{{__('Date de identificare')}}</a>
-                    <a href="{{ route('info') }}#confidentialitate" class="mr-3">{{__('Confidentialitate')}}</a>
+                    <a href="{{ route('info') }}#confidentialitate" class="mr-3">{{__('Confidențialitate')}}</a>
                     <a href="{{ route('info') }}#cookies">Cookies</a>
                 </div>
 
