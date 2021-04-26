@@ -22,7 +22,7 @@ class ProductResource extends JsonResource
             'product_code' => $this->product_code,
             'name' => $this->name,
             'description' => $this->description,
-            'filename' => Storage::url('img/products/'.$this->folder_name.'/'.$this->images->first()['filename']),
+            'filename' => Storage::url('img/products/'.$this->folder_name.'/'.$this->images->shuffle()->first()['filename']),
             'first_subcategory' => $subcategory,
             'first_category' => $subcategory->category,
         ];
