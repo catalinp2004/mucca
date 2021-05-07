@@ -231,6 +231,7 @@ export default {
     },
     methods: {
         showProducts() {
+            window.scrollTo(0, 0);
             this.loading = true;
             axios.post('/api/products', {
                 colors: this.query_colors.length > 0 ? this.query_colors : null,
@@ -245,7 +246,6 @@ export default {
                 this.loading = false;
             }).catch(error => {
             });
-
         },
         changeFilter(e) {
             e.preventDefault();

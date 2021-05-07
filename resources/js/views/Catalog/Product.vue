@@ -24,7 +24,7 @@
                     <span class="product-code">cod {{ product.product_code }}</span>
                     <h3 class="product-title mt-5 mb-4">{{ product.name }}</h3>
                     <p class="product-description mb-5">{{ product.description }}</p>
-                    <div class="product-colors d-flex flex-wrap">
+                    <div v-if="colors.length > 0" class="product-colors d-flex flex-wrap">
                         <span class="colors-title">Colors</span>
                         <span v-for="color in colors" :key="color.id" class="color" :style="'background-color:#'+color.hex_code+';'"><!-- --></span>
 
@@ -138,6 +138,7 @@ export default {
     },
     methods: {
         getData() {
+            window.scrollTo(0, 0);
             axios.get('/api/products/' + this.url_slug).then(response => {
                 this.product = response.data.product;
                 this.products = response.data.products;
