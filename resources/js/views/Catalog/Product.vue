@@ -39,7 +39,7 @@
 <!--                                </a>-->
                             </div>
                     </VueSlickCarousel>
-                    <ul class="slider-thumbs d-flex ml-0 px-0" :class="{'many': (images.length > 7 ? true : false)}" >
+                    <ul class="slider-thumbs d-flex justify-content-center flex-wrap ml-0 px-3" :class="{'many': (images.length > 7 ? true : false)}" >
                         <li v-for="(image, index) in images" :key="index">
                             <button class="thumb" :style="'background-image: url(..'+image+');'" @click="$refs.slider.goTo(index)"><!-- --></button>
                         </li>

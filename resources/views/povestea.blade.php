@@ -203,7 +203,7 @@
                         <h4 class="materiale-h4">Materiale<br> suport eveniment</h4>
                         <p>Știi momentele alea cu multă adrenalină din preziua evenimentului? Când reiei lista cu materiale și vrei să le bifezi: badge-uri nominale, lanyards, suport badge-uri, badge-uri blanc pentru orice eventualitate, tricouri staff, tricouri promoteri, plăsuțe, SWAG, materiale parteneri, sticker-e, premii, călăreți, vouchere-e, mape de presă… Dacă îți place cu adevărat adrenalina, livrăm totul în ultimul moment. Altfel, o facem relaxat și fără stres și te ajutăm la check. Dacă este ceva în neregulă, avem timp și pentru implementarea unui back-up plan.</p>
                     @else
-                        <h4 class="materiale-h4">Events’<br> support materials</h4>
+                        <h4 class="materiale-h4">Event <br> support materials</h4>
                         <p>Do you know those full of adrenaline moments before the event? When you take the list of materials for the last time and you want to check them once again: nominal badges, lanyards, badge support, blank badges just in case, staff t-shirts, promoters t-shirts, bags, SWAG, partners’ materials, stickers , prizes, table signs, vouchers, press folders. If you really like the adrenaline, we deliver everything at the last minute. Otherwise, we’ll do it relaxed and without stress and we’ll help you with your check list. If something is wrong, we have the time to implement a back-up plan.</p>
                     @endif
                 </div>
@@ -271,11 +271,11 @@
         <div class="col-12 margin-top">
             <div class="row">
                 <div class="col-lg-6 pt-5 pad-left pad-right pr-5 bk-grey pb-5">
-                    <h4 class="materiale-h4"  @if (App::isLocale('ro')) lang="en" @endif>Events’ Set Up</h4>
+                    <h4 class="materiale-h4"  @if (App::isLocale('ro')) lang="en" @endif>Event Set Up</h4>
                     @if (App::isLocale('ro'))
                         <p>Aici intră proiectele pentru care chiar dacă ai avea un back-up plan, fragmentat sau nu, ar fi foarte dificil de pus în practică. Ăsta e motivul pentru care ai nevoie să lucrezi cu oameni în care ai încredere, foarte pricepuți în ceea ce fac, familiarizați cu logistica specifică tipului de proiect pe care îl ai de implementat. Dacă sunt și creativi, te pot ajuta să găsești soluții la care nu te-ai fi gândit, în acele momente în care ai mare nevoie de asta. Păstrează-i aproape. Noi așa facem cu ai noștri.</p>
                     @else
-                       <p>This section includes projects for which even if you had a back-up plan, fragmented or not, it would be very difficult to implement it within the deadline. This is the reason why you need to work with people you trust, very skille, extremely familiar with the logistics specific to the type of project you have to implement. If they are also creative, they can help you find solutions you would not have thought of, in those moments when you need it most. Keep them close. We do the same with ours.</p>
+                       <p>This section includes projects for which even if you had a back-up plan, fragmented or not, it would be very difficult to implement it within the deadline. This is the reason why you need to work with people you trust, very skilled, extremely familiar with the logistics specific to the type of project you have to implement. If they are also creative, they can help you find solutions you would not have thought of, in those moments when you need it most. Keep them close. We do the same with ours.</p>
                     @endif
 
                 </div>
@@ -289,7 +289,7 @@
                     @if (App::isLocale('ro'))
                         <p>Lucrăm foarte eficient cu simulările și cu fișierele de print primite de la client. Atunci când nu există, le dezvoltăm noi și ne asigurăm că implementarea viziunii tale pleacă de la o imagine corectă și completă sau că layout-ul pe care îl ai de printat iese exact în culorile din manualul de brand.</p>
                     @else
-                        <p>We work very efficiently with the simulations and print files received from our clients. When they don&#39;t exist, we develop them and make sure that the implementation of your vision starts from a correct and complete image or that the layout you have to print comes out exactly in the colors in the brand manual.</p>
+                        <p>We work efficiently with the simulations and print files received from our clients. When they don&#39;t exist, we develop them and make sure that the implementation of your vision starts from a correct and complete image or that the layout you have to print comes out exactly in the colors in the brand manual.</p>
                     @endif
                 </div>
             </div>

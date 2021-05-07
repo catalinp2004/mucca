@@ -1313,6 +1313,7 @@ li.slick-active button:before {
     margin-bottom: 0;
     padding-left: 3px;
     padding-right: 3px;
+    width: calc(100% - 30px);
 }
 
 .thumb {
@@ -1356,7 +1357,8 @@ li.slick-active button:before {
 
 @media (max-width: 767px) {
     .slider-thumbs {
-        margin-left: 0;
+        position: relative;
+        width: 100%;
     }
 }
 
