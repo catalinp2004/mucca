@@ -51,6 +51,11 @@ Route::get('optimize', function() {
     return('All clear!');
 });
 
+Route::get('config-cache', function() {
+    \Artisan::call('config:cache');
+    return('Config cahced!');
+});
+
 Route::get('route-trans-clear', function() {
     \Artisan::call('route:trans:clear');
     return('Trans Routes cleared!');
