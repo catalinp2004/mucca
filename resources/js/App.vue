@@ -103,7 +103,7 @@
                                     <h2 v-else id="footer-h2" class="mb-5 text-center text-md-left">Do you have a pilot project in mind?</h2>
                                     <div class="footer-contacts d-flex justify-content-center justify-content-md-start">
                                         <img src="/img/footer_arrow.png" srcset="/img/footer_arrow.png 1x" alt="icon-arrow" class="img-fluid mr-3">
-                                        <a href="tel:+40758094410" class="mr-3 white"><strong>+4&nbsp;0758&nbsp;904&nbsp;410</strong></a>
+                                        <a href="tel:+40758094410" class="mr-3 white"><strong>+4&nbsp;0758&nbsp;094&nbsp;410</strong></a>
                                         <a href="mailto:hello@mucca.ro" class="mr-3 white">hello@mucca.ro</a>
                                     </div>
                                 </div>
