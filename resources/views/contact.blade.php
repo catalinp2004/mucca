@@ -1,6 +1,9 @@
-@include('partials/_head')
+@extends('main')
 
-<body class="home-body">
+@section('title', 'Contact - Mucca - Playfully Committed')
+@section('body_class', 'home-body')
+    
+@section('body_content')
     <div class="page-wrapper container-fluid">
 
         <div class="row home-row contact-row">
@@ -40,8 +43,9 @@
             </div>
         </div>
     </div>
+@endsection
 
-@include('partials/_scripts')
+@section('scripts')
 
 <script>
     function initMap() {
@@ -148,6 +152,8 @@
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCoeOAfbHXymUstK4xvncZ7PEGiK0Pctk&callback=initMap" async defer></script>
+
+@endsection
 
 </body>
 </html>

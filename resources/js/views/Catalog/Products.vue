@@ -257,6 +257,10 @@ export default {
                 this.current_page = 1;
                 this.changeUrl();
                 this.showProducts()
+
+                if (this.subcategory != null) {
+                    document.title = (this.lang == 'en') ? this.subcategory.name_en : this.subcategory.name_ro;
+                }
             }
             this.show_filter = false;
         },
@@ -383,15 +387,29 @@ export default {
         }
 
     },
+    beforeRouteEnter(to, from, next) {
+        if (to.query.category != undefined) {
+            document.title = decodeURIComponent(to.query.category) + ' - Mucca - Playfully Committed'
+        } else {
+            document.title = 'Catalog - Mucca - Playfully Committed';
+        }
+        next();
+    },
     beforeRouteUpdate(to, from, next) {
         if (to.query.search != undefined || to.query.subcategory != undefined || to.query.colors != undefined) {
             this.watch = false;
             if (to.query.category != undefined) {
+                document.title = decodeURIComponent(to.query.category) + ' - Mucca - Playfully Committed'
                 this.$store.commit('setSelected', decodeURIComponent(to.query.category));
-            } else this.$store.commit('setSelected', null);
+            } else {
+                document.title = 'Catalog - Mucca - Playfully Committed'
+                this.$store.commit('setSelected', null)
+            };
         } else if (to.query.category != undefined) {
+            document.title = decodeURIComponent(to.query.category) + ' - Mucca - Playfully Committed';
             this.$store.commit('setSelected', decodeURIComponent(to.query.category));
         } else if (to.query.category == undefined) {
+            document.title = 'Catalog - Mucca - Playfully Committed';
             this.$store.commit('setSelected', null);
         }
         next();

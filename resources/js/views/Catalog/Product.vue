@@ -60,7 +60,7 @@
                     </h4>
                     <router-link :to="(lang == 'en' ? '/en' :'') + '/catalog/'+prod.slug" class="browse-link d-flex align-items-center mt-auto">
                         <img src="/img/cross_product.png" srcset="/img/cross_product.svg 1x" class="img-fluid mr-3" alt="">
-                        <a class="mb-0">{{lang == 'ro' ? 'Vezi produs' : 'See product'}}</a>
+                        <span class="mb-0">{{lang == 'ro' ? 'Vezi produs' : 'See product'}}</span>
                     </router-link>
                 </div>
             </VueSlickCarousel>
@@ -133,23 +133,38 @@ export default {
         }
 
     },
-    created() {
-        this.getData();
+    beforeRouteEnter (to, from, next) {
+        axios.get('/api/products/' + to.params.slug).then(response => {
+            next(vm => vm.setData(response.data))
+        }).catch(error => {
+            if (error.response.status === 404) {
+                next(vm => {
+                    vm.$router.replace((vm.lang == 'en' ? '/en' :'') + '/catalog/404')
+                })
+            };
+        });
+    },
+    beforeRouteUpdate (to, from, next) {
+        axios.get('/api/products/' + to.params.slug).then(response => {
+            this.setData(response.data)
+            next()
+        }).catch(error => {
+            if (error.response.status === 404) {
+                this.$router.replace((this.lang == 'en' ? '/en' :'') + '/catalog/404')
+            };
+        });
     },
     methods: {
-        getData() {
+        setData(data) {
+            this.product = data.product;
+            this.products = data.products;
+            this.colors = data.colors;
+            this.images = data.images;
+            this.loading = false;
             window.scrollTo(0, 0);
-            axios.get('/api/products/' + this.url_slug).then(response => {
-                this.product = response.data.product;
-                this.products = response.data.products;
-                this.colors = response.data.colors;
-                this.images = response.data.images;
-                this.loading = false;
-            }).catch(error => {
-                if (error.response.status === 404) {
-                    this.$router.replace((this.lang == 'en' ? '/en' :'') + '/catalog/404')
-                };
-            });
+
+            document.title = this.product.name + ' - Mucca - Playfully Committed';
+            document.querySelector('head meta[name="description"]').setAttribute('content', this.product.description);
         }
     },
     computed:{
@@ -159,14 +174,6 @@ export default {
             }
             else return 'ro';
         },
-        url_slug() {
-            return this.$route.params.slug;
-        }
     },
-    watch: {
-        url_slug: function (val) {
-            this.getData();
-        },
-    }
 }
 </script>

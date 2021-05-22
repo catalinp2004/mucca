@@ -1,7 +1,8 @@
-@include("partials/_head")
+@extends('main')
 
-<body>
-
+@section('title', 'Info Page - Mucca - Playfully Committed')
+    
+@section('body_content')
 <div class="page-wrapper container-fluid info-page">
 
     <div class="row position-relative">
@@ -216,8 +217,4 @@
     </div>
 
 </div>
-
-@include("partials/_scripts")
-
-</body>
-</html>
+@endsection

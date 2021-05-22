@@ -1,6 +1,8 @@
-@include('partials/_head')
+@extends('main')
 
-<body class="home-body">
+@section('body_class', 'home-body')
+    
+@section('body_content')
 <div class="page-wrapper container-fluid">
 
     <div class="row home-row">
@@ -64,14 +66,12 @@
         </div>
     </div>
 </div>
+@endsection
 
-@include('partials/_scripts')
-
-<!-- ANIMATION SCRIPTS -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    AOS.init();
-</script>
-
-</body>
-</html>
+@section('scripts')
+    {{-- ANIMATION SCRIPTS --}}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+@endsection

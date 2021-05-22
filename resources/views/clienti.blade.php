@@ -1,6 +1,8 @@
-@include('partials/_head')
+@extends('main')
 
-<body>
+@section('title', 'Clienți - Mucca - Playfully Committed')
+    
+@section('body_content')
 
 <div class="page-wrapper container-fluid info-page">
 
@@ -103,10 +105,12 @@
 
 </div>
 
-@include('partials/_scripts')
+@endsection
 
-<!-- ANIMATION SCRIPTS -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    AOS.init();
-</script>
+@section('scripts')
+    {{-- ANIMATION SCRIPTS --}}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+@endsection

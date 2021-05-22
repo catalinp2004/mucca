@@ -6,9 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Mucca - Playfully Committed</title>
-    <meta name="description" content="Materiale publicitare si de vizibilitate.">
+    <title>@yield('title', 'Mucca - Playfully Committed')</title>
+    <meta name="description" content="@yield('desc', 'Mucca este o agenție de publicitate full service care se ocupă de implementarea proiectelor ce țin de producția publicitară.')">
+    <meta name="keywords" content="Materiale publicitare, Materiale vizibilitate, Print digital, Print offset, Montaj Bucuresti, Materiale evenimente, SWAG, Sticker-e, Premii, Standuri expozitionale, Giveaways, Personalizare obiecte promotionale, Proiecte custom, Proiecte speciale, Productie publicitara, Event set up, Montaj evenimente, Creatie, DTP, Proiect pilot">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="@yield('og_image', asset('og-image.jpg'))">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:title" content="@yield('title', 'Mucca - Playfully Committed')">
+    <meta property="og:description" content="@yield('desc', 'Mucca este o agenție de publicitate full service care se ocupă de implementarea proiectelor ce țin de producția publicitară.')">
+    <meta property="og:url" content="{{url()->current()}}">
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('img/icons/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('img/icons/favicon-32x32.png') }}">
@@ -34,5 +43,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v2.2/dist/cookieconsent.css">
     <!-- CSS STYLESHEET -->
     <link rel="stylesheet" text="text/css" href="{{ mix('css/app.css') }}">
+    @yield('styles')
 
 </head>

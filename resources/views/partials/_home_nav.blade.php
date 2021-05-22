@@ -23,8 +23,7 @@
         @if(LaravelLocalization::getCurrentLocale() == 'en')
             <span class="active">EN</span>
         @else
-            <a rel="alternate" hreflang="en"
-               href="{{ LaravelLocalization::getLocalizedURL('en', null, []) }}">EN</a>
+            <a rel="alternate" hreflang="en" href="{{ LaravelLocalization::getLocalizedURL('en', null, []) }}">EN</a>
         @endif
     </div>
 

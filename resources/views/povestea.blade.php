@@ -1,7 +1,9 @@
-@include("partials/_head")
+@extends('main')
 
-<body>
-
+@section('title', 'Povestea - Mucca - Playfully Committed')
+@section('desc', 'Depindem constant de munca altor oameni astfel că suntem conștienți că și clienții noștri se bazează pe noi în fiecare moment. De aceea livrăm mereu la timp, de fiecare dată mai bine și întotdeauna conform cu așteptările clienților noștri.')
+    
+@section('body_content')
 <div class="page-wrapper container-fluid">
 
     <div class="row position-relative">
@@ -51,7 +53,7 @@
                 </div>
                 <div class="col-lg-7 col-xl-8 offset-xl-1 info-col mt-5 mt-lg-0">
                     @if (App::isLocale('ro'))
-                        <p>Depindem constant de munca altor oameni astfel ca suntem constienti ca si clienti nostri se bazeaza pe noi in fiecare moment. De aceea livram mereu la timp, de fiecare data mai bine si intotdeauna conform cu asteptarile clientilor nostri.</p>
+                        <p>Depindem constant de munca altor oameni astfel că suntem conștienți că și clienții noștri se bazează pe noi în fiecare moment. De aceea livrăm mereu la timp, de fiecare dată mai bine și întotdeauna conform cu așteptările clienților noștri.</p>
                     @else
                         <p>We are constantly dependent on other people&#39;s work so we are aware that our clients rely on us, with every project. That&#39;s why we always deliver on time, always better and always in accordance with the expectations of our clients.</p>
                     @endif
@@ -307,14 +309,12 @@
 
     </div>
 </div>
+@endsection
 
-@include("partials/_scripts")
-
-<!-- ANIMATION SCRIPTS -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    AOS.init();
-</script>
-
-</body>
-</html>
+@section('scripts')
+    {{-- ANIMATION SCRIPTS --}}
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+@endsection

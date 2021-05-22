@@ -1,12 +1,13 @@
-@include('partials/_head')
-<body>
+@extends('main')
+
+@section('title', 'Catalog - Mucca - Playfully Committed')
+    
+@section('body_content')
 <div id="app" class="d-flex flex-column">
     <App></App>
 </div>
-@include("partials/_scripts")
-<script src="{{ mix('js/app.js') }}"></script>
+@endsection
 
-
-</body>
-</html>
-
+@section('scripts')    
+    <script src="{{ mix('js/app.js') }}"></script>
+@endsection
